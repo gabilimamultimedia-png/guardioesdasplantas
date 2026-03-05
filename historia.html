@@ -7,20 +7,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Cores extraídas da imagem */
-            --bg-deep: #061512;        /* O tom mais escuro da floresta à noite */
-            --glow-green: #42f5a7;     /* O verde neon mágico do portal */
-            --strawberry: #ff4757;     /* O vermelho vibrante do Super Morango */
-            --parchment: #fdf5e6;      /* O tom do pergaminho antigo */
-            --magic-blue: #1a2a3a;     /* Azul profundo do céu estrelado */
-            --glass: rgba(66, 245, 167, 0.05);
+            /* Paleta Mágica extraída da tua imagem */
+            --bg-deep: #061512;        /* Azul-noite/Verde-floresta profundo */
+            --glow-green: #42f5a7;     /* Verde neon mágico do portal */
+            --strawberry: #ff4757;     /* Vermelho vibrante do herói */
+            --parchment: #fdf5e6;      /* Bege suave do pergaminho para leitura fácil */
+            --magic-blue: #1a2a3a;     /* Azul do céu estrelado */
+            --glass: rgba(6, 21, 18, 0.85);
         }
 
         body {
             background-color: var(--bg-deep);
-            background-image: 
-                radial-gradient(circle at 50% 50%, var(--magic-blue) 0%, var(--bg-deep) 100%),
-                url('https://www.transparenttextures.com/patterns/stardust.png'); /* Efeito sutil de estrelas */
+            background-image: radial-gradient(circle at 50% 50%, var(--magic-blue) 0%, var(--bg-deep) 100%);
             color: var(--parchment);
             font-family: 'Lexend', sans-serif;
             margin: 0;
@@ -28,24 +26,26 @@
             scroll-behavior: smooth;
         }
 
-        /* Barra de Progresso com Brilho */
+        /* Barra de Progresso com Brilho Neon */
         #progress-bar {
-            position: fixed; top: 0; left: 0; height: 6px;
+            position: fixed; top: 0; left: 0; height: 8px;
             background: linear-gradient(to right, var(--glow-green), var(--strawberry));
             box-shadow: 0 0 15px var(--glow-green);
             width: 0%; z-index: 1000; transition: width 0.2s;
         }
 
+        /* Estrutura dos Capítulos */
         .chapter {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 60px 20px;
+            padding: 100px 20px;
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(50px);
             transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+            box-sizing: border-box;
         }
 
         .chapter.visible {
@@ -53,124 +53,131 @@
             transform: translateY(0);
         }
 
-        /* Cartão inspirado no brilho do portal */
+        /* Cartão de História (Inspirado no Portal) */
         .story-card {
-            background: rgba(6, 21, 18, 0.8);
+            background: var(--glass);
             backdrop-filter: blur(20px);
-            padding: 45px;
+            padding: 40px;
             border-radius: 40px;
             border: 2px solid var(--glow-green);
-            box-shadow: 0 0 40px rgba(66, 245, 167, 0.2); /* Brilho externo suave */
+            box-shadow: 0 0 40px rgba(66, 245, 167, 0.15);
             max-width: 900px;
             width: 100%;
             text-align: center;
         }
 
+        /* Contentor de Imagem Responsivo (Sem cortes) */
         .illustration-box {
             width: 100%;
             margin-bottom: 30px;
-            border-radius: 25px;
+            border-radius: 20px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            position: relative;
-        }
-
-        /* Moldura de brilho para a imagem */
-        .illustration-box::after {
-            content: '';
-            position: absolute; top:0; left:0; right:0; bottom:0;
-            box-shadow: inset 0 0 30px rgba(66, 245, 167, 0.3);
-            pointer-events: none;
+            display: flex;
+            justify-content: center;
+            background: rgba(0,0,0,0.3);
         }
 
         .illustration-box img {
             max-width: 100%;
             height: auto;
-            max-height: 550px;
+            max-height: 550px; /* Ajuste para as tuas imagens quadradas e retangulares */
             display: block;
-            margin: 0 auto;
+            border-radius: 15px;
+            transition: transform 0.6s ease;
         }
 
-        /* Títulos com efeito de brilho suave (Glow Text) */
+        .chapter:hover .illustration-box img {
+            transform: scale(1.03);
+        }
+
+        /* Títulos H1 a H6 com Glow */
         h1, h2, h3, h4, h5, h6 { 
             color: var(--glow-green); 
             margin: 0 0 20px 0; 
             font-weight: 800; 
-            text-shadow: 0 0 10px rgba(66, 245, 167, 0.5);
-            letter-spacing: -1px;
+            text-shadow: 0 0 10px rgba(66, 245, 167, 0.4);
+            line-height: 1.2;
         }
-        h1 { font-size: 3.5rem; } h2 { font-size: 3rem; }
+        h1 { font-size: 3.5rem; } h2 { font-size: 3rem; } h3 { font-size: 2.5rem; }
+        h4 { font-size: 2.2rem; } h5 { font-size: 2rem; } h6 { font-size: 1.8rem; }
 
         p { 
-            font-size: 1.25rem; 
+            font-size: 1.2rem; 
             line-height: 1.8; 
-            color: var(--parchment); 
             opacity: 0.95; 
             max-width: 750px; 
-            margin: 0 auto 30px; 
+            margin: 0 auto 25px; 
         }
 
-        /* Botões Estilo "Magia" */
-        .btn-action {
-            background: var(--glow-green); 
-            color: var(--bg-deep);
+        /* Botões */
+        .btn-magic {
+            background: var(--glow-green); color: var(--bg-deep);
             border: none; padding: 20px 45px; border-radius: 50px;
             font-weight: 800; cursor: pointer; transition: 0.3s;
-            text-transform: uppercase;
-            box-shadow: 0 0 20px rgba(66, 245, 167, 0.4);
+            text-transform: uppercase; box-shadow: 0 0 20px rgba(66, 245, 167, 0.3);
         }
-        .btn-action:hover { 
-            background: white; 
-            box-shadow: 0 0 30px white;
-            transform: scale(1.05); 
-        }
+        .btn-magic:hover { background: white; box-shadow: 0 0 30px white; transform: scale(1.05); }
 
-        .btn-final {
-            background: var(--strawberry); 
-            color: white;
+        .btn-mission {
+            background: var(--strawberry); color: white;
             padding: 25px 60px; border-radius: 25px;
             font-size: 1.6rem; font-weight: 800; text-decoration: none;
-            display: inline-block;
-            box-shadow: 0 0 25px rgba(255, 71, 87, 0.4);
-            transition: 0.3s;
+            display: inline-block; margin-top: 20px;
+            box-shadow: 0 10px 0 #b33939; transition: 0.2s;
         }
-        .btn-final:hover { 
-            transform: translateY(-5px); 
-            filter: brightness(1.2);
-            box-shadow: 0 15px 40px rgba(255, 71, 87, 0.6);
-        }
+        .btn-mission:hover { transform: translateY(-5px); filter: brightness(1.1); }
 
-        /* Efeito de flash na transformação */
-        #magic-flash {
+        #flash {
             display: none; position: fixed; top:0; left:0; width:100%; height:100%;
             background: white; z-index: 2000; pointer-events: none;
         }
 
         @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            .story-card { padding: 25px; border-radius: 30px; }
+            h1 { font-size: 2.2rem; }
+            .chapter { padding: 60px 15px; }
+            .illustration-box img { max-height: 350px; }
         }
     </style>
 </head>
 <body>
 
     <div id="progress-bar"></div>
-    <div id="magic-flash"></div>
+    <div id="flash"></div>
 
-    <!-- Cada capítulo segue a ordem H1 a H6 com as imagens correspondentes -->
+    <!-- PARTE 1: H1 -->
     <section class="chapter">
         <div class="story-card">
             <div class="illustration-box">
                 <img src="images/h1.jpg" alt="História Parte 1">
             </div>
             <h1>O Moranguinho Curioso</h1>
-            <p>Num pequeno jardim cheio de vida, crescia um moranguinho diferente de todos os outros. Ele era o mais curioso! Passava os dias a observar as abelhas e como as raízes bebiam água da terra.</p>
+            <p>Há muito tempo, num pequeno jardim cheio de vida, crescia um moranguinho diferente de todos os outros. Ele era o mais curioso! Passava os dias a observar as abelhas a trabalhar e como as raízes bebiam água da terra.</p>
         </div>
     </section>
 
-    <!-- H2, H3, H4 seguiriam aqui com a mesma estrutura... -->
+    <!-- PARTE 2: H2 -->
+    <section class="chapter">
+        <div class="story-card">
+            <div class="illustration-box">
+                <img src="images/h2.jpg" alt="História Parte 2">
+            </div>
+            <h2>Algo mudou no Jardim</h2>
+            <p>Numa manhã silenciosa, ele percebeu algo estranho. As folhas estavam fracas e as flores não abriam. O jardim parecia cansado. O moranguinho sentiu algo novo dentro de si: preocupação.</p>
+        </div>
+    </section>
 
-    <!-- Exemplo da parte da Transformação (H4) -->
+    <!-- PARTE 3: H3 -->
+    <section class="chapter">
+        <div class="story-card">
+            <div class="illustration-box">
+                <img src="images/h3.jpg" alt="História Parte 3">
+            </div>
+            <h3>A Grande Descoberta</h3>
+            <p>Uma velha joaninha contou-lhe o segredo: as plantas dão-nos <strong>98% do oxigénio</strong> e <strong>80% da comida</strong>! Mas pragas e doenças estão a atacar o verde. Se as plantas sofrem, todos sofremos.</p>
+        </div>
+    </section>
+
+    <!-- PARTE 4: H4 -->
     <section class="chapter">
         <div class="story-card">
             <div class="illustration-box">
@@ -178,24 +185,36 @@
             </div>
             <h4>O Momento da Estrela</h4>
             <p>Naquela noite, sob as estrelas, ele prometeu: "Eu vou proteger as plantas!". Uma luz mágica caiu sobre ele, iniciando uma transformação extraordinária.</p>
-            <button class="btn-action" onclick="triggerTransformation()">Ativar Poder do Guardião</button>
+            <button class="btn-magic" onclick="doMagic()">Despertar o Guardião</button>
         </div>
     </section>
 
-    <!-- Exemplo do Convite Final (H6) -->
+    <!-- PARTE 5: H5 -->
+    <section class="chapter">
+        <div class="story-card">
+            <div class="illustration-box">
+                <img src="images/h5.jpg" alt="História Parte 5">
+            </div>
+            <h5>A Missão do Super Morango</h5>
+            <p>Agora ele é o SUPER MORANGO! Ele abriu um grande portal verde para encontrar aliados corajosos que queiram observar a natureza e proteger as florestas de todo o mundo.</p>
+        </div>
+    </section>
+
+    <!-- PARTE 6: H6 -->
     <section class="chapter">
         <div class="story-card">
             <div class="illustration-box">
                 <img src="images/h6.jpg" alt="História Parte 6">
             </div>
             <h6>Queres ser um Guardião?</h6>
-            <p>"As plantas são o pulmão e a energia do nosso planeta. Se cuidarmos delas, a Terra continuará viva e forte." Aceitas o convite para começar o teu treino de campo?</p>
-            <a href="jogo.html" class="btn-final">SIM! ACEITO A MISSÃO ➔</a>
+            <p>"As plantas são o pulmão e a comida do nosso planeta. Se cuidarmos delas, a Terra continuará viva e forte." Aceitas o convite para começar o teu treino de campo?</p>
+            <a href="jogo.html" class="btn-mission">SIM! ACEITO A MISSÃO ➔</a>
         </div>
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
+        // Sistema de Revelação ao Scroll
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -204,6 +223,7 @@
 
         document.querySelectorAll('.chapter').forEach(cap => observer.observe(cap));
 
+        // Barra de Progresso
         window.onscroll = () => {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -211,11 +231,12 @@
             document.getElementById("progress-bar").style.width = scrolled + "%";
         };
 
-        function triggerTransformation() {
-            const flash = document.getElementById('magic-flash');
-            flash.style.display = 'block';
+        // Efeito da Estrela
+        function doMagic() {
+            const f = document.getElementById('flash');
+            f.style.display = 'block';
             setTimeout(() => {
-                flash.style.display = 'none';
+                f.style.display = 'none';
                 confetti({
                     particleCount: 200,
                     spread: 80,
