@@ -3,103 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guardiões das Plantas | Analisador de Dados</title>
+    <title>Guardiões das Plantas | Ciência</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <section>
-        <div class="badge-onu" style="color: #2ecc71; border: 1px solid #2ecc71; padding: 5px 15px; border-radius: 50px; margin-bottom: 20px;">
-            SISTEMA DE ANÁLISE BIO-CIENTÍFICA
-        </div>
-
-        <h1>Por que as plantas são vitais?</h1>
-        <p style="margin-bottom: 30px; opacity: 0.8;">O sistema detetou dados falsos. Seleciona as <strong style="color: #2ecc71;">3 funções verdadeiras</strong> das plantas para avançar.</p>
-
-        <div class="counter-box">DADOS VALIDADOS: <span id="correct-count">0</span> / 3</div>
-
-        <div class="grid-cards">
-            <!-- OPÇÃO CORRETA -->
-            <div class="bio-card" onclick="checkBio(this, true)">
-                <h3>🌬️ Produção de Oxigénio</h3>
-                <p>Elas fabricam 98% do ar puro que todos os seres humanos respiram.</p>
-            </div>
-
-            <!-- OPÇÃO ERRADA -->
-            <div class="bio-card" onclick="checkBio(this, false)">
-                <h3>📶 Sinal de Internet</h3>
-                <p>As árvores transmitem sinal Wi-Fi gratuito para as cidades através das folhas.</p>
-            </div>
-
-            <!-- OPÇÃO CORRETA -->
-            <div class="bio-card" onclick="checkBio(this, true)">
-                <h3>🍎 Base da Alimentação</h3>
-                <p>80% da comida mundial vem das plantas. Sem elas, não há comida.</p>
-            </div>
-
-            <!-- OPÇÃO ERRADA -->
-            <div class="bio-card" onclick="checkBio(this, false)">
-                <h3>🧼 Limpeza de Sapatos</h3>
-                <p>Certas plantas rasteiras servem para polir sapatos enquanto caminhas na relva.</p>
-            </div>
-
-            <!-- OPÇÃO CORRETA -->
-            <div class="bio-card" onclick="checkBio(this, true)">
-                <h3>🌍 Equilíbrio do Clima</h3>
-                <p>As plantas absorvem o calor e combatem o aquecimento do nosso planeta.</p>
-            </div>
-
-            <!-- OPÇÃO ERRADA -->
-            <div class="bio-card" onclick="checkBio(this, false)">
-                <h3>🔋 Carga de Baterias</h3>
-                <p>Podes carregar o teu telemóvel espetando um cabo no tronco de um carvalho.</p>
-            </div>
-        </div>
-
-        <div id="btn-next-mission">
-            <h3 style="color: #2ecc71; margin-bottom: 20px;">✅ Dados Validados com Sucesso!</h3>
-            <a href="jogo.html" class="btn-main">Iniciar Treino de Campo</a>
-        </div>
+        <h2 style="font-size: 3rem; margin-bottom: 40px;">A Ciência do Nosso Planeta</h2>
         
-        <br>
-        <a href="index.html" style="color: white; opacity: 0.5; text-decoration: none;">Voltar ao Portal</a>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; width: 100%;">
+            <div style="background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; text-align: left; border: 1px solid rgba(255,255,255,0.1);">
+                <h3 style="color: #2ecc71; margin-bottom: 15px;">🌬️ O Ar que Respiramos</h3>
+                <p>Sabias que as plantas produzem 98% do oxigénio? Elas são as fábricas naturais que nos mantêm vivos.</p>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; text-align: left; border: 1px solid rgba(255,255,255,0.1);">
+                <h3 style="color: #2ecc71; margin-bottom: 15px;">🍎 Comida Segura</h3>
+                <p>80% dos alimentos que chegam à tua mesa vêm das plantas. Protegê-las é garantir que ninguém passa fome.</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 50px;">
+            <a href="jogo.html" class="btn-main">Iniciar Treino de Campo</a>
+            <br><br>
+            <a href="index.html" style="color: white; opacity: 0.6;">Voltar ao Início</a>
+        </div>
     </section>
 
     <script src="script.js"></script>
-    <script>
-        // Lógica específica desta página
-        let correctFound = 0;
-
-        function checkBio(element, isCorrect) {
-            // Evitar clicar duas vezes no mesmo que já está correto
-            if (element.classList.contains('correct')) return;
-
-            if (isCorrect) {
-                element.classList.add('correct');
-                element.classList.remove('wrong');
-                correctFound++;
-                document.getElementById('correct-count').innerText = correctFound;
-
-                if (correctFound === 3) {
-                    document.getElementById('btn-next-mission').style.display = 'block';
-                    // Efeito de confetis para celebrar a descoberta
-                    confetti({
-                        particleCount: 100,
-                        spread: 70,
-                        origin: { y: 0.8 }
-                    });
-                }
-            } else {
-                element.classList.add('wrong');
-                // Remove a classe de erro após a animação para poderem tentar de novo
-                setTimeout(() => {
-                    element.classList.remove('wrong');
-                }, 500);
-            }
-        }
-    </script>
-    <!-- Import de Confetis Externo para esta página -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
 </html>
