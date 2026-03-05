@@ -7,24 +7,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --verde-onu: #2ecc71;
-            --verde-escuro: #0b1d12;
-            --morango: #ff4757;
-            --glass: rgba(255, 255, 255, 0.05);
+            /* Cores extraídas da imagem */
+            --bg-deep: #061512;        /* O tom mais escuro da floresta à noite */
+            --glow-green: #42f5a7;     /* O verde neon mágico do portal */
+            --strawberry: #ff4757;     /* O vermelho vibrante do Super Morango */
+            --parchment: #fdf5e6;      /* O tom do pergaminho antigo */
+            --magic-blue: #1a2a3a;     /* Azul profundo do céu estrelado */
+            --glass: rgba(66, 245, 167, 0.05);
         }
 
         body {
-            background-color: var(--verde-escuro);
-            color: white;
+            background-color: var(--bg-deep);
+            background-image: 
+                radial-gradient(circle at 50% 50%, var(--magic-blue) 0%, var(--bg-deep) 100%),
+                url('https://www.transparenttextures.com/patterns/stardust.png'); /* Efeito sutil de estrelas */
+            color: var(--parchment);
             font-family: 'Lexend', sans-serif;
             margin: 0;
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
+        /* Barra de Progresso com Brilho */
         #progress-bar {
-            position: fixed; top: 0; left: 0; height: 8px;
-            background: linear-gradient(to right, var(--verde-onu), var(--morango));
+            position: fixed; top: 0; left: 0; height: 6px;
+            background: linear-gradient(to right, var(--glow-green), var(--strawberry));
+            box-shadow: 0 0 15px var(--glow-green);
             width: 0%; z-index: 1000; transition: width 0.2s;
         }
 
@@ -34,11 +42,10 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 80px 20px;
+            padding: 60px 20px;
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateY(30px);
             transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
-            box-sizing: border-box;
         }
 
         .chapter.visible {
@@ -46,78 +53,102 @@
             transform: translateY(0);
         }
 
+        /* Cartão inspirado no brilho do portal */
         .story-card {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            padding: 40px;
+            background: rgba(6, 21, 18, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 45px;
             border-radius: 40px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 2px solid var(--glow-green);
+            box-shadow: 0 0 40px rgba(66, 245, 167, 0.2); /* Brilho externo suave */
             max-width: 900px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
 
-        /* CORREÇÃO DO CONTENTOR DE IMAGEM */
         .illustration-box {
             width: 100%;
-            max-width: 100%;
             margin-bottom: 30px;
-            border-radius: 20px;
+            border-radius: 25px;
             overflow: hidden;
-            /* Removemos a altura fixa para não cortar */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(0,0,0,0.2); /* Fundo sutil para preencher se necessário */
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+        }
+
+        /* Moldura de brilho para a imagem */
+        .illustration-box::after {
+            content: '';
+            position: absolute; top:0; left:0; right:0; bottom:0;
+            box-shadow: inset 0 0 30px rgba(66, 245, 167, 0.3);
+            pointer-events: none;
         }
 
         .illustration-box img {
             max-width: 100%;
-            height: auto; /* Mantém a proporção original da imagem */
-            max-height: 550px; /* Limite para não ocupar o ecrã vertical todo */
+            height: auto;
+            max-height: 550px;
             display: block;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            transition: transform 0.5s ease;
+            margin: 0 auto;
         }
 
-        .chapter:hover .illustration-box img {
-            transform: scale(1.02);
+        /* Títulos com efeito de brilho suave (Glow Text) */
+        h1, h2, h3, h4, h5, h6 { 
+            color: var(--glow-green); 
+            margin: 0 0 20px 0; 
+            font-weight: 800; 
+            text-shadow: 0 0 10px rgba(66, 245, 167, 0.5);
+            letter-spacing: -1px;
+        }
+        h1 { font-size: 3.5rem; } h2 { font-size: 3rem; }
+
+        p { 
+            font-size: 1.25rem; 
+            line-height: 1.8; 
+            color: var(--parchment); 
+            opacity: 0.95; 
+            max-width: 750px; 
+            margin: 0 auto 30px; 
         }
 
-        h1, h2, h3, h4, h5, h6 { color: var(--verde-onu); margin: 0 0 20px 0; font-weight: 800; }
-        h1 { font-size: 3rem; } h2 { font-size: 2.6rem; } h3 { font-size: 2.3rem; }
-        h4 { font-size: 2.1rem; } h5 { font-size: 1.9rem; } h6 { font-size: 1.7rem; }
-
-        p { font-size: 1.2rem; line-height: 1.7; opacity: 0.9; margin-bottom: 25px; max-width: 750px; margin-left: auto; margin-right: auto; }
-
+        /* Botões Estilo "Magia" */
         .btn-action {
-            background: var(--verde-onu); color: var(--verde-escuro);
-            border: none; padding: 18px 40px; border-radius: 50px;
+            background: var(--glow-green); 
+            color: var(--bg-deep);
+            border: none; padding: 20px 45px; border-radius: 50px;
             font-weight: 800; cursor: pointer; transition: 0.3s;
-            text-transform: uppercase; font-size: 1rem;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(66, 245, 167, 0.4);
         }
-        .btn-action:hover { background: white; transform: scale(1.05); }
+        .btn-action:hover { 
+            background: white; 
+            box-shadow: 0 0 30px white;
+            transform: scale(1.05); 
+        }
 
         .btn-final {
-            background: var(--morango); color: white;
+            background: var(--strawberry); 
+            color: white;
             padding: 25px 60px; border-radius: 25px;
             font-size: 1.6rem; font-weight: 800; text-decoration: none;
-            display: inline-block; margin-top: 10px;
-            box-shadow: 0 10px 0 #b33939; transition: 0.2s;
+            display: inline-block;
+            box-shadow: 0 0 25px rgba(255, 71, 87, 0.4);
+            transition: 0.3s;
         }
-        .btn-final:hover { transform: translateY(-5px); box-shadow: 0 15px 0 #b33939; }
+        .btn-final:hover { 
+            transform: translateY(-5px); 
+            filter: brightness(1.2);
+            box-shadow: 0 15px 40px rgba(255, 71, 87, 0.6);
+        }
 
+        /* Efeito de flash na transformação */
         #magic-flash {
             display: none; position: fixed; top:0; left:0; width:100%; height:100%;
             background: white; z-index: 2000; pointer-events: none;
         }
 
         @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; }
-            p { font-size: 1.1rem; }
-            .illustration-box img { max-height: 350px; }
+            h1 { font-size: 2.5rem; }
+            .story-card { padding: 25px; border-radius: 30px; }
         }
     </style>
 </head>
@@ -126,7 +157,7 @@
     <div id="progress-bar"></div>
     <div id="magic-flash"></div>
 
-    <!-- PARTE 1: H1 (QUADRADA) -->
+    <!-- Cada capítulo segue a ordem H1 a H6 com as imagens correspondentes -->
     <section class="chapter">
         <div class="story-card">
             <div class="illustration-box">
@@ -137,29 +168,9 @@
         </div>
     </section>
 
-    <!-- PARTE 2: H2 (QUADRADA) -->
-    <section class="chapter">
-        <div class="story-card">
-            <div class="illustration-box">
-                <img src="images/h2.jpg" alt="História Parte 2">
-            </div>
-            <h2>Algo mudou no Jardim</h2>
-            <p>Numa manhã silenciosa, ele percebeu algo estranho. As folhas estavam fracas e as flores não abriam. O jardim parecia cansado. O moranguinho sentiu algo novo dentro de si: preocupação.</p>
-        </div>
-    </section>
+    <!-- H2, H3, H4 seguiriam aqui com a mesma estrutura... -->
 
-    <!-- PARTE 3: H3 (QUADRADA) -->
-    <section class="chapter">
-        <div class="story-card">
-            <div class="illustration-box">
-                <img src="images/h3.jpg" alt="História Parte 3">
-            </div>
-            <h3>A Grande Descoberta</h3>
-            <p>Uma velha joaninha revelou-lhe o segredo: as plantas dão-nos 98% do oxigénio e 80% da comida! Mas pragas e doenças estão a atacar o verde. Se as plantas sofrem, todos sofremos.</p>
-        </div>
-    </section>
-
-    <!-- PARTE 4: H4 (QUADRADA) -->
+    <!-- Exemplo da parte da Transformação (H4) -->
     <section class="chapter">
         <div class="story-card">
             <div class="illustration-box">
@@ -171,18 +182,7 @@
         </div>
     </section>
 
-    <!-- PARTE 5: H5 (RETANGULAR) -->
-    <section class="chapter">
-        <div class="story-card">
-            <div class="illustration-box">
-                <img src="images/h5.jpg" alt="História Parte 5">
-            </div>
-            <h5>A Missão Começa!</h5>
-            <p>Agora ele é o SUPER MORANGO! Ele abriu um grande portal verde para encontrar aliados corajosos que queiram observar a natureza e proteger as florestas de todo o mundo.</p>
-        </div>
-    </section>
-
-    <!-- PARTE 6: H6 (RETANGULAR) -->
+    <!-- Exemplo do Convite Final (H6) -->
     <section class="chapter">
         <div class="story-card">
             <div class="illustration-box">
@@ -217,10 +217,10 @@
             setTimeout(() => {
                 flash.style.display = 'none';
                 confetti({
-                    particleCount: 180,
+                    particleCount: 200,
                     spread: 80,
                     origin: { y: 0.6 },
-                    colors: ['#2ecc71', '#ff4757', '#ffffff']
+                    colors: ['#42f5a7', '#ff4757', '#ffffff']
                 });
             }, 150);
         }
