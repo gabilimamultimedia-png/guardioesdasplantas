@@ -3,301 +3,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certificado de Guardião | Guardiões das Plantas</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;800&family=Great+Vibes&display=swap" rel="stylesheet">
+    <title>Diploma de Guardião | Missão ONU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;900&family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
         :root {
             --glow-green: #42f5a7;
             --bg-deep: #061512;
             --strawberry: #ff4757;
-            --parchment: #fdf5e6;
+            --gold: #f1c40f;
         }
 
         body {
             background-color: var(--bg-deep);
-            color: var(--parchment);
+            color: white;
             font-family: 'Lexend', sans-serif;
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 40px 20px;
-            min-height: 100vh;
+            padding: 30px;
         }
 
-        .container {
-            max-width: 900px;
-            width: 100%;
-            text-align: center;
-        }
-
-        h1 { color: var(--glow-green); margin-bottom: 20px; text-shadow: 0 0 10px rgba(66, 245, 167, 0.5); }
-
-        /* Painel de entrada de nome */
-        .input-group {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
+        .ui-panel {
+            background: rgba(255,255,255,0.05);
+            padding: 25px;
             border-radius: 20px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             border: 1px solid var(--glow-green);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
         }
 
         input {
             padding: 15px;
-            width: 80%;
-            max-width: 400px;
-            border-radius: 10px;
+            width: 90%;
+            border-radius: 12px;
             border: none;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             text-align: center;
-            font-family: 'Lexend', sans-serif;
+            font-weight: bold;
+            color: var(--bg-deep);
         }
 
-        /* O CERTIFICADO VISUAL (PREVIEW) */
-        #certificate-preview {
+        /* O CERTIFICADO VISUAL */
+        #cert-container {
             position: relative;
             width: 100%;
-            aspect-ratio: 1.414 / 1; /* Proporção A4 deitado */
-            background-color: #0b1d12;
-            border: 15px solid var(--glow-green);
-            box-shadow: 0 0 30px rgba(66, 245, 167, 0.3);
+            max-width: 850px;
+            aspect-ratio: 1.4 / 1;
+            background: radial-gradient(circle at center, #0b2d24 0%, #061512 100%);
+            border: 12px solid var(--glow-green);
+            border-radius: 10px;
+            padding: 50px;
+            box-sizing: border-box;
+            box-shadow: 0 0 50px rgba(66, 245, 167, 0.3);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 40px;
-            box-sizing: border-box;
-            overflow: hidden; /* Garante que nada sai das bordas */
+            overflow: hidden; /* SEGURANÇA DE MARGEM */
         }
 
-        .cert-inner-border {
-            position: absolute;
-            top: 15px; bottom: 15px; left: 15px; right: 15px;
-            border: 2px solid rgba(66, 245, 167, 0.2);
-            pointer-events: none;
-        }
+        /* Cantos Decorativos */
+        .corner { position: absolute; width: 60px; height: 60px; border: 5px solid var(--gold); }
+        .tl { top: 20px; left: 20px; border-right: 0; border-bottom: 0; border-radius: 10px 0 0 0; }
+        .tr { top: 20px; right: 20px; border-left: 0; border-bottom: 0; border-radius: 0 10px 0 0; }
+        .bl { bottom: 20px; left: 20px; border-right: 0; border-top: 0; border-radius: 0 0 0 10px; }
+        .br { bottom: 20px; right: 20px; border-left: 0; border-top: 0; border-radius: 0 0 10px 0; }
 
-        .cert-title {
-            font-size: clamp(1.5rem, 5vw, 3.5rem);
-            font-weight: 800;
-            color: white;
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+        .cert-header { color: var(--gold); font-size: 1rem; letter-spacing: 3px; font-weight: 800; margin-bottom: 10px; }
+        .cert-main-title { font-size: 3rem; font-weight: 900; color: white; text-shadow: 0 0 15px var(--glow-green); margin: 0; }
+        
+        .cert-text { font-size: 1.1rem; opacity: 0.9; margin: 20px 0; }
 
-        .cert-subtitle {
-            font-size: clamp(0.8rem, 2vw, 1.2rem);
-            margin-top: 20px;
-            opacity: 0.8;
-            letter-spacing: 1px;
-        }
-
-        /* NOME DO ALUNO - COM TRATAMENTO DE OVERFLOW */
+        /* NOME DO ALUNO - AUTO AJUSTÁVEL */
         #display-name {
-            font-size: 4rem; /* Tamanho base grande */
+            font-size: 4rem;
             color: var(--glow-green);
-            font-weight: 800;
-            margin: 30px 0;
-            width: 90%; /* Limita a largura a 90% da moldura */
-            word-wrap: break-word;
-            line-height: 1.1;
-            text-shadow: 0 0 15px rgba(66, 245, 167, 0.4);
+            font-weight: 900;
+            margin: 10px 0;
+            width: 90%;
             display: flex;
             justify-content: center;
             align-items: center;
+            text-align: center;
             min-height: 100px;
+            line-height: 1;
+            /* Proteção contra nomes gigantes */
+            white-space: nowrap; 
         }
 
-        .cert-footer {
-            margin-top: 20px;
-            font-size: clamp(0.7rem, 1.5vw, 1rem);
-            max-width: 80%;
-            line-height: 1.5;
-        }
+        .cert-footer-text { font-size: 0.9rem; max-width: 80%; line-height: 1.4; opacity: 0.8; }
 
-        /* Assinatura e Selo */
-        .decorations {
+        /* Elementos Heróicos */
+        .cert-bottom {
             display: flex;
             justify-content: space-between;
-            width: 80%;
-            margin-top: 40px;
+            width: 100%;
+            margin-top: 30px;
             align-items: center;
         }
 
-        .signature {
-            font-family: 'Great Vibes', cursive;
-            font-size: 2rem;
-            color: var(--strawberry);
-            border-bottom: 1px solid var(--parchment);
-        }
+        .signature-box { text-align: left; }
+        .signature-name { font-family: 'Great Vibes', cursive; font-size: 2.2rem; color: var(--strawberry); border-bottom: 2px solid white; }
 
-        .seal {
-            width: 80px;
-            height: 80px;
-            background: var(--glow-green);
+        .medal {
+            width: 100px; height: 100px;
+            background: var(--gold);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--bg-deep);
-            font-weight: 800;
-            font-size: 0.7rem;
-            text-align: center;
-            box-shadow: 0 0 15px var(--glow-green);
-            transform: rotate(-15deg);
+            border: 5px solid #d4af37;
+            display: flex; align-items: center; justify-content: center;
+            color: #5d4037; font-weight: 900; font-size: 0.7rem; text-align: center;
+            box-shadow: 0 0 20px var(--gold);
+            transform: rotate(-10deg);
+            position: relative;
         }
+        .medal::before { content: '★'; font-size: 2rem; display: block; position: absolute; top: -15px; color: #fff; }
 
-        /* Botão de Download */
-        .btn-download {
+        .btn-save {
             background: var(--strawberry);
-            color: white;
-            border: none;
-            padding: 20px 50px;
-            border-radius: 15px;
-            font-size: 1.3rem;
-            font-weight: 800;
-            cursor: pointer;
-            margin-top: 40px;
-            transition: 0.3s;
+            color: white; border: none; padding: 20px 45px;
+            border-radius: 50px; font-size: 1.4rem; font-weight: 900;
+            cursor: pointer; margin-top: 30px; transition: 0.3s;
             box-shadow: 0 10px 0 #b33939;
         }
-        .btn-download:hover { transform: translateY(-5px); box-shadow: 0 15px 0 #b33939; }
+        .btn-save:hover { transform: translateY(-5px); box-shadow: 0 15px 0 #b33939; }
 
-        canvas { display: none; } /* Canvas oculto apenas para exportação */
+        canvas { display: none; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Conquista Final</h1>
-        <p>Parabéns, Guardião! O teu treino terminou com sucesso.</p>
-
-        <div class="input-group">
-            <p>Escreve o teu nome para a credencial oficial:</p>
-            <input type="text" id="name-input" placeholder="Teu Nome Aqui" maxlength="40" oninput="updateName()">
-        </div>
-
-        <!-- PREVIEW VISUAL -->
-        <div id="certificate-preview">
-            <div class="cert-inner-border"></div>
-            
-            <p class="cert-subtitle">A ORGANIZAÇÃO DOS GUARDIÕES DECLARA QUE</p>
-            <div class="cert-title">CERTIFICADO DE MÉRITO</div>
-            
-            <!-- Este é o elemento que vamos vigiar para o tamanho da letra -->
-            <div id="display-name">NOME DO GUARDIÃO</div>
-
-            <p class="cert-footer">Demonstrou excelência na identificação de pragas e na tomada de decisões éticas para proteger a saúde das plantas e a biodiversidade do nosso planeta.</p>
-
-            <div class="decorations">
-                <div style="text-align: left;">
-                    <div class="signature">Super Morango</div>
-                    <small>Guardião Chefe</small>
-                </div>
-                <div class="seal">PROTETOR<br>OFICIAL<br>ONU</div>
-                <div style="text-align: right;">
-                    <div style="font-weight: bold;">12 DE MAIO</div>
-                    <small>Dia da Saúde das Plantas</small>
-                </div>
-            </div>
-        </div>
-
-        <button class="btn-download" onclick="downloadCertificate()">DESCARREGAR CERTIFICADO ➔</button>
-        <p style="margin-top: 20px; opacity: 0.5; font-size: 0.8rem;">Podes imprimir ou guardar esta imagem como recordação da tua missão.</p>
+    <div class="ui-panel">
+        <p>Parabéns, Herói! Digita o teu nome:</p>
+        <input type="text" id="name-input" placeholder="Teu Nome" maxlength="30" oninput="fitText()">
     </div>
 
-    <!-- Elemento Canvas para gerar a imagem final -->
-    <canvas id="export-canvas" width="2000" height="1414"></canvas>
+    <!-- CERTIFICADO VISUAL -->
+    <div id="cert-container">
+        <div class="corner tl"></div><div class="corner tr"></div>
+        <div class="corner bl"></div><div class="corner br"></div>
+
+        <div class="cert-header">MISSÃO INTERNACIONAL 12 DE MAIO</div>
+        <h1 class="cert-main-title">DIPLOMA DE GUARDIÃO</h1>
+        
+        <p class="cert-text">Este título honorário é orgulhosamente entregue a:</p>
+        
+        <div id="display-name">TEU NOME</div>
+
+        <p class="cert-footer-text">
+            Por ter completado o treino de elite e demonstrado coragem para proteger as plantas, o oxigénio e o futuro do nosso planeta Terra.
+        </p>
+
+        <div class="cert-bottom">
+            <div class="signature-box">
+                <div class="signature-name">Super Morango</div>
+                <small>GUARDIÃO CHEFE</small>
+            </div>
+
+            <div class="medal">GUARDIÃO<br>DE ELITE<br>2024</div>
+
+            <div style="text-align: right;">
+                <img src="images/super-morango.png" style="width: 70px; filter: drop-shadow(0 0 10px var(--glow-green));">
+                <br>
+                <small>Bio-Vigilante Oficial</small>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn-save" onclick="downloadImage()">GUARDAR DIPLOMA ➔</button>
+
+    <canvas id="export-canvas" width="1600" height="1142"></canvas>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
-        // Lógica de Redimensionamento Automático do Nome
-        function updateName() {
-            const input = document.getElementById('name-input');
+        // FUNÇÃO QUE AJUSTA O TAMANHO DO TEXTO AUTOMATICAMENTE
+        function fitText() {
             const display = document.getElementById('display-name');
-            const text = input.value.trim() || "NOME DO GUARDIÃO";
+            const input = document.getElementById('name-input');
+            const text = input.value.trim() || "TEU NOME";
             
             display.innerText = text.toUpperCase();
 
-            // Ajuste dinâmico de tamanho de letra para não quebrar as margens
-            let fontSize = 4; // Começamos com 4rem
+            let fontSize = 4; // Começa com 4rem
             display.style.fontSize = fontSize + "rem";
 
-            // Se o texto for maior que 85% da largura da moldura, diminui a letra
-            while (display.scrollWidth > (display.offsetWidth * 0.9) && fontSize > 1.5) {
+            // Diminui o tamanho da letra se o nome for maior que 90% da largura disponível
+            while (display.scrollWidth > display.offsetWidth && fontSize > 1) {
                 fontSize -= 0.1;
                 display.style.fontSize = fontSize + "rem";
             }
         }
 
-        // Confetes ao entrar
         window.onload = () => {
-            confetti({
-                particleCount: 150,
-                spread: 70,
-                origin: { y: 0.6 },
-                colors: ['#42f5a7', '#ff4757', '#ffffff']
-            });
+            confetti({ particleCount: 150, spread: 80, origin: { y: 0.7 }, colors: ['#42f5a7', '#f1c40f', '#ff4757'] });
         };
 
-        // Função para transformar o HTML em Imagem (Canvas) e baixar
-        function downloadCertificate() {
+        // GERAÇÃO DE IMAGEM PARA DOWNLOAD
+        function downloadImage() {
             const canvas = document.getElementById('export-canvas');
             const ctx = canvas.getContext('2d');
-            const name = document.getElementById('name-input').value.toUpperCase() || "GUARDIÃO";
+            const name = document.getElementById('name-input').value.toUpperCase() || "HERÓI";
 
-            // 1. Fundo
-            ctx.fillStyle = "#0b1d12";
+            // FUNDO
+            ctx.fillStyle = "#061512";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // GRADIENTE CENTRAL
+            let grad = ctx.createRadialGradient(800, 571, 100, 800, 571, 800);
+            grad.addColorStop(0, "#0b2d24");
+            grad.addColorStop(1, "#061512");
+            ctx.fillStyle = grad;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // 2. Moldura Neon
+            // BORDAS NEON
             ctx.strokeStyle = "#42f5a7";
             ctx.lineWidth = 40;
             ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
 
-            // 3. Textos (Simulação do Layout em alta resolução)
+            // TEXTOS
             ctx.textAlign = "center";
+            ctx.fillStyle = "#f1c40f";
+            ctx.font = "bold 30px Lexend";
+            ctx.fillText("MISSÃO INTERNACIONAL 12 DE MAIO", 800, 150);
+
             ctx.fillStyle = "white";
-            
+            ctx.font = "bold 100px Lexend";
+            ctx.fillText("DIPLOMA DE GUARDIÃO", 800, 280);
+
             ctx.font = "40px Lexend";
-            ctx.fillText("A ORGANIZAÇÃO DOS GUARDIÕES DECLARA QUE", 1000, 300);
+            ctx.fillText("Este título honorário é orgulhosamente entregue a:", 800, 400);
 
-            ctx.font = "bold 120px Lexend";
-            ctx.fillText("CERTIFICADO DE MÉRITO", 1000, 450);
-
-            // Nome com tamanho adaptável no Canvas também
-            let canvasFontSize = 180;
-            ctx.font = `bold ${canvasFontSize}px Lexend`;
-            while(ctx.measureText(name).width > 1700) {
-                canvasFontSize -= 10;
-                ctx.font = `bold ${canvasFontSize}px Lexend`;
+            // NOME ADAPTÁVEL NO CANVAS
+            let fontSize = 150;
+            ctx.font = `bold ${fontSize}px Lexend`;
+            while(ctx.measureText(name).width > 1300) {
+                fontSize -= 5;
+                ctx.font = `bold ${fontSize}px Lexend`;
             }
             ctx.fillStyle = "#42f5a7";
-            ctx.fillText(name, 1000, 750);
+            ctx.fillText(name, 800, 600);
 
-            ctx.fillStyle = "white";
-            ctx.font = "35px Lexend";
-            const footer1 = "Demonstrou excelência na identificação de pragas e na tomada de decisões éticas";
-            const footer2 = "para proteger a saúde das plantas e a biodiversidade do nosso planeta.";
-            ctx.fillText(footer1, 1000, 950);
-            ctx.fillText(footer2, 1000, 1010);
-
-            // Selo e Data
-            ctx.font = "bold 40px Lexend";
-            ctx.fillText("12 DE MAIO", 1600, 1200);
+            ctx.fillStyle = "rgba(255,255,255,0.8)";
             ctx.font = "30px Lexend";
-            ctx.fillText("Dia da Saúde das Plantas", 1600, 1250);
+            ctx.fillText("Por ter completado o treino de elite e demonstrado coragem para proteger", 800, 750);
+            ctx.fillText("as plantas, o oxigénio e o futuro do nosso planeta Terra.", 800, 800);
 
-            // Assinatura (Simulada com letra cursiva se possível, ou serif)
+            // ASSINATURA
             ctx.fillStyle = "#ff4757";
             ctx.font = "italic 80px Georgia";
-            ctx.fillText("Super Morango", 400, 1200);
+            ctx.fillText("Super Morango", 300, 1000);
 
-            // Download
+            // DOWNLOAD
             const link = document.createElement('a');
-            link.download = 'Certificado_Guardiao_Plantas.png';
-            link.href = canvas.toDataURL('image/png');
+            link.download = 'Diploma_Guardiao_Elite.png';
+            link.href = canvas.toDataURL();
             link.click();
         }
     </script>
