@@ -3,46 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guardiões das Plantas | Missão de Campo</title>
+    <title>Missão de Campo | Guardiões das Plantas</title>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;800&display=swap" rel="stylesheet">
     <style>
-        :root { --verde-onu: #2ecc71; --verde-escuro: #0b1d12; --morango: #ff4757; }
-        body { background: var(--verde-escuro); color: white; font-family: 'Lexend', sans-serif; margin: 0; overflow: hidden; display: flex; flex-direction: column; align-items: center; }
-        
-        #game-header { width: 100%; padding: 20px; display: flex; justify-content: space-around; background: rgba(0,0,0,0.5); z-index: 10; }
-        
+        :root {
+            --verde-onu: #2ecc71;
+            --verde-escuro: #0b1d12;
+            --morango: #ff4757;
+            --glass: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background-color: var(--verde-escuro);
+            color: white;
+            font-family: 'Lexend', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        /* Header Responsivo */
+        .game-nav {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
+        .stat-card {
+            background: var(--glass);
+            padding: 10px 20px;
+            border-radius: 12px;
+            border: 1px solid var(--verde-onu);
+            font-size: 0.9rem;
+            flex: 1;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        /* Contentor do Jogo Responsivo */
+        .viewport-wrapper {
+            width: 100%;
+            max-width: 1000px;
+            aspect-ratio: 16 / 9; /* Mantém a proporção de cinema */
+            max-height: 70vh; /* Impede que ocupe o ecrã todo em altura */
+            position: relative;
+            background-color: #000;
+            border-radius: 20px;
+            border: 4px solid var(--glass);
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
         #viewport {
-            width: 100vw; height: 100vh;
-            background-size: cover; background-position: center;
-            position: relative; cursor: crosshair;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
         }
 
+        /* A Praga - Corrigida para não herdar fundos */
         .praga {
-            position: absolute; width: 80px; height: 80px;
-            cursor: pointer; transition: transform 0.2s;
-            filter: drop-shadow(0 0 10px rgba(255,0,0,0.5));
+            position: absolute;
+            width: 8%; /* Tamanho relativo ao contentor */
+            min-width: 40px;
+            max-width: 80px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            filter: drop-shadow(0 0 10px rgba(255,0,0,0.7));
+            z-index: 5;
+            object-fit: contain; /* Garante que a imagem não distorce */
         }
-        .praga:hover { transform: scale(1.2); }
 
-        .ui-box { background: rgba(0,0,0,0.7); padding: 10px 20px; border-radius: 10px; border: 1px solid var(--verde-onu); }
-        
-        #msg-box {
-            position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
-            background: white; color: black; padding: 20px; border-radius: 20px;
-            display: none; font-weight: bold; z-index: 100; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        .praga:hover { transform: scale(1.2) rotate(10deg); }
+
+        /* Scanner */
+        .scanner {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: var(--verde-onu);
+            box-shadow: 0 0 15px var(--verde-onu);
+            top: 0;
+            animation: moveScan 4s linear infinite;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        @keyframes moveScan { from { top: 0; } to { top: 100%; } }
+
+        /* Mensagens de Feedback */
+        #msg-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            color: #111;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-weight: 800;
+            display: none;
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        .btn-back {
+            margin-top: 20px;
+            color: white;
+            opacity: 0.6;
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 600px) {
+            .stat-card { padding: 5px; font-size: 0.7rem; }
+            body { padding: 10px; }
         }
     </style>
 </head>
 <body>
 
-    <div id="game-header">
-        <div class="ui-box">Cenário: <span id="loc-name">Horta</span></div>
-        <div class="ui-box">XP: <span id="xp">0</span></div>
-        <div class="ui-box">Pragas: <span id="pests-left">0</span></div>
+    <div class="game-nav">
+        <div class="stat-card">📍 <span id="loc-name">Carregando...</span></div>
+        <div class="stat-card">✨ XP: <span id="xp">0</span></div>
+        <div class="stat-card">🐛 Restam: <span id="pests-left">0</span></div>
     </div>
 
-    <div id="viewport"></div>
-    <div id="msg-box"></div>
+    <div class="viewport-wrapper">
+        <div id="viewport"></div>
+        <div class="scanner"></div>
+        <div id="msg-overlay"></div>
+    </div>
+
+    <a href="historia.html" class="btn-back">← Voltar para a Teoria</a>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
@@ -59,52 +161,66 @@
         function initLevel() {
             const s = scenarios[currentLevel];
             const vp = document.getElementById('viewport');
+            
             document.getElementById('loc-name').innerText = s.name;
             document.getElementById('pests-left').innerText = s.pests;
-            vp.style.backgroundImage = `url(${s.bg})`;
+            
+            // Força a imagem de fundo corretamente
+            vp.style.backgroundImage = `url('${s.bg}')`;
             vp.innerHTML = '';
             pestsFound = 0;
 
             for(let i=0; i<s.pests; i++) {
                 const p = document.createElement('img');
-                p.src = 'images/praga.png';
+                // IMPORTANTE: Verifica se praga.png existe na pasta images
+                p.src = 'images/praga.png'; 
                 p.className = 'praga';
-                p.style.top = (Math.random() * 70 + 15) + '%';
-                p.style.left = (Math.random() * 80 + 10) + '%';
                 
-                p.onclick = () => {
-                    p.style.display = 'none';
+                // Posições em % para manter responsividade
+                p.style.top = (Math.random() * 70 + 10) + '%';
+                p.style.left = (Math.random() * 80 + 5) + '%';
+                
+                p.onclick = (e) => {
+                    e.stopPropagation();
+                    p.style.transform = "scale(0) rotate(90deg)";
+                    setTimeout(() => p.remove(), 200);
+                    
                     pestsFound++;
-                    xp += 100;
+                    xp += 150;
                     document.getElementById('xp').innerText = xp;
                     document.getElementById('pests-left').innerText = s.pests - pestsFound;
                     
-                    if(pestsFound === s.pests) nextLevel();
+                    if(pestsFound === s.pests) finishLevel();
                 };
                 vp.appendChild(p);
             }
         }
 
-        function nextLevel() {
-            confetti({ particleCount: 150, spread: 70 });
+        function finishLevel() {
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
             currentLevel++;
+            
             if(currentLevel < scenarios.length) {
-                showMsg("Excelente! O cenário está limpo. A avançar para o próximo...");
+                showFeedback("CENÁRIO LIMPO! 🌿");
                 setTimeout(initLevel, 2000);
             } else {
-                showMsg("MISSÃO CUMPRIDA! Estás pronto para receber o teu certificado.");
-                setTimeout(() => window.location.href = "certificado.html", 3000);
+                showFeedback("MISSÃO CUMPRIDA! 🎖️");
+                setTimeout(() => {
+                    // Substitui pela tua página final
+                    window.location.href = "certificado.html"; 
+                }, 3000);
             }
         }
 
-        function showMsg(txt) {
-            const b = document.getElementById('msg-box');
-            b.innerText = txt;
-            b.style.display = 'block';
-            setTimeout(() => b.style.display = 'none', 2500);
+        function showFeedback(txt) {
+            const msg = document.getElementById('msg-overlay');
+            msg.innerText = txt;
+            msg.style.display = 'block';
+            setTimeout(() => msg.style.display = 'none', 1800);
         }
 
-        initLevel();
+        // Inicia o jogo
+        window.onload = initLevel;
     </script>
 </body>
 </html>
