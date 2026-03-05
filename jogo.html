@@ -7,14 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --verde-onu: #2ecc71;
-            --verde-escuro: #0b1d12;
-            --morango: #ff4757;
-            --glass: rgba(255, 255, 255, 0.1);
+            --glow-green: #42f5a7;
+            --bg-deep: #061512;
+            --strawberry: #ff4757;
+            --glass: rgba(66, 245, 167, 0.1);
         }
 
         body {
-            background-color: var(--verde-escuro);
+            background-color: var(--bg-deep);
             color: white;
             font-family: 'Lexend', sans-serif;
             margin: 0;
@@ -23,42 +23,46 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            box-sizing: border-box;
+            overflow: hidden; /* Evita scroll durante o jogo */
         }
 
-        /* Header Responsivo */
+        /* Painel de Estatísticas Superior */
         .game-nav {
             display: flex;
             justify-content: space-between;
             width: 100%;
-            max-width: 1000px;
+            max-width: 1100px;
             margin-bottom: 20px;
-            gap: 10px;
+            gap: 15px;
+            z-index: 100;
         }
 
         .stat-card {
-            background: var(--glass);
-            padding: 10px 20px;
-            border-radius: 12px;
-            border: 1px solid var(--verde-onu);
-            font-size: 0.9rem;
+            background: rgba(0,0,0,0.6);
+            padding: 12px 25px;
+            border-radius: 15px;
+            border: 2px solid var(--glow-green);
+            box-shadow: 0 0 15px rgba(66, 245, 167, 0.2);
             flex: 1;
             text-align: center;
-            white-space: nowrap;
+            font-weight: 800;
+            font-size: 1rem;
+            color: var(--glow-green);
+            text-transform: uppercase;
         }
 
-        /* Contentor do Jogo Responsivo */
+        /* Contentor do Jogo */
         .viewport-wrapper {
             width: 100%;
-            max-width: 1000px;
-            aspect-ratio: 16 / 9; /* Mantém a proporção de cinema */
-            max-height: 70vh; /* Impede que ocupe o ecrã todo em altura */
+            max-width: 1100px;
+            aspect-ratio: 16 / 9;
+            max-height: 75vh;
             position: relative;
             background-color: #000;
-            border-radius: 20px;
-            border: 4px solid var(--glass);
+            border-radius: 30px;
+            border: 3px solid var(--glass);
             overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8);
         }
 
         #viewport {
@@ -67,167 +71,172 @@
             background-size: cover;
             background-position: center;
             position: relative;
+            transition: background-image 0.8s ease-in-out;
         }
 
-        /* A Praga - Corrigida para não herdar fundos */
-        .praga {
+        /* As Pragas i1, i2, i3, i4 */
+        .pest {
             position: absolute;
-            width: 8%; /* Tamanho relativo ao contentor */
-            min-width: 40px;
-            max-width: 80px;
+            width: 10%; /* Escala relativa ao tamanho do mapa */
+            min-width: 50px;
+            max-width: 90px;
             cursor: pointer;
-            transition: transform 0.2s;
-            filter: drop-shadow(0 0 10px rgba(255,0,0,0.7));
-            z-index: 5;
-            object-fit: contain; /* Garante que a imagem não distorce */
+            z-index: 50;
+            filter: drop-shadow(0 0 10px rgba(255, 71, 87, 0.5));
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .praga:hover { transform: scale(1.2) rotate(10deg); }
+        .pest:hover {
+            transform: scale(1.2) rotate(5deg);
+            filter: drop-shadow(0 0 20px var(--strawberry));
+        }
 
-        /* Scanner */
-        .scanner {
+        /* Scanner Neon */
+        .scan-bar {
             position: absolute;
             width: 100%;
-            height: 2px;
-            background: var(--verde-onu);
-            box-shadow: 0 0 15px var(--verde-onu);
+            height: 3px;
+            background: var(--glow-green);
+            box-shadow: 0 0 20px var(--glow-green);
             top: 0;
-            animation: moveScan 4s linear infinite;
+            animation: scanMove 5s linear infinite;
             z-index: 10;
             pointer-events: none;
+            opacity: 0.6;
         }
 
-        @keyframes moveScan { from { top: 0; } to { top: 100%; } }
+        @keyframes scanMove { from { top: 0; } to { top: 100%; } }
 
-        /* Mensagens de Feedback */
-        #msg-overlay {
+        /* Mensagem de Alerta Central */
+        #alert-box {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.95);
-            color: #111;
-            padding: 20px 40px;
-            border-radius: 50px;
-            font-weight: 800;
-            display: none;
-            z-index: 100;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: white; color: var(--bg-deep);
+            padding: 25px 50px; border-radius: 50px;
+            font-weight: 800; font-size: 1.5rem;
+            display: none; z-index: 200;
+            box-shadow: 0 0 50px rgba(255,255,255,0.5);
             text-align: center;
         }
 
-        .btn-back {
+        .btn-exit {
             margin-top: 20px;
-            color: white;
-            opacity: 0.6;
+            color: var(--glow-green);
             text-decoration: none;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            transition: 0.3s;
         }
+        .btn-exit:hover { opacity: 1; text-shadow: 0 0 10px var(--glow-green); }
 
-        @media (max-width: 600px) {
-            .stat-card { padding: 5px; font-size: 0.7rem; }
-            body { padding: 10px; }
-        }
     </style>
 </head>
 <body>
 
     <div class="game-nav">
-        <div class="stat-card">📍 <span id="loc-name">Carregando...</span></div>
-        <div class="stat-card">✨ XP: <span id="xp">0</span></div>
-        <div class="stat-card">🐛 Restam: <span id="pests-left">0</span></div>
+        <div class="stat-card">📍 <span id="loc-name">A carregar...</span></div>
+        <div class="stat-card">✨ XP: <span id="xp-val">0</span></div>
+        <div class="stat-card">🐛 Alvos: <span id="target-count">0</span></div>
     </div>
 
     <div class="viewport-wrapper">
         <div id="viewport"></div>
-        <div class="scanner"></div>
-        <div id="msg-overlay"></div>
+        <div class="scan-bar"></div>
+        <div id="alert-box"></div>
     </div>
 
-    <a href="historia.html" class="btn-back">← Voltar para a Teoria</a>
+    <a href="historia.html" class="btn-exit">← Abandonar Missão</a>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
-        const scenarios = [
+        // CONFIGURAÇÕES DOS CENÁRIOS
+        const levels = [
             { name: "Horta Comunitária", bg: "images/fundo-horta.jpg", pests: 4 },
-            { name: "Floresta Profunda", bg: "images/fundo-floresta.jpg", pests: 5 },
-            { name: "Cidade Verde", bg: "images/fundo-cidade.jpg", pests: 4 }
+            { name: "Reserva Florestal", bg: "images/fundo-floresta.jpg", pests: 5 },
+            { name: "Pulmão da Cidade", bg: "images/fundo-cidade.jpg", pests: 4 }
         ];
 
+        // CONFIGURAÇÃO DAS IMAGENS DAS PRAGAS (i1, i2, i3, i4)
+        const pestImages = ["i1.png", "i2.png", "i3.png", "i4.png"];
+
         let currentLevel = 0;
-        let xp = 0;
-        let pestsFound = 0;
+        let score = 0;
+        let foundInLevel = 0;
 
         function initLevel() {
-            const s = scenarios[currentLevel];
+            const data = levels[currentLevel];
             const vp = document.getElementById('viewport');
             
-            document.getElementById('loc-name').innerText = s.name;
-            document.getElementById('pests-left').innerText = s.pests;
+            document.getElementById('loc-name').innerText = data.name;
+            document.getElementById('target-count').innerText = data.pests;
             
-            // Força a imagem de fundo corretamente
-            vp.style.backgroundImage = `url('${s.bg}')`;
-            vp.innerHTML = '';
-            pestsFound = 0;
+            vp.style.backgroundImage = `url('${data.bg}')`;
+            vp.innerHTML = ''; // Limpa nível anterior
+            foundInLevel = 0;
 
-            for(let i=0; i < s.pests; i++) {
-    const p = document.createElement('img');
-    
-    // 1. Cria a lista com os nomes das tuas 4 imagens
-    const listaPragas = ['i1.png', 'i2.png', 'i3.png', 'i4.png'];
-    
-    // 2. Escolhe um número ao calhas entre 0 e 3
-    const sorteio = Math.floor(Math.random() * listaPragas.length);
-    
-    // 3. Define o src usando o nome que saiu no sorteio
-    p.src = 'images/' + listaPragas[sorteio];
+            for(let i=0; i < data.pests; i++) {
+                const imgElement = document.createElement('img');
                 
-                p.className = 'praga';
+                // ESCOLHA ALEATÓRIA DA PRAGA (i1 a i4)
+                const randomPest = pestImages[Math.floor(Math.random() * pestImages.length)];
+                imgElement.src = `images/${randomPest}`;
                 
-                // Posições em % para manter responsividade
-                p.style.top = (Math.random() * 70 + 10) + '%';
-                p.style.left = (Math.random() * 80 + 5) + '%';
+                imgElement.className = 'pest';
                 
-                p.onclick = (e) => {
+                // Posição aleatória (dentro da zona de segurança do contentor)
+                imgElement.style.top = (Math.random() * 75 + 10) + '%';
+                imgElement.style.left = (Math.random() * 85 + 5) + '%';
+                
+                imgElement.onclick = (e) => {
                     e.stopPropagation();
-                    p.style.transform = "scale(0) rotate(90deg)";
-                    setTimeout(() => p.remove(), 200);
+                    score += 250;
+                    foundInLevel++;
                     
-                    pestsFound++;
-                    xp += 150;
-                    document.getElementById('xp').innerText = xp;
-                    document.getElementById('pests-left').innerText = s.pests - pestsFound;
+                    document.getElementById('xp-val').innerText = score;
+                    document.getElementById('target-count').innerText = data.pests - foundInLevel;
                     
-                    if(pestsFound === s.pests) finishLevel();
+                    // Animação de eliminação
+                    imgElement.style.transform = "scale(0) rotate(180deg)";
+                    setTimeout(() => imgElement.remove(), 300);
+
+                    if(foundInLevel === data.pests) {
+                        completeLevel();
+                    }
                 };
-                vp.appendChild(p);
+                vp.appendChild(imgElement);
             }
         }
 
-        function finishLevel() {
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        function completeLevel() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#42f5a7', '#ff4757', '#ffffff']
+            });
+
             currentLevel++;
-            
-            if(currentLevel < scenarios.length) {
-                showFeedback("CENÁRIO LIMPO! 🌿");
-                setTimeout(initLevel, 2000);
+            if(currentLevel < levels.length) {
+                showAlert("ÁREA LIMPA! 🌿 Próxima localização detectada...");
+                setTimeout(initLevel, 2500);
             } else {
-                showFeedback("MISSÃO CUMPRIDA! 🎖️");
+                showAlert("MISSÃO GLOBAL CONCLUÍDA! 🎖️");
                 setTimeout(() => {
-                    // Substitui pela tua página final
+                    // Aqui irás para a página do Certificado
                     window.location.href = "certificado.html"; 
                 }, 3000);
             }
         }
 
-        function showFeedback(txt) {
-            const msg = document.getElementById('msg-overlay');
-            msg.innerText = txt;
-            msg.style.display = 'block';
-            setTimeout(() => msg.style.display = 'none', 1800);
+        function showAlert(text) {
+            const box = document.getElementById('alert-box');
+            box.innerText = text;
+            box.style.display = 'block';
+            setTimeout(() => { box.style.display = 'none'; }, 2200);
         }
 
-        // Inicia o jogo
+        // Início Automático
         window.onload = initLevel;
     </script>
 </body>
