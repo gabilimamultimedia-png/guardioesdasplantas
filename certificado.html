@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certificado Oficial | Guardiões das Plantas</title>
-    <!-- Fontes: Lexend para clareza e Playfair Display para o rigor institucional -->
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;600&family=Playfair+Display:ital,wght@0,700;1,400&family=EB+Garamond:ital@1&display=swap" rel="stylesheet">
+    <title>Credencial Oficial | Guardiões das Plantas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --onu-green: #1a3a32; /* Verde floresta profundo, austero */
-            --gold: #c5a059;      /* Ouro mate, mais elegante que o amarelo */
-            --emerald: #2ecc71;   /* Toque de cor para as crianças */
-            --paper: #f4f7f5;     /* Branco acinzentado tipo papel premium */
+            --bg-deep: #061512;        /* Fundo floresta noturna do site */
+            --glow-green: #42f5a7;     /* Verde neon do portal */
+            --strawberry: #ff4757;     /* Vermelho do herói */
+            --white-glass: rgba(255, 255, 255, 0.9);
+            --line-color: rgba(66, 245, 167, 0.3);
         }
 
         body {
-            background-color: #0d1412;
+            background-color: var(--bg-deep);
             color: white;
             font-family: 'Lexend', sans-serif;
             margin: 0;
@@ -25,237 +25,250 @@
             padding: 40px 20px;
         }
 
-        /* Painel de Controle (Interface do utilizador) */
-        .ui-controls {
-            background: rgba(255,255,255,0.05);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 40px;
+        /* Painel de Input - Estilo Bento */
+        .input-panel {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 50px;
+            border: 1px solid var(--line-color);
             text-align: center;
-            border: 1px solid rgba(197, 160, 89, 0.3);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .input-panel label {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            display: block;
+            margin-bottom: 15px;
         }
 
         input {
             background: transparent;
             border: none;
-            border-bottom: 2px solid var(--gold);
+            border-bottom: 2px solid var(--glow-green);
             color: white;
             padding: 10px;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             text-align: center;
+            width: 80%;
             outline: none;
-            width: 300px;
+            font-weight: 200;
         }
 
-        /* O CERTIFICADO - RIGOR DE DESIGN */
-        #cert-wrapper {
+        /* O CERTIFICADO - PADRÃO DO WEBSITE (GLOW & MODERN) */
+        #certificate-card {
             position: relative;
             width: 100%;
             max-width: 950px;
-            aspect-ratio: 1.414 / 1; /* Proporção A4 exata */
-            background-color: var(--paper);
-            color: var(--onu-green);
-            padding: 60px;
-            box-sizing: border-box;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            aspect-ratio: 1.414 / 1;
+            background-color: #081a16;
+            background-image: radial-gradient(circle at top right, #0d2d24 0%, #061512 100%);
+            border: 1px solid var(--line-color);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            border: 1px solid #d1d1d1;
+            padding: 60px;
+            box-sizing: border-box;
+            overflow: hidden; /* PROTEÇÃO DE MARGEM */
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
         }
 
-        /* Moldura Dupla Sofisticada */
-        .frame-outer {
+        /* Linhas de Segurança Estilo Documento Oficial */
+        .security-border {
             position: absolute;
             top: 20px; left: 20px; right: 20px; bottom: 20px;
-            border: 2px solid var(--onu-green);
+            border: 1px solid var(--line-color);
+            pointer-events: none;
         }
-        .frame-inner {
-            position: absolute;
-            top: 30px; left: 30px; right: 30px; bottom: 30px;
-            border: 1px solid var(--gold);
-        }
-
-        /* Elementos do Cabeçalho */
-        .cert-header {
-            font-size: 0.75rem;
-            letter-spacing: 4px;
-            font-weight: 300;
+        
+        .header-top {
+            font-size: 0.7rem;
+            letter-spacing: 5px;
+            font-weight: 200;
+            opacity: 0.6;
             margin-bottom: 40px;
             text-transform: uppercase;
-            opacity: 0.8;
         }
 
         .main-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.8rem;
+            font-size: 3.2rem;
+            font-weight: 800;
             margin: 0;
-            color: var(--onu-green);
-            font-weight: 700;
+            letter-spacing: -1px;
+            background: linear-gradient(to bottom, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .cert-statement {
-            font-family: 'EB Garamond', serif;
-            font-style: italic;
-            font-size: 1.4rem;
-            margin: 30px 0 10px;
+        .sub-title {
+            font-size: 1rem;
+            font-weight: 400;
+            margin-top: 20px;
+            color: var(--glow-green);
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
-        /* NOME DO ALUNO - PROTEÇÃO DE MARGEM */
+        /* NOME DO GUARDIÃO - COM AUTO-RESIZE */
         #display-name {
-            font-size: 4.5rem;
-            font-weight: 600;
-            color: var(--onu-green);
-            border-bottom: 1px solid var(--gold);
-            width: 80%;
-            min-height: 100px;
+            font-size: 5rem;
+            font-weight: 200;
+            color: white;
+            margin: 30px 0;
+            width: 85%; /* Limite estrito de margem */
+            text-align: center;
+            white-space: nowrap;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            min-height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            white-space: nowrap; /* Impede quebra de linha */
-            margin-bottom: 20px;
         }
 
-        .cert-description {
-            max-width: 70%;
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 40px;
-            font-weight: 300;
+        .description {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            max-width: 75%;
+            font-weight: 200;
+            opacity: 0.8;
+            margin-bottom: 50px;
         }
 
-        /* Rodapé: Selos e Assinaturas */
-        .cert-footer {
+        /* Rodapé Síncrono com o Design do Site */
+        .footer-grid {
             display: flex;
             justify-content: space-between;
-            width: 85%;
-            margin-top: auto;
+            width: 100%;
             align-items: flex-end;
+            margin-top: auto;
         }
 
-        .signature-area {
-            text-align: center;
-            width: 200px;
-        }
-        .signature-img {
-            font-family: 'EB Garamond', serif;
-            font-style: italic;
-            font-size: 1.8rem;
-            border-bottom: 1px solid var(--onu-green);
-            margin-bottom: 5px;
-        }
-
-        .seal-official {
-            width: 100px;
-            height: 100px;
-            opacity: 0.9;
-        }
-
-        .badge-un {
+        .footer-item {
+            flex: 1;
             font-size: 0.7rem;
-            font-weight: 600;
-            border: 1px solid var(--onu-green);
-            padding: 5px 10px;
-            margin-top: 10px;
-            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.5;
         }
 
-        .btn-export {
-            background: var(--gold);
-            color: var(--onu-green);
+        .signature-path {
+            font-size: 1.8rem;
+            color: var(--strawberry);
+            font-weight: 400;
+            margin-bottom: 5px;
+            font-style: italic;
+        }
+
+        /* Selo de Aprovação ONU */
+        .badge-seal {
+            width: 80px;
+            height: 80px;
+            border: 1px solid var(--glow-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 10px;
+            box-shadow: 0 0 20px rgba(66, 245, 167, 0.2);
+        }
+
+        .btn-download {
+            background: var(--glow-green);
+            color: var(--bg-deep);
             border: none;
-            padding: 18px 50px;
-            border-radius: 4px;
-            font-weight: 600;
+            padding: 20px 60px;
+            border-radius: 50px;
+            font-weight: 800;
             font-size: 1rem;
             cursor: pointer;
-            margin-top: 40px;
-            transition: 0.3s;
+            margin-top: 50px;
+            transition: 0.4s;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
-        .btn-export:hover { background: #b08d4a; color: white; }
+        .btn-download:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--glow-green); }
 
         canvas { display: none; }
     </style>
 </head>
 <body>
 
-    <div class="ui-controls">
-        <label>NOME PARA REGISTO OFICIAL:</label><br><br>
-        <input type="text" id="name-input" placeholder="Ex: Gabriela Mangueira" maxlength="32" oninput="ajustarTexto()">
+    <div class="input-panel">
+        <label>REGISTO DE NOME DO GUARDIÃO</label>
+        <input type="text" id="name-input" placeholder="Teu Nome Aqui" maxlength="35" oninput="updateName()">
     </div>
 
     <!-- CERTIFICADO VISUAL -->
-    <div id="cert-wrapper">
-        <div class="frame-outer"></div>
-        <div class="frame-inner"></div>
+    <div id="certificate-card">
+        <div class="security-border"></div>
+        
+        <div class="header-top">International Year of Plant Health • FAO • IPPC</div>
+        
+        <h1 class="main-title">Certificado de Mérito</h1>
+        <div class="sub-title">Bio-Vigilante de Elite</div>
 
-        <div class="cert-header">International Year of Plant Health • 12 May</div>
-        
-        <h1 class="main-title">Diploma de Mérito</h1>
-        
-        <p class="cert-statement">Certifica-se que o(a) jovem Guardião(ã)</p>
-        
+        <!-- O Nome encolhe se for muito grande para não tocar nas bordas -->
         <div id="display-name">NOME DO GUARDIÃO</div>
 
-        <p class="cert-description">
-            Concluiu com distinção o protocolo de bio-vigilância e proteção vegetal, demonstrando conhecimento científico rigoroso e compromisso com a preservação da biodiversidade global.
+        <p class="description">
+            Pela excelência demonstrada na identificação de ameaças biológicas e pelo compromisso com os padrões internacionais de proteção da saúde das plantas.
         </p>
 
-        <div class="cert-footer">
-            <div class="signature-area">
-                <div class="signature-img">Super Morango</div>
-                <div style="font-size: 0.7rem; text-transform: uppercase;">Cientista-Chefe de Campo</div>
+        <div class="footer-grid">
+            <div class="footer-item" style="text-align: left;">
+                <div class="signature-path">Super Morango</div>
+                Cientista de Campo Responsável
             </div>
 
-            <!-- Selo oficial sutil (Pode ser substituído pela tua imagem de selo) -->
-            <div style="text-align: center;">
-                <img src="images/super-morango.png" class="seal-official" style="filter: grayscale(1) opacity(0.5);">
-                <div class="badge-un">APPROVED • ONU 2024</div>
+            <div class="badge-seal">
+                <img src="images/super-morango.png" style="width: 40px; filter: brightness(0) invert(1) opacity(0.6);">
+                <div style="font-size: 0.4rem; margin-top: 5px; color: var(--glow-green);">APPROVED</div>
             </div>
 
-            <div class="signature-area" style="text-align: right;">
-                <div style="font-weight: 600; border-bottom: 1px solid var(--onu-green);">12.05.2024</div>
-                <div style="font-size: 0.7rem; text-transform: uppercase; margin-top: 5px;">Data de Emissão</div>
+            <div class="footer-item" style="text-align: right;">
+                <div style="color: white; font-weight: 600; font-size: 1.2rem; margin-bottom: 5px;">12.05.24</div>
+                Data de Emissão Oficial
             </div>
         </div>
     </div>
 
-    <button class="btn-export" onclick="exportar()">Emitir Documento Oficial</button>
+    <button class="btn-download" onclick="generateAndDownload()">Descarregar Credencial Oficial</button>
 
     <canvas id="export-canvas" width="2000" height="1414"></canvas>
 
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
-        function ajustarTexto() {
+        function updateName() {
             const display = document.getElementById('display-name');
             const input = document.getElementById('name-input');
             const text = input.value.trim() || "NOME DO GUARDIÃO";
             
             display.innerText = text.toUpperCase();
 
-            // Lógica de redução de fonte para manter o rigor das margens
-            let fontSize = 4.5; 
+            // LÓGICA DE PROTEÇÃO DE MARGEM (Reduz a fonte conforme o tamanho)
+            let fontSize = 5; 
             display.style.fontSize = fontSize + "rem";
 
-            while (display.scrollWidth > display.offsetWidth && fontSize > 1.2) {
+            // Se o texto for mais largo que 95% do contentor, diminui
+            while (display.scrollWidth > (display.offsetWidth * 0.95) && fontSize > 1.5) {
                 fontSize -= 0.1;
                 display.style.fontSize = fontSize + "rem";
             }
         }
 
-        function exportar() {
-            // Lógica de download simplificada para PNG de alta resolução
-            const canvas = document.getElementById('export-canvas');
-            const ctx = canvas.getContext('2d');
-            const nome = document.getElementById('name-input').value.toUpperCase() || "GUARDIÃO";
+        window.onload = () => {
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.8 }, colors: ['#42f5a7', '#ff4757'] });
+        };
 
-            // (O código de desenho do Canvas seguiria aqui, replicando o estilo acima)
-            // Para efeitos de rapidez, simulamos o clique:
-            alert("A gerar documento de alta resolução...");
-            window.print(); // Uma forma rápida de salvar como PDF elegante
+        function generateAndDownload() {
+            alert("A preparar a tua credencial de alta resolução...");
+            // Lógica de exportação para imagem aqui (opcional)
+            window.print();
         }
     </script>
 </body>
