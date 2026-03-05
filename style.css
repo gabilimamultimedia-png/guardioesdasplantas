@@ -117,3 +117,114 @@ h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 20px; }
     color: var(--verde-onu);
     margin-bottom: 20px;
 }
+/* --- CONFIGURAÇÃO DA NAVBAR --- */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background: rgba(6, 21, 18, 0.85); /* Fundo escuro semi-transparente */
+    backdrop-filter: blur(10px); /* Efeito vítreo */
+    border-bottom: 1px solid rgba(66, 245, 167, 0.2);
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    font-weight: 800;
+    color: #42f5a7; /* Verde Glow */
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 400;
+    transition: 0.3s;
+    opacity: 0.7;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    opacity: 1;
+    color: #42f5a7;
+    text-shadow: 0 0 10px rgba(66, 245, 167, 0.5);
+}
+
+/* --- RESPONSIVIDADE (MENU MOBILE) --- */
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: white;
+    transition: 0.3s;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        position: absolute;
+        top: 70px;
+        left: -100%;
+        flex-direction: column;
+        background: rgba(6, 21, 18, 0.95);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        padding: 20px 0;
+        border-bottom: 1px solid rgba(66, 245, 167, 0.2);
+    }
+
+    .nav-links.active {
+        left: 0;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}
+
+/* --- AJUSTES DO CONTEÚDO HERO --- */
+.badge-onu {
+    border: 1px solid #2ecc71; 
+    color: #2ecc71; 
+    padding: 8px 20px; 
+    border-radius: 50px; 
+    margin-bottom: 20px; 
+    font-size: 0.8rem; 
+    font-weight: bold;
+}
+
+.hero-img {
+    width: 300px; 
+    margin-bottom: 30px; 
+    filter: drop-shadow(0 0 20px rgba(46, 204, 113, 0.3));
+}
+
+.hero-desc {
+    max-width: 600px; 
+    margin-bottom: 40px; 
+    font-size: 1.2rem; 
+    opacity: 0.9;
+}
+
+.btn-group {
+    display: flex; 
+    gap: 20px;
+}
