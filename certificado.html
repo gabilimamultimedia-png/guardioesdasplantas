@@ -24,11 +24,36 @@
             padding: 40px 20px;
         }
 
+        /* Barra de Navegação de Saída */
+        .exit-nav {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            border: 1px solid var(--line-color);
+            transition: 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: var(--glow-green);
+            color: var(--bg-deep);
+            box-shadow: 0 0 15px var(--glow-green);
+        }
+
         .input-panel {
             background: rgba(255, 255, 255, 0.03);
             padding: 30px;
             border-radius: 20px;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             border: 1px solid var(--line-color);
             text-align: center;
             max-width: 600px;
@@ -48,7 +73,7 @@
             font-weight: 200;
         }
 
-        /* O CERTIFICADO VISUAL (PREVIEW) */
+        /* CERTIFICADO */
         #certificate-card {
             position: relative;
             width: 100%;
@@ -61,7 +86,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 60px;
+            padding: 5% 10%;
             box-sizing: border-box;
             box-shadow: 0 40px 100px rgba(0,0,0,0.8);
         }
@@ -78,52 +103,61 @@
             letter-spacing: 5px;
             font-weight: 200;
             opacity: 0.6;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-transform: uppercase;
         }
 
         .main-title {
-            font-size: 3.2rem;
+            font-size: clamp(1.5rem, 4vw, 3.2rem);
             font-weight: 800;
             margin: 0;
-            letter-spacing: -1px;
             background: linear-gradient(to bottom, #fff, #888);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .sub-title {
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 400;
-            margin-top: 20px;
+            margin-top: 15px;
             color: var(--glow-green);
             letter-spacing: 2px;
             text-transform: uppercase;
         }
 
         #display-name {
-            font-size: 5rem;
+            font-size: clamp(2rem, 6vw, 5rem);
             font-weight: 200;
             color: white;
-            margin: 30px 0;
-            width: 85%;
+            margin: 25px 0;
+            width: 100%;
             text-align: center;
             white-space: nowrap;
             border-bottom: 1px solid rgba(255,255,255,0.1);
-            min-height: 120px;
+            min-height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .description {
-            font-size: 0.95rem;
+            font-size: clamp(0.7rem, 1.5vw, 1rem);
             line-height: 1.8;
-            max-width: 75%;
+            max-width: 85%;
+            width: 85%;
             font-weight: 200;
             opacity: 0.8;
-            margin-bottom: 50px;
+            margin-bottom: 20px;
             text-align: center;
+        }
+
+        /* Referência ao 12 de Maio no Design */
+        .onu-reference {
+            font-size: 0.7rem;
+            color: var(--glow-green);
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            opacity: 0.9;
         }
 
         .footer-grid {
@@ -136,14 +170,14 @@
 
         .footer-item {
             flex: 1;
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             opacity: 0.5;
         }
 
         .signature-path {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: var(--strawberry);
             font-weight: 400;
             margin-bottom: 5px;
@@ -151,8 +185,8 @@
         }
 
         .badge-seal {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             border: 1px solid var(--glow-green);
             border-radius: 50%;
             display: flex;
@@ -172,18 +206,25 @@
             font-weight: 800;
             font-size: 1rem;
             cursor: pointer;
-            margin-top: 50px;
+            margin-top: 40px;
             transition: 0.4s;
             text-transform: uppercase;
             letter-spacing: 2px;
+            margin-bottom: 50px;
         }
         .btn-download:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--glow-green); }
 
-        /* Canvas escondido usado para gerar a imagem de download */
         #export-canvas { display: none; }
     </style>
 </head>
 <body>
+
+    <!-- LINKS DE SAÍDA -->
+    <nav class="exit-nav">
+        <a href="index.html" class="nav-btn">🏠 Início</a>
+        <a href="recursos.html" class="nav-btn">📚 Recursos</a>
+        <a href="saiba-mais.html" class="nav-btn">🔍 Saiba Mais</a>
+    </nav>
 
     <div class="input-panel">
         <label>REGISTO DE NOME DO GUARDIÃO</label>
@@ -196,9 +237,13 @@
         <h1 class="main-title">Certificado de Mérito</h1>
         <div class="sub-title">Bio-Vigilante de Elite</div>
         <div id="display-name">NOME DO GUARDIÃO</div>
+        
         <p class="description">
             Pela excelência demonstrada na identificação de ameaças biológicas e pelo compromisso com os padrões internacionais de proteção da saúde das plantas.
         </p>
+
+        <!-- Referência ao 12 de Maio -->
+        <div class="onu-reference">EM COMEMORAÇÃO AO DIA INTERNACIONAL DA SAÚDE DAS PLANTAS — 12 DE MAIO</div>
 
         <div class="footer-grid">
             <div class="footer-item" style="text-align: left;">
@@ -206,11 +251,11 @@
                 Cientista de Campo Responsável
             </div>
             <div class="badge-seal">
-                <img src="images/super-morango.png" id="hero-img" style="width: 40px; filter: brightness(0) invert(1) opacity(0.6);">
-                <div style="font-size: 0.4rem; margin-top: 5px; color: var(--glow-green);">APPROVED</div>
+                <img src="images/super-morango.png" id="hero-img" style="width: 35px; filter: brightness(0) invert(1) opacity(0.6);">
+                <div style="font-size: 0.35rem; margin-top: 5px; color: var(--glow-green);">APPROVED</div>
             </div>
             <div class="footer-item" style="text-align: right;">
-                <div id="emission-date" style="color: white; font-weight: 600; font-size: 1.2rem; margin-bottom: 5px;">--.--.--</div>
+                <div id="emission-date" style="color: white; font-weight: 600; font-size: 1.1rem; margin-bottom: 5px;">--.--.--</div>
                 Data de Emissão Oficial
             </div>
         </div>
@@ -218,12 +263,10 @@
 
     <button class="btn-download" onclick="downloadCertificate()">Descarregar Credencial Oficial</button>
 
-    <!-- Canvas para exportação -->
     <canvas id="export-canvas" width="2000" height="1414"></canvas>
 
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
-        // 1. Lógica de Atualização do Nome
         function updateName() {
             const display = document.getElementById('display-name');
             const input = document.getElementById('name-input');
@@ -238,7 +281,6 @@
             }
         }
 
-        // 2. Data Dinâmica
         function setCurrentDate() {
             const today = new Date();
             const dd = String(today.getDate()).padStart(2, '0');
@@ -251,80 +293,83 @@
             const dateStr = setCurrentDate();
             document.getElementById('emission-date').innerText = dateStr;
             updateName();
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.8 }, colors: ['#42f5a7', '#ff4757'] });
         };
 
-        // 3. FUNÇÃO DE DOWNLOAD (CANVAS RENDERING)
+        function wrapText(context, text, x, y, maxWidth, lineHeight) {
+            const words = text.split(' ');
+            let line = '';
+            for(let n = 0; n < words.length; n++) {
+                let testLine = line + words[n] + ' ';
+                let metrics = context.measureText(testLine);
+                let testWidth = metrics.width;
+                if (testWidth > maxWidth && n > 0) {
+                    context.fillText(line, x, y);
+                    line = words[n] + ' ';
+                    y += lineHeight;
+                } else {
+                    line = testLine;
+                }
+            }
+            context.fillText(line, x, y);
+        }
+
         function downloadCertificate() {
             const canvas = document.getElementById('export-canvas');
             const ctx = canvas.getContext('2d');
             const name = document.getElementById('name-input').value.toUpperCase() || "NOME DO GUARDIÃO";
             const date = document.getElementById('emission-date').innerText;
 
-            // Fundo Gradiente
-            const grd = ctx.createRadialGradient(1500, 300, 100, 1000, 707, 1200);
+            const grd = ctx.createRadialGradient(1000, 707, 100, 1000, 707, 1200);
             grd.addColorStop(0, "#0d2d24");
             grd.addColorStop(1, "#061512");
             ctx.fillStyle = grd;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Borda de Segurança
             ctx.strokeStyle = "rgba(66, 245, 167, 0.3)";
             ctx.lineWidth = 2;
             ctx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
 
-            // Cabeçalho
             ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
             ctx.font = "200 25px Lexend";
             ctx.textAlign = "center";
-            ctx.letterSpacing = "10px";
             ctx.fillText("INTERNATIONAL DAY OF PLANT HEALTH • FAO • IPPC", 1000, 150);
 
-            // Título Principal
             ctx.fillStyle = "white";
             ctx.font = "800 100px Lexend";
             ctx.fillText("Certificado de Mérito", 1000, 300);
 
-            // Subtítulo
             ctx.fillStyle = "#42f5a7";
             ctx.font = "400 35px Lexend";
             ctx.fillText("BIO-VIGILANTE DE ELITE", 1000, 380);
 
-            // Desenhar Nome (com ajuste automático de tamanho no canvas)
             let canvasFontSize = 180;
             ctx.font = `200 ${canvasFontSize}px Lexend`;
             ctx.fillStyle = "white";
-            while (ctx.measureText(name).width > 1700) {
+            while (ctx.measureText(name).width > 1600) {
                 canvasFontSize -= 5;
                 ctx.font = `200 ${canvasFontSize}px Lexend`;
             }
             ctx.fillText(name, 1000, 650);
 
-            // Linha abaixo do nome
-            ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(150, 700);
-            ctx.lineTo(1850, 700);
-            ctx.stroke();
-
-            // Descrição
             ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
             ctx.font = "200 35px Lexend";
-            const line1 = "Pela excelência demonstrada na identificação de ameaças biológicas";
-            const line2 = "e pelo compromisso com os padrões internacionais de proteção da saúde das plantas.";
-            ctx.fillText(line1, 1000, 850);
-            ctx.fillText(line2, 1000, 910);
+            const description = "Pela excelência demonstrada na identificação de ameaças biológicas e pelo compromisso com os padrões internacionais de proteção da saúde das plantas.";
+            wrapText(ctx, description, 1000, 850, 1500, 50);
 
-            // Rodapé - Assinatura
+            // ADIÇÃO DO 12 DE MAIO NO DOWNLOAD
+            ctx.fillStyle = "#42f5a7";
+            ctx.font = "400 30px Lexend";
+            ctx.fillText("EM COMEMORAÇÃO AO DIA INTERNACIONAL DA SAÚDE DAS PLANTAS — 12 DE MAIO", 1000, 1030);
+
             ctx.textAlign = "left";
             ctx.fillStyle = "#ff4757";
-            ctx.font = "italic 60px Georgia"; // Fonte aproximada para assinatura
+            ctx.font = "italic 60px Georgia";
             ctx.fillText("Super Morango", 150, 1200);
             ctx.fillStyle = "rgba(255,255,255,0.5)";
             ctx.font = "200 25px Lexend";
             ctx.fillText("CIENTISTA DE CAMPO RESPONSÁVEL", 150, 1250);
 
-            // Rodapé - Data
             ctx.textAlign = "right";
             ctx.fillStyle = "white";
             ctx.font = "600 45px Lexend";
@@ -333,11 +378,9 @@
             ctx.font = "200 25px Lexend";
             ctx.fillText("DATA DE EMISSÃO OFICIAL", 1850, 1250);
 
-            // Selo / Ícone
             const heroImg = document.getElementById('hero-img');
-            ctx.drawImage(heroImg, 960, 1150, 80, 80);
+            ctx.drawImage(heroImg, 965, 1150, 70, 70);
 
-            // Trigger Download
             const link = document.createElement('a');
             link.download = 'Credencial_Guardiao_Plantas.png';
             link.href = canvas.toDataURL('image/png');
