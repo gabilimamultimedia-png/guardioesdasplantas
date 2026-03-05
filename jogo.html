@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardiões das Plantas | Missão de Campo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --verde-onu: #2ecc71; --verde-escuro: #0b1d12; --morango: #ff4757; }
+        body { background: var(--verde-escuro); color: white; font-family: 'Lexend', sans-serif; margin: 0; overflow: hidden; display: flex; flex-direction: column; align-items: center; }
+        
+        #game-header { width: 100%; padding: 20px; display: flex; justify-content: space-around; background: rgba(0,0,0,0.5); z-index: 10; }
+        
+        #viewport {
+            width: 100vw; height: 100vh;
+            background-size: cover; background-position: center;
+            position: relative; cursor: crosshair;
+        }
+
+        .praga {
+            position: absolute; width: 80px; height: 80px;
+            cursor: pointer; transition: transform 0.2s;
+            filter: drop-shadow(0 0 10px rgba(255,0,0,0.5));
+        }
+        .praga:hover { transform: scale(1.2); }
+
+        .ui-box { background: rgba(0,0,0,0.7); padding: 10px 20px; border-radius: 10px; border: 1px solid var(--verde-onu); }
+        
+        #msg-box {
+            position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
+            background: white; color: black; padding: 20px; border-radius: 20px;
+            display: none; font-weight: bold; z-index: 100; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="game-header">
+        <div class="ui-box">Cenário: <span id="loc-name">Horta</span></div>
+        <div class="ui-box">XP: <span id="xp">0</span></div>
+        <div class="ui-box">Pragas: <span id="pests-left">0</span></div>
+    </div>
+
+    <div id="viewport"></div>
+    <div id="msg-box"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        const scenarios = [
+            { name: "Horta Comunitária", bg: "images/fundo-horta.jpg", pests: 4 },
+            { name: "Floresta Profunda", bg: "images/fundo-floresta.jpg", pests: 5 },
+            { name: "Cidade Verde", bg: "images/fundo-cidade.jpg", pests: 4 }
+        ];
+
+        let currentLevel = 0;
+        let xp = 0;
+        let pestsFound = 0;
+
+        function initLevel() {
+            const s = scenarios[currentLevel];
+            const vp = document.getElementById('viewport');
+            document.getElementById('loc-name').innerText = s.name;
+            document.getElementById('pests-left').innerText = s.pests;
+            vp.style.backgroundImage = `url(${s.bg})`;
+            vp.innerHTML = '';
+            pestsFound = 0;
+
+            for(let i=0; i<s.pests; i++) {
+                const p = document.createElement('img');
+                p.src = 'images/praga.png';
+                p.className = 'praga';
+                p.style.top = (Math.random() * 70 + 15) + '%';
+                p.style.left = (Math.random() * 80 + 10) + '%';
+                
+                p.onclick = () => {
+                    p.style.display = 'none';
+                    pestsFound++;
+                    xp += 100;
+                    document.getElementById('xp').innerText = xp;
+                    document.getElementById('pests-left').innerText = s.pests - pestsFound;
+                    
+                    if(pestsFound === s.pests) nextLevel();
+                };
+                vp.appendChild(p);
+            }
+        }
+
+        function nextLevel() {
+            confetti({ particleCount: 150, spread: 70 });
+            currentLevel++;
+            if(currentLevel < scenarios.length) {
+                showMsg("Excelente! O cenário está limpo. A avançar para o próximo...");
+                setTimeout(initLevel, 2000);
+            } else {
+                showMsg("MISSÃO CUMPRIDA! Estás pronto para receber o teu certificado.");
+                setTimeout(() => window.location.href = "certificado.html", 3000);
+            }
+        }
+
+        function showMsg(txt) {
+            const b = document.getElementById('msg-box');
+            b.innerText = txt;
+            b.style.display = 'block';
+            setTimeout(() => b.style.display = 'none', 2500);
+        }
+
+        initLevel();
+    </script>
+</body>
+</html>
