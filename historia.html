@@ -3,34 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guardiões das Plantas | Ciência</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Guardiões das Plantas | Analisador de Dados</title>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --verde-onu: #2ecc71;
+            --verde-escuro: #0b1d12;
+            --morango: #ff4757;
+            --glass: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            background-color: var(--verde-escuro);
+            color: white;
+            font-family: 'Lexend', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        h1 { font-size: 3rem; margin-bottom: 10px; }
+        .badge { border: 1px solid var(--verde-onu); color: var(--verde-onu); padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; margin-bottom: 20px; display: inline-block; }
+
+        .counter-box { font-size: 1.2rem; font-weight: bold; color: var(--verde-onu); margin: 20px 0; background: var(--glass); padding: 10px 25px; border-radius: 15px; }
+
+        /* GRID CORRIGIDO */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 30px;
+        }
+
+        .bio-card {
+            background: var(--glass);
+            padding: 25px;
+            border-radius: 20px;
+            border: 2px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            transition: 0.3s ease;
+            text-align: left;
+        }
+
+        .bio-card:hover { transform: translateY(-5px); border-color: white; }
+        .bio-card h3 { margin: 0 0 10px 0; color: var(--verde-onu); }
+        .bio-card p { margin: 0; font-size: 0.9rem; opacity: 0.8; line-height: 1.4; }
+
+        /* Estados */
+        .bio-card.correct { border-color: var(--verde-onu); background: rgba(46, 204, 113, 0.2); pointer-events: none; }
+        .bio-card.wrong { border-color: var(--morango); background: rgba(255, 71, 87, 0.1); animation: shake 0.4s; }
+
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+
+        #success-area { display: none; margin-top: 40px; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .btn-main {
+            background: var(--morango); color: white; border: none; padding: 20px 40px;
+            border-radius: 15px; font-weight: 800; font-size: 1.2rem; cursor: pointer;
+            text-decoration: none; display: inline-block; box-shadow: 0 8px 0 #b33939;
+        }
+
+        #cursor { width: 10px; height: 10px; background: white; border-radius: 50%; position: fixed; z-index: 10000; pointer-events: none; }
+    </style>
 </head>
 <body>
+    <div id="cursor"></div>
 
-    <section>
-        <h2 style="font-size: 3rem; margin-bottom: 40px;">A Ciência do Nosso Planeta</h2>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; width: 100%;">
-            <div style="background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; text-align: left; border: 1px solid rgba(255,255,255,0.1);">
-                <h3 style="color: #2ecc71; margin-bottom: 15px;">🌬️ O Ar que Respiramos</h3>
-                <p>Sabias que as plantas produzem 98% do oxigénio? Elas são as fábricas naturais que nos mantêm vivos.</p>
-            </div>
+    <div class="badge">SISTEMA DE ANÁLISE BIO-CIENTÍFICA</div>
+    <h1>Por que as plantas são vitais?</h1>
+    <p>O sistema detetou dados falsos. Seleciona as <strong style="color:var(--verde-onu)">3 funções verdadeiras</strong> para avançar.</p>
 
-            <div style="background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; text-align: left; border: 1px solid rgba(255,255,255,0.1);">
-                <h3 style="color: #2ecc71; margin-bottom: 15px;">🍎 Comida Segura</h3>
-                <p>80% dos alimentos que chegam à tua mesa vêm das plantas. Protegê-las é garantir que ninguém passa fome.</p>
-            </div>
+    <div class="counter-box">DADOS VALIDADOS: <span id="correct-count">0</span> / 3</div>
+
+    <div class="grid-cards">
+        <div class="bio-card" onclick="checkBio(this, true)">
+            <h3>🌬️ Produção de Oxigénio</h3>
+            <p>Elas fabricam 98% do ar puro que todos os seres humanos respiram todos os dias.</p>
         </div>
-
-        <div style="margin-top: 50px;">
-            <a href="jogo.html" class="btn-main">Iniciar Treino de Campo</a>
-            <br><br>
-            <a href="index.html" style="color: white; opacity: 0.6;">Voltar ao Início</a>
+        <div class="bio-card" onclick="checkBio(this, false)">
+            <h3>📶 Sinal de Internet</h3>
+            <p>As árvores transmitem sinal Wi-Fi gratuito para as cidades através das suas folhas verdes.</p>
         </div>
-    </section>
+        <div class="bio-card" onclick="checkBio(this, true)">
+            <h3>🍎 Base da Alimentação</h3>
+            <p>80% de toda a comida mundial vem das plantas. Sem elas, não haveria frutas nem cereais.</p>
+        </div>
+        <div class="bio-card" onclick="checkBio(this, false)">
+            <h3>🧼 Limpeza de Sapatos</h3>
+            <p>Certas plantas rasteiras servem para polir sapatos automaticamente enquanto caminhas na relva.</p>
+        </div>
+        <div class="bio-card" onclick="checkBio(this, true)">
+            <h3>🌍 Equilíbrio do Clima</h3>
+            <p>As plantas absorvem o calor e o CO2, ajudando a combater o aquecimento global.</p>
+        </div>
+        <div class="bio-card" onclick="checkBio(this, false)">
+            <h3>🔋 Carga de Baterias</h3>
+            <p>Podes carregar o teu telemóvel rapidamente espetando um cabo USB no tronco de um carvalho.</p>
+        </div>
+    </div>
 
-    <script src="script.js"></script>
-</body>
-</html>
+    <div id="success-area">
+        <h2 style="color: var(--verde-onu)">✅ Dados Validados! Estás pronto para a missão.</h2>
+        <a href="jogo.html" class="btn-main">INICIAR TREINO DE CAMPO</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        const cursor = document.getElementById('cursor');
+        document.addEv
