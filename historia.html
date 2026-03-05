@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guardiões das Plantas | Analisador de Dados</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;800&display=swap" rel="stylesheet">
+    <title>A Origem do Super Morango | Guardiões das Plantas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --verde-onu: #2ecc71;
@@ -18,102 +18,213 @@
             color: white;
             font-family: 'Lexend', sans-serif;
             margin: 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Barra de Progresso da História */
+        #progress-bar {
+            position: fixed; top: 0; left: 0; height: 6px;
+            background: var(--verde-onu); width: 0%; z-index: 1000;
+            transition: width 0.2s;
+        }
+
+        /* Contentor de Capítulos */
+        .chapter {
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 40px 20px;
+            justify-content: center;
+            padding: 80px 20px;
             text-align: center;
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
         }
 
-        h1 { font-size: 3rem; margin-bottom: 10px; }
-        .badge { border: 1px solid var(--verde-onu); color: var(--verde-onu); padding: 5px 15px; border-radius: 50px; font-size: 0.8rem; margin-bottom: 20px; display: inline-block; }
-
-        .counter-box { font-size: 1.2rem; font-weight: bold; color: var(--verde-onu); margin: 20px 0; background: var(--glass); padding: 10px 25px; border-radius: 15px; }
-
-        /* GRID CORRIGIDO */
-        .grid-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            width: 100%;
-            max-width: 1000px;
-            margin-top: 30px;
+        .chapter.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .bio-card {
+        .story-card {
             background: var(--glass);
-            padding: 25px;
-            border-radius: 20px;
-            border: 2px solid rgba(255,255,255,0.1);
-            cursor: pointer;
-            transition: 0.3s ease;
-            text-align: left;
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            max-width: 700px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
-        .bio-card:hover { transform: translateY(-5px); border-color: white; }
-        .bio-card h3 { margin: 0 0 10px 0; color: var(--verde-onu); }
-        .bio-card p { margin: 0; font-size: 0.9rem; opacity: 0.8; line-height: 1.4; }
+        h2 { font-size: 2.5rem; color: var(--verde-onu); margin-bottom: 20px; }
+        p { font-size: 1.2rem; line-height: 1.6; opacity: 0.9; }
 
-        /* Estados */
-        .bio-card.correct { border-color: var(--verde-onu); background: rgba(46, 204, 113, 0.2); pointer-events: none; }
-        .bio-card.wrong { border-color: var(--morango); background: rgba(255, 71, 87, 0.1); animation: shake 0.4s; }
-
-        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
-
-        #success-area { display: none; margin-top: 40px; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .btn-main {
-            background: var(--morango); color: white; border: none; padding: 20px 40px;
-            border-radius: 15px; font-weight: 800; font-size: 1.2rem; cursor: pointer;
-            text-decoration: none; display: inline-block; box-shadow: 0 8px 0 #b33939;
+        /* Imagens e Animações */
+        .story-img {
+            width: 200px;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.2));
         }
 
-        #cursor { width: 10px; height: 10px; background: white; border-radius: 50%; position: fixed; z-index: 10000; pointer-events: none; }
+        .floating { animation: float 4s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
+        /* Efeito de Estrela */
+        #star-effect {
+            display: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, white 0%, transparent 70%);
+            z-index: 500; pointer-events: none;
+        }
+
+        /* Botões */
+        .btn-interact {
+            background: var(--verde-onu); color: var(--verde-escuro);
+            border: none; padding: 15px 30px; border-radius: 50px;
+            font-weight: bold; cursor: pointer; margin-top: 20px;
+            transition: 0.3s;
+        }
+        .btn-interact:hover { transform: scale(1.1); background: white; }
+
+        .btn-final {
+            background: var(--morango); color: white;
+            padding: 25px 50px; border-radius: 20px;
+            font-size: 1.5rem; font-weight: 800; text-decoration: none;
+            display: inline-block; margin-top: 40px;
+            box-shadow: 0 10px 0 #b33939; transition: 0.2s;
+        }
+        .btn-final:hover { transform: translateY(-5px); }
+
+        /* Rodapé de navegação */
+        .scroll-hint {
+            position: absolute; bottom: 20px;
+            font-size: 0.9rem; opacity: 0.5;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
     </style>
 </head>
 <body>
-    <div id="cursor"></div>
 
-    <div class="badge">SISTEMA DE ANÁLISE BIO-CIENTÍFICA</div>
-    <h1>Por que as plantas são vitais?</h1>
-    <p>O sistema detetou dados falsos. Seleciona as <strong style="color:var(--verde-onu)">3 funções verdadeiras</strong> para avançar.</p>
+    <div id="progress-bar"></div>
+    <div id="star-effect"></div>
 
-    <div class="counter-box">DADOS VALIDADOS: <span id="correct-count">0</span> / 3</div>
+    <!-- CAPÍTULO 1: O NASCIMENTO -->
+    <section class="chapter" id="cap1">
+        <img src="images/super-morango.png" alt="Pequeno Morango" class="story-img floating" style="width: 150px; filter: grayscale(0.5);">
+        <div class="story-card">
+            <h2>O Moranguinho Curioso</h2>
+            <p>Há muito tempo, num pequeno jardim, crescia um moranguinho diferente. Ele não era o maior, nem o mais doce... mas era o mais curioso!</p>
+            <p>Ele passava os dias a observar as abelhas, as raízes a beber água e as folhas a transformar luz em energia.</p>
+        </div>
+        <div class="scroll-hint">Continua a ler para baixo... ↓</div>
+    </section>
 
-    <div class="grid-cards">
-        <div class="bio-card" onclick="checkBio(this, true)">
-            <h3>🌬️ Produção de Oxigénio</h3>
-            <p>Elas fabricam 98% do ar puro que todos os seres humanos respiram todos os dias.</p>
+    <!-- CAPÍTULO 2: O ALERTA -->
+    <section class="chapter" id="cap2">
+        <div class="story-card">
+            <h2>🍃 Algo mudou no Jardim</h2>
+            <p>Numa manhã silenciosa, o pequeno morango percebeu algo estranho. Algumas folhas estavam fracas, as flores não abriam e o jardim parecia cansado...</p>
+            <button class="btn-interact" onclick="talkLadybug()">Falar com a Joaninha</button>
+            <p id="ladybug-msg" style="display:none; color: var(--verde-onu); margin-top: 20px; font-weight: bold;">
+                "Pequeno morango, as plantas estão em perigo... elas dão-nos comida, ar e vida, mas estão a ser atacadas!"
+            </p>
         </div>
-        <div class="bio-card" onclick="checkBio(this, false)">
-            <h3>📶 Sinal de Internet</h3>
-            <p>As árvores transmitem sinal Wi-Fi gratuito para as cidades através das suas folhas verdes.</p>
-        </div>
-        <div class="bio-card" onclick="checkBio(this, true)">
-            <h3>🍎 Base da Alimentação</h3>
-            <p>80% de toda a comida mundial vem das plantas. Sem elas, não haveria frutas nem cereais.</p>
-        </div>
-        <div class="bio-card" onclick="checkBio(this, false)">
-            <h3>🧼 Limpeza de Sapatos</h3>
-            <p>Certas plantas rasteiras servem para polir sapatos automaticamente enquanto caminhas na relva.</p>
-        </div>
-        <div class="bio-card" onclick="checkBio(this, true)">
-            <h3>🌍 Equilíbrio do Clima</h3>
-            <p>As plantas absorvem o calor e o CO2, ajudando a combater o aquecimento global.</p>
-        </div>
-        <div class="bio-card" onclick="checkBio(this, false)">
-            <h3>🔋 Carga de Baterias</h3>
-            <p>Podes carregar o teu telemóvel rapidamente espetando um cabo USB no tronco de um carvalho.</p>
-        </div>
-    </div>
+    </section>
 
-    <div id="success-area">
-        <h2 style="color: var(--verde-onu)">✅ Dados Validados! Estás pronto para a missão.</h2>
-        <a href="jogo.html" class="btn-main">INICIAR TREINO DE CAMPO</a>
-    </div>
+    <!-- CAPÍTULO 3: A DESCOBERTA CIENTÍFICA -->
+    <section class="chapter" id="cap3">
+        <div class="story-card">
+            <h2>🌍 A Grande Descoberta</h2>
+            <p>O morango aprendeu segredos incríveis:</p>
+            <ul style="text-align: left; display: inline-block; font-size: 1.1rem; line-height: 2;">
+                <li>🌱 <strong>80% da comida</strong> dos humanos vem das plantas.</li>
+                <li>🌱 <strong>98% do oxigénio</strong> que respiramos vem delas.</li>
+                <li>⚠️ Mas <strong>40% das colheitas</strong> perdem-se por doenças.</li>
+            </ul>
+            <p>Ele percebeu: Se as plantas sofrem, todos sofremos.</p>
+        </div>
+    </section>
+
+    <!-- CAPÍTULO 4: A TRANSFORMAÇÃO -->
+    <section class="chapter" id="cap4">
+        <div class="story-card">
+            <h2>⭐ O Momento da Estrela</h2>
+            <p>Naquela noite, o morango fez uma promessa ao céu: <strong>"Eu vou proteger as plantas."</strong></p>
+            <p>Estás pronto para ajudar na transformação?</p>
+            <button class="btn-interact" onclick="transform()">Tocar na Estrela Mágica</button>
+        </div>
+    </section>
+
+    <!-- CAPÍTULO 5: O CONVITE -->
+    <section class="chapter" id="cap5">
+        <img src="images/super-morango.png" alt="Super Morango" class="story-img floating">
+        <div class="story-card">
+            <h2>🦸 A Missão Começa!</h2>
+            <p>Agora ele é o <strong>SUPER MORANGO</strong>, o Guardião das Plantas! Mas ele não pode fazer isto sozinho.</p>
+            <p>Ele abriu um portal mágico para encontrar crianças corajosas como tu.</p>
+            <h3 style="color: var(--verde-onu);">Queres ser um Guardião das Plantas comigo?</h3>
+            <a href="jogo.html" class="btn-final">ACEITAR MISSÃO!</a>
+        </div>
+    </section>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
-        const cursor = document.getElementById('cursor');
-        document.addEv
+        // Sistema de Revelação ao Scroll (Intersection Observer)
+        const observerOptions = { threshold: 0.3 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.chapter').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Barra de Progresso
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        };
+
+        // Interações da História
+        function talkLadybug() {
+            const msg = document.getElementById('ladybug-msg');
+            msg.style.display = 'block';
+            msg.style.animation = 'fadeIn 1s';
+        }
+
+        function transform() {
+            const star = document.getElementById('star-effect');
+            star.style.display = 'block';
+            star.style.animation = 'pulseStar 2s forwards';
+            
+            setTimeout(() => {
+                confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    colors: ['#2ecc71', '#ff4757', '#ffffff']
+                });
+                star.style.display = 'none';
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            }, 1000);
+        }
+    </script>
+
+    <style>
+        @keyframes pulseStar {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+    </style>
+</body>
+</html>
