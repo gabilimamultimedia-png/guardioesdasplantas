@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central de Recursos | Guardiões das Plantas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #061512;
+            --glow-green: #42f5a7;
+            --strawberry: #ff4757;
+            --glass: rgba(255, 255, 255, 0.05);
+            --line-color: rgba(66, 245, 167, 0.2);
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: white;
+            font-family: 'Lexend', sans-serif;
+            margin: 0;
+            padding-top: 100px; /* Espaço para a navbar */
+        }
+
+        /* Reutilizando a Navbar do Início */
+        .navbar {
+            position: fixed; top: 0; width: 100%; display: flex;
+            justify-content: space-between; align-items: center;
+            padding: 15px 5%; background: rgba(6, 21, 18, 0.95);
+            backdrop-filter: blur(10px); border-bottom: 1px solid var(--line-color);
+            z-index: 1000; box-sizing: border-box;
+        }
+        .nav-links { display: flex; list-style: none; gap: 20px; }
+        .nav-links a { text-decoration: none; color: white; font-size: 0.8rem; opacity: 0.7; transition: 0.3s; }
+        .nav-links a:hover { opacity: 1; color: var(--glow-green); }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+        h1 { text-align: center; color: var(--glow-green); font-size: 2.5rem; margin-bottom: 40px; }
+
+        /* Secções Bento Grid */
+        .resource-section { margin-bottom: 60px; }
+        .section-title { 
+            font-size: 1.2rem; letter-spacing: 2px; color: var(--glow-green); 
+            margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        /* Cartão de Recurso */
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--line-color);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: 0.4s;
+        }
+        .card:hover { transform: translateY(-10px); border-color: var(--glow-green); }
+
+        .card-content { padding: 20px; }
+        .card-tag { 
+            font-size: 0.6rem; background: var(--glow-green); color: var(--bg-deep);
+            padding: 3px 8px; border-radius: 5px; font-weight: 800; text-transform: uppercase;
+        }
+        .card h3 { margin: 15px 0 10px; font-size: 1.1rem; }
+        .card p { font-size: 0.85rem; opacity: 0.7; line-height: 1.5; margin-bottom: 20px; }
+
+        /* Vídeo Embed */
+        .video-container {
+            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+        }
+        .video-container iframe {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
+        }
+
+        /* Botões */
+        .btn-action {
+            display: inline-block; background: var(--glow-green); color: var(--bg-deep);
+            text-decoration: none; padding: 10px 20px; border-radius: 10px;
+            font-weight: 800; font-size: 0.8rem; transition: 0.3s;
+        }
+        .btn-action:hover { box-shadow: 0 0 15px var(--glow-green); }
+
+        .btn-pdf { background: var(--strawberry); color: white; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            .nav-links { display: none; } /* Simplificação para mobile */
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div style="font-weight: 800; color: var(--glow-green);">GUARDIÕES</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="historia.html">História</a></li>
+            <li><a href="jogo.html">Missão</a></li>
+            <li><a href="saiba-mais.html">Saiba Mais</a></li>
+            <li><a href="certificado.html">Certificado</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Biblioteca do Guardião</h1>
+
+        <!-- SECÇÃO DE VÍDEOS -->
+        <div class="resource-section">
+            <div class="section-title"><span>📺</span> Vídeos Educativos</div>
+            <div class="grid">
+                <div class="card">
+                    <div class="video-container">
+                        <!-- Substitui o ID depois do /embed/ pelo ID do teu vídeo do YouTube -->
+                        <iframe src="https://www.youtube.com/embed/S_T601p_9qU" allowfullscreen></iframe>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-tag">Vídeo</span>
+                        <h3>A Vida Secreta das Plantas</h3>
+                        <p>Aprende como as plantas comunicam e se defendem de ataques externos.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/fA8-m9S-8qY" allowfullscreen></iframe>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-tag">Documentário</span>
+                        <h3>O Dia 12 de Maio</h3>
+                        <p>Entende a importância desta data para as Nações Unidas e para o mundo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECÇÃO DE EBOOKS/PDFS -->
+        <div class="resource-section">
+            <div class="section-title"><span>📖</span> Ebooks e Manuais</div>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-tag">PDF</span>
+                        <h3>Manual do Pequeno Guardião</h3>
+                        <p>Um guia prático para cuidares do teu jardim e identificares pragas comuns.</p>
+                        <a href="ebooks/manual_guardiao.pdf" class="btn-action btn-pdf" target="_blank">Ler Ebook ➔</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-tag">Atividade</span>
+                        <h3>Caderno de Colorir: Insetos do Bem</h3>
+                        <p>Diverte-te a colorir as joaninhas e abelhas que protegem as nossas plantas.</p>
+                        <a href="ebooks/caderno_colorir.pdf" class="btn-action btn-pdf" target="_blank">Descarregar ➔</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECÇÃO DE LINKS ÚTEIS -->
+        <div class="resource-section">
+            <div class="section-title"><span>🔗</span> Links de Exploração</div>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Site Oficial da FAO (ONU)</h3>
+                        <p>Visita o portal das Nações Unidas dedicado à Saúde das Plantas.</p>
+                        <a href="https://www.fao.org/plant-health-day/en" class="btn-action" target="_blank">Visitar Site</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
