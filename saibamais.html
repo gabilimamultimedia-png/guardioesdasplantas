@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saiba Mais | Guardiões das Plantas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #061512;
+            --glow-green: #42f5a7;
+            --strawberry: #ff4757;
+            --glass: rgba(66, 245, 167, 0.05);
+            --line-color: rgba(66, 245, 167, 0.2);
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: #fdf5e6; /* Tom pergaminho suave para leitura */
+            font-family: 'Lexend', sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navegação Superior */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 20px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(6, 21, 18, 0.9); backdrop-filter: blur(10px);
+            z-index: 1000; border-bottom: 1px solid var(--line-color);
+            box-sizing: border-box;
+        }
+        .nav-links { display: flex; gap: 15px; }
+        .nav-btn {
+            color: white; text-decoration: none; font-size: 0.8rem;
+            padding: 8px 16px; border-radius: 8px; border: 1px solid var(--line-color);
+            transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .nav-btn:hover { background: var(--glow-green); color: var(--bg-deep); }
+
+        /* Header de Impacto */
+        .hero {
+            padding: 140px 10% 60px;
+            text-align: center;
+            background: radial-gradient(circle at center, #0d2d24 0%, var(--bg-deep) 100%);
+        }
+        .hero h1 { 
+            font-size: 3.5rem; color: var(--glow-green); margin: 0; 
+            text-shadow: 0 0 20px rgba(66, 245, 167, 0.4);
+        }
+        .hero p { font-size: 1.2rem; opacity: 0.8; max-width: 700px; margin: 20px auto; }
+
+        /* Secções de Conteúdo (Bento Grid Style) */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px 100px; }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--line-color);
+            padding: 35px;
+            border-radius: 30px;
+            transition: 0.4s;
+        }
+        .info-card:hover { border-color: var(--glow-green); transform: translateY(-5px); background: rgba(66, 245, 167, 0.02); }
+        .info-card h2 { color: var(--glow-green); margin-top: 0; font-size: 1.8rem; }
+        .info-card .icon { font-size: 2.5rem; margin-bottom: 15px; display: block; }
+
+        /* Destaque para o 12 de Maio */
+        .special-date {
+            background: linear-gradient(135deg, rgba(66, 245, 167, 0.1) 0%, rgba(255, 71, 87, 0.1) 100%);
+            border: 2px solid var(--glow-green);
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            padding: 50px;
+        }
+
+        /* Estatísticas "Glow" */
+        .stats-row {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 60px 0;
+            gap: 30px;
+        }
+        .stat-item { text-align: center; }
+        .stat-number { 
+            display: block; font-size: 4rem; font-weight: 800; color: white; 
+            text-shadow: 0 0 15px rgba(255,255,255,0.3);
+        }
+        .stat-label { color: var(--glow-green); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; }
+
+        /* Rodapé Final */
+        .final-call {
+            text-align: center; padding: 80px 20px;
+            border-top: 1px solid var(--line-color);
+        }
+        .btn-mission {
+            background: var(--strawberry); color: white; text-decoration: none;
+            padding: 20px 50px; border-radius: 50px; font-weight: 800;
+            font-size: 1.2rem; display: inline-block; transition: 0.3s;
+            box-shadow: 0 0 20px rgba(255, 71, 87, 0.3);
+        }
+        .btn-mission:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(255, 71, 87, 0.5); }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .special-date { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div style="font-weight: 800; color: var(--glow-green); letter-spacing: -1px;">GUARDIÕES DA NATUREZA</div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-btn">Início</a>
+            <a href="recursos.html" class="nav-btn">Recursos</a>
+            <a href="certificado.html" class="nav-btn">Certificado</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div style="display: inline-block; border: 1px solid var(--glow-green); padding: 5px 15px; border-radius: 20px; font-size: 0.7rem; color: var(--glow-green); margin-bottom: 20px; letter-spacing: 2px;">ARQUIVO DE CONHECIMENTO</div>
+        <h1>A Ciência das Plantas</h1>
+        <p>Descobre por que o mundo inteiro se une no dia 12 de Maio para proteger os nossos aliados verdes.</p>
+    </header>
+
+    <main class="container">
+
+        <section class="stats-row">
+            <div class="stat-item">
+                <span class="stat-number">98%</span>
+                <span class="stat-label">do oxigénio que respiras</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">80%</span>
+                <span class="stat-label">da comida mundial</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">40%</span>
+                <span class="stat-label">das plantas em risco</span>
+            </div>
+        </section>
+
+        <div class="info-grid">
+            
+            <!-- O Dia 12 de Maio -->
+            <div class="info-card special-date">
+                <div style="font-size: 5rem;">🗓️</div>
+                <div>
+                    <h2>12 de Maio: O Nosso Dia</h2>
+                    <p>As Nações Unidas (ONU) criaram o <strong>Dia Internacional da Saúde das Plantas</strong> para lembrar a todos que, sem plantas saudáveis, não há vida na Terra. Este dia é um legado do Ano Internacional de 2020 e serve para educar o mundo sobre como acabar com a fome e proteger a biodiversidade.</p>
+                </div>
+            </div>
+
+            <!-- Pragas Invasoras -->
+            <div class="info-card">
+                <span class="icon">🐛</span>
+                <h2>Inimigos Viajantes</h2>
+                <p>Sabias que as pragas viajam "à boleia" em malas e aviões? Quase <strong>40% das colheitas</strong> de comida perdem-se todos os anos por causa de insetos e doenças que aparecem em lugares onde não deviam estar.</p>
+            </div>
+
+            <!-- Clima -->
+            <div class="info-card">
+                <span class="icon">🌡️</span>
+                <h2>O Alerta do Clima</h2>
+                <p>As alterações climáticas fazem com que a Terra aqueça. Isso permite que pragas que gostam de calor cheguem a novos países e ataquem florestas que antes estavam seguras.</p>
+            </div>
+
+            <!-- Médicos das Plantas -->
+            <div class="info-card">
+                <span class="icon">🩺</span>
+                <h2>Médicos de Plantas</h2>
+                <p>Existem especialistas chamados "Plant Doctors". Eles trabalham na FAO e na IPPC para identificar doenças e encontrar formas naturais (como usar insetos bons) de curar a natureza sem poluir o solo.</p>
+            </div>
+
+            <!-- Compras Online -->
+            <div class="info-card">
+                <span class="icon">📦</span>
+                <h2>Cuidado Online</h2>
+                <p>Muitas pragas entram nos países através de pequenas encomendas da internet. Por isso, nunca devemos comprar sementes ou plantas de sites desconhecidos sem verificar as regras de saúde!</p>
+            </div>
+
+        </div>
+
+        <section class="final-call">
+            <h2 style="font-size: 2rem; margin-bottom: 30px;">A tua formação está completa!</h2>
+            <p style="margin-bottom: 40px; opacity: 0.7;">Agora que tens o conhecimento, podes ostentar a tua credencial de Guardião.</p>
+            <a href="certificado.html" class="btn-mission">OBTER MINHA CREDENCIAL ➔</a>
+        </section>
+
+    </main>
+
+    <footer style="text-align: center; padding: 40px; font-size: 0.7rem; opacity: 0.4; border-top: 1px solid var(--line-color);">
+        FONTE: FAO (FOOD AND AGRICULTURE ORGANIZATION OF THE UNITED NATIONS) | INTERNATIONAL PLANT PROTECTION CONVENTION
+    </footer>
+
+</body>
+</html>
