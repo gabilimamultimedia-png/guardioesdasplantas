@@ -7,10 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-deep: #061512;        /* Fundo floresta noturna do site */
-            --glow-green: #42f5a7;     /* Verde neon do portal */
-            --strawberry: #ff4757;     /* Vermelho do herói */
-            --white-glass: rgba(255, 255, 255, 0.9);
+            --bg-deep: #061512;
+            --glow-green: #42f5a7;
+            --strawberry: #ff4757;
             --line-color: rgba(66, 245, 167, 0.3);
         }
 
@@ -25,7 +24,6 @@
             padding: 40px 20px;
         }
 
-        /* Painel de Input - Estilo Bento */
         .input-panel {
             background: rgba(255, 255, 255, 0.03);
             padding: 30px;
@@ -35,14 +33,6 @@
             text-align: center;
             max-width: 600px;
             width: 100%;
-        }
-
-        .input-panel label {
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            opacity: 0.7;
-            display: block;
-            margin-bottom: 15px;
         }
 
         input {
@@ -58,7 +48,6 @@
             font-weight: 200;
         }
 
-        /* O CERTIFICADO - PADRÃO DO WEBSITE (GLOW & MODERN) */
         #certificate-card {
             position: relative;
             width: 100%;
@@ -73,11 +62,9 @@
             justify-content: center;
             padding: 60px;
             box-sizing: border-box;
-            overflow: hidden; /* PROTEÇÃO DE MARGEM */
             box-shadow: 0 40px 100px rgba(0,0,0,0.8);
         }
 
-        /* Linhas de Segurança Estilo Documento Oficial */
         .security-border {
             position: absolute;
             top: 20px; left: 20px; right: 20px; bottom: 20px;
@@ -113,13 +100,12 @@
             text-transform: uppercase;
         }
 
-        /* NOME DO GUARDIÃO - COM AUTO-RESIZE */
         #display-name {
             font-size: 5rem;
             font-weight: 200;
             color: white;
             margin: 30px 0;
-            width: 85%; /* Limite estrito de margem */
+            width: 85%;
             text-align: center;
             white-space: nowrap;
             border-bottom: 1px solid rgba(255,255,255,0.1);
@@ -136,9 +122,9 @@
             font-weight: 200;
             opacity: 0.8;
             margin-bottom: 50px;
+            text-align: center;
         }
 
-        /* Rodapé Síncrono com o Design do Site */
         .footer-grid {
             display: flex;
             justify-content: space-between;
@@ -163,7 +149,6 @@
             font-style: italic;
         }
 
-        /* Selo de Aprovação ONU */
         .badge-seal {
             width: 80px;
             height: 80px;
@@ -192,8 +177,6 @@
             letter-spacing: 2px;
         }
         .btn-download:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--glow-green); }
-
-        canvas { display: none; }
     </style>
 </head>
 <body>
@@ -203,16 +186,15 @@
         <input type="text" id="name-input" placeholder="Teu Nome Aqui" maxlength="35" oninput="updateName()">
     </div>
 
-    <!-- CERTIFICADO VISUAL -->
     <div id="certificate-card">
         <div class="security-border"></div>
         
-        <div class="header-top">International Year of Plant Health • FAO • IPPC</div>
+        <!-- CORREÇÃO: "Day" em vez de "Year" -->
+        <div class="header-top">International Day of Plant Health • FAO • IPPC</div>
         
         <h1 class="main-title">Certificado de Mérito</h1>
         <div class="sub-title">Bio-Vigilante de Elite</div>
 
-        <!-- O Nome encolhe se for muito grande para não tocar nas bordas -->
         <div id="display-name">NOME DO GUARDIÃO</div>
 
         <p class="description">
@@ -231,15 +213,14 @@
             </div>
 
             <div class="footer-item" style="text-align: right;">
-                <div style="color: white; font-weight: 600; font-size: 1.2rem; margin-bottom: 5px;">12.05.24</div>
+                <!-- CORREÇÃO: Data dinâmica via JavaScript -->
+                <div id="emission-date" style="color: white; font-weight: 600; font-size: 1.2rem; margin-bottom: 5px;">--.--.--</div>
                 Data de Emissão Oficial
             </div>
         </div>
     </div>
 
-    <button class="btn-download" onclick="generateAndDownload()">Descarregar Credencial Oficial</button>
-
-    <canvas id="export-canvas" width="2000" height="1414"></canvas>
+    <button class="btn-download" onclick="window.print()">Emitir Credencial Oficial</button>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
@@ -247,29 +228,33 @@
             const display = document.getElementById('display-name');
             const input = document.getElementById('name-input');
             const text = input.value.trim() || "NOME DO GUARDIÃO";
-            
             display.innerText = text.toUpperCase();
 
-            // LÓGICA DE PROTEÇÃO DE MARGEM (Reduz a fonte conforme o tamanho)
             let fontSize = 5; 
             display.style.fontSize = fontSize + "rem";
 
-            // Se o texto for mais largo que 95% do contentor, diminui
             while (display.scrollWidth > (display.offsetWidth * 0.95) && fontSize > 1.5) {
                 fontSize -= 0.1;
                 display.style.fontSize = fontSize + "rem";
             }
         }
 
+        // FUNÇÃO PARA GERAR DATA ATUAL AUTOMATICAMENTE
+        function setCurrentDate() {
+            const today = new Date();
+            const dd = String(today.getDate()).padStart(2, '0');
+            const mm = String(today.getMonth() + 1).padStart(2, '0'); // Janeiro é 0!
+            const yyyy = today.getFullYear();
+
+            // Formato DD.MM.YYYY
+            const formattedDate = dd + '.' + mm + '.' + yyyy;
+            document.getElementById('emission-date').innerText = formattedDate;
+        }
+
         window.onload = () => {
+            setCurrentDate(); // Define a data assim que a página carrega
             confetti({ particleCount: 100, spread: 70, origin: { y: 0.8 }, colors: ['#42f5a7', '#ff4757'] });
         };
-
-        function generateAndDownload() {
-            alert("A preparar a tua credencial de alta resolução...");
-            // Lógica de exportação para imagem aqui (opcional)
-            window.print();
-        }
     </script>
 </body>
 </html>
