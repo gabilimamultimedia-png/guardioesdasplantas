@@ -17,3 +17,19 @@ document.addEventListener('mousemove', (e) => {
 
 // Mensagem de Log para debug (ajuda a ver se o JS carregou)
 console.log("Sistema Guardiões das Plantas Ativo!");
+// Abrir/Fechar Menu Mobile
+const menuToggle = document.getElementById('mobile-menu');
+const navLinks = document.querySelector('.nav-links');
+
+menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    // Animação das barras do menu
+    menuToggle.classList.toggle('is-active');
+});
+
+// Fechar menu ao clicar num link (importante para mobile)
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+    });
+});
