@@ -170,10 +170,18 @@
             vp.innerHTML = '';
             pestsFound = 0;
 
-            for(let i=0; i<s.pests; i++) {
-                const p = document.createElement('img');
-                // IMPORTANTE: Verifica se praga.png existe na pasta images
-                p.src = 'images/praga.png'; 
+            for(let i=0; i < s.pests; i++) {
+    const p = document.createElement('img');
+    
+    // 1. Cria a lista com os nomes das tuas 4 imagens
+    const listaPragas = ['i1.png', 'i2.png', 'i3.png', 'i4.png'];
+    
+    // 2. Escolhe um número ao calhas entre 0 e 3
+    const sorteio = Math.floor(Math.random() * listaPragas.length);
+    
+    // 3. Define o src usando o nome que saiu no sorteio
+    p.src = 'images/' + listaPragas[sorteio];
+                
                 p.className = 'praga';
                 
                 // Posições em % para manter responsividade
