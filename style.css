@@ -1,123 +1,22 @@
+/* CONFIGURAÇÕES GERAIS */
 :root {
-    --verde-onu: #2ecc71;
-    --verde-escuro: #0b1d12;
-    --morango: #ff4757;
-    --branco: #ffffff;
-    --font: 'Lexend', sans-serif;
+    --bg-deep: #061512;
+    --glow-green: #42f5a7;
+    --strawberry: #ff4757;
+    --parchment: #fdf5e6;
+    --glass: rgba(6, 21, 18, 0.85);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    background-color: var(--verde-escuro);
-    color: var(--branco);
+    background-color: var(--bg-deep);
+    color: white;
     font-family: 'Lexend', sans-serif;
     overflow-x: hidden;
 }
 
-/* Cursor Personalizado (Para todas as páginas) */
-#cursor { width: 10px; height: 10px; background: white; border-radius: 50%; position: fixed; z-index: 10000; pointer-events: none; }
-#cursor-f { width: 30px; height: 30px; border: 2px solid var(--verde-onu); border-radius: 50%; position: fixed; z-index: 9999; pointer-events: none; transition: 0.1s; }
-
-/* Botões Modernos */
-.btn-main {
-    background: var(--morango);
-    color: white;
-    border: none;
-    padding: 20px 40px;
-    border-radius: 15px;
-    font-weight: 800;
-    font-size: 1.2rem;
-    cursor: pointer;
-    text-transform: uppercase;
-    box-shadow: 0 8px 0 #b33939;
-    transition: 0.2s;
-    text-decoration: none;
-    display: inline-block;
-}
-
-.btn-main:hover { transform: translateY(-3px); box-shadow: 0 11px 0 #b33939; }
-.btn-main:active { transform: translateY(5px); box-shadow: 0 4px 0 #b33939; }
-
-.btn-sec {
-    background: rgba(255,255,255,0.1);
-    color: white;
-    border: 1px solid white;
-    padding: 20px 40px;
-    border-radius: 15px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.3s;
-}
-
-.btn-sec:hover { background: white; color: var(--verde-escuro); }
-
-/* Layout Geral */
-section {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 50px 10%;
-    text-align: center;
-}
-
-h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 20px; }
-.highlight { color: var(--verde-onu); }
-
-/* Estados dos Cartões de Ciência */
-.grid-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    width: 100%;
-    margin: 40px 0;
-}
-
-.bio-card {
-    background: rgba(255,255,255,0.05);
-    padding: 30px;
-    border-radius: 20px;
-    border: 2px solid rgba(255,255,255,0.1);
-    transition: 0.3s;
-    cursor: pointer;
-    text-align: left;
-}
-
-.bio-card:hover { transform: translateY(-5px); border-color: white; }
-
-/* Classe para quando está correto */
-.bio-card.correct {
-    border-color: var(--verde-onu) !important;
-    background: rgba(46, 204, 113, 0.2);
-}
-
-/* Classe para quando está errado */
-.bio-card.wrong {
-    border-color: var(--morango) !important;
-    background: rgba(255, 71, 87, 0.1);
-    animation: shake 0.4s;
-}
-
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-}
-
-/* Botão de Próxima Missão (inicialmente escondido ou bloqueado) */
-#btn-next-mission {
-    display: none; /* Só aparece quando acertar as 3 */
-    margin-top: 30px;
-}
-
-.counter-box {
-    font-weight: 800;
-    color: var(--verde-onu);
-    margin-bottom: 20px;
-}
-/* --- CONFIGURAÇÃO DA NAVBAR --- */
+/* NAVBAR PROFISSIONAL (GLOW DESIGN) */
 .navbar {
     position: fixed;
     top: 0;
@@ -125,106 +24,132 @@ h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 20px; }
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 5%;
-    background: rgba(6, 21, 18, 0.85); /* Fundo escuro semi-transparente */
-    backdrop-filter: blur(10px); /* Efeito vítreo */
+    padding: 15px 8%;
+    background: var(--glass);
+    backdrop-filter: blur(15px);
     border-bottom: 1px solid rgba(66, 245, 167, 0.2);
     z-index: 1000;
-    box-sizing: border-box;
 }
 
 .nav-logo {
     display: flex;
     align-items: center;
+    gap: 10px;
     font-weight: 800;
-    color: #42f5a7; /* Verde Glow */
-    letter-spacing: 1px;
+    color: var(--glow-green);
+}
+
+.nav-logo img {
+    width: 35px;
+    filter: drop-shadow(0 0 5px var(--glow-green));
 }
 
 .nav-links {
     display: flex;
-    list-style: none;
-    gap: 25px;
+    list-style: none; /* Remove os pontos da lista */
+    gap: 20px;
 }
 
 .nav-links a {
     text-decoration: none;
     color: white;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     transition: 0.3s;
     opacity: 0.7;
 }
 
 .nav-links a:hover, .nav-links a.active {
     opacity: 1;
-    color: #42f5a7;
-    text-shadow: 0 0 10px rgba(66, 245, 167, 0.5);
+    color: var(--glow-green);
+    text-shadow: 0 0 8px rgba(66, 245, 167, 0.6);
 }
 
-/* --- RESPONSIVIDADE (MENU MOBILE) --- */
-.menu-toggle {
-    display: none;
-    cursor: pointer;
+/* PAGINA INICIAL (HERO) */
+#portal {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 20px 60px; /* Mais espaço no topo para o menu não tapar nada */
+    background: radial-gradient(circle at center, #0d2d24 0%, var(--bg-deep) 100%);
 }
 
-.bar {
-    display: block;
-    width: 25px;
-    height: 3px;
-    margin: 5px auto;
-    background-color: white;
-    transition: 0.3s;
-}
-
-@media (max-width: 768px) {
-    .nav-links {
-        position: absolute;
-        top: 70px;
-        left: -100%;
-        flex-direction: column;
-        background: rgba(6, 21, 18, 0.95);
-        width: 100%;
-        text-align: center;
-        transition: 0.3s;
-        padding: 20px 0;
-        border-bottom: 1px solid rgba(66, 245, 167, 0.2);
-    }
-
-    .nav-links.active {
-        left: 0;
-    }
-
-    .menu-toggle {
-        display: block;
-    }
-}
-
-/* --- AJUSTES DO CONTEÚDO HERO --- */
 .badge-onu {
-    border: 1px solid #2ecc71; 
-    color: #2ecc71; 
-    padding: 8px 20px; 
-    border-radius: 50px; 
-    margin-bottom: 20px; 
-    font-size: 0.8rem; 
+    border: 1px solid var(--glow-green);
+    color: var(--glow-green);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.8rem;
     font-weight: bold;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
 }
 
 .hero-img {
-    width: 300px; 
-    margin-bottom: 30px; 
-    filter: drop-shadow(0 0 20px rgba(46, 204, 113, 0.3));
+    width: 280px;
+    margin-bottom: 20px;
+    animation: float 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(66, 245, 167, 0.3));
 }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.highlight { color: var(--glow-green); }
 
 .hero-desc {
-    max-width: 600px; 
-    margin-bottom: 40px; 
-    font-size: 1.2rem; 
-    opacity: 0.9;
+    max-width: 600px;
+    font-size: 1.2rem;
+    opacity: 0.8;
+    margin-bottom: 40px;
 }
 
-.btn-group {
-    display: flex; 
-    gap: 20px;
+/* BOTÕES */
+.btn-group { display: flex; gap: 20px; }
+
+.btn-main {
+    background: var(--strawberry);
+    color: white;
+    text-decoration: none;
+    padding: 18px 35px;
+    border-radius: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    box-shadow: 0 8px 0 #b33939;
+    transition: 0.2s;
+}
+
+.btn-main:active { transform: translateY(4px); box-shadow: 0 4px 0 #b33939; }
+
+.btn-sec {
+    background: rgba(255,255,255,0.05);
+    color: white;
+    text-decoration: none;
+    padding: 18px 35px;
+    border-radius: 12px;
+    font-weight: 600;
+    border: 1px solid white;
+    transition: 0.3s;
+}
+
+.btn-sec:hover { background: white; color: var(--bg-deep); }
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    h1 { font-size: 2.2rem; }
+    .nav-links { display: none; } /* No mobile o menu precisa de ajuste extra, mas para o PC já resolve */
 }
