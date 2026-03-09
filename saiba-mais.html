@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arquivo Secreto dos Guardiões | Saiba Mais</title>
+    <title>Arquivo Secreto | Saiba Mais</title>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-deep: #061512;
             --glow-green: #42f5a7;
             --strawberry: #ff4757;
+            --strawberry-dark: #b33939;
             --gold: #f1c40f;
-            --glass: rgba(66, 245, 167, 0.05);
             --line-color: rgba(66, 245, 167, 0.2);
+            --glass: rgba(66, 245, 167, 0.05);
         }
 
         body {
@@ -22,9 +23,10 @@
             font-family: 'Lexend', sans-serif;
             margin: 0;
             line-height: 1.8;
+            overflow-x: hidden;
         }
 
-        /* Navbar Síncrona */
+        /* Navbar */
         .navbar {
             position: fixed; top: 0; width: 100%; display: flex;
             justify-content: space-between; align-items: center;
@@ -33,90 +35,94 @@
             z-index: 1000; box-sizing: border-box;
         }
         .nav-logo { font-weight: 800; color: var(--glow-green); display: flex; align-items: center; gap: 10px; }
-        .nav-links { display: flex; list-style: none; gap: 20px; }
+        .nav-links { display: flex; list-style: none; gap: 20px; margin: 0; padding: 0; }
         .nav-links a { text-decoration: none; color: white; font-size: 0.8rem; opacity: 0.7; transition: 0.3s; text-transform: uppercase; }
         .nav-links a:hover { opacity: 1; color: var(--glow-green); }
 
         .container { max-width: 1000px; margin: 0 auto; padding: 120px 20px 80px; }
 
-        /* Estilo Bento Grid para Informação */
+        /* Cabeçalho */
         .info-header { text-align: center; margin-bottom: 60px; }
-        .info-header h1 { font-size: 3.5rem; color: var(--glow-green); text-shadow: 0 0 20px rgba(66, 245, 167, 0.4); margin: 0; }
-        .badge-un { display: inline-block; border: 1px solid var(--glow-green); padding: 5px 15px; border-radius: 50px; font-size: 0.7rem; color: var(--glow-green); margin-bottom: 20px; letter-spacing: 2px; }
+        .badge-un { display: inline-block; border: 1px solid var(--glow-green); padding: 5px 15px; border-radius: 50px; font-size: 0.7rem; color: var(--glow-green); margin-bottom: 20px; letter-spacing: 2px; text-transform: uppercase; }
+        h1 { font-size: clamp(2.5rem, 6vw, 3.8rem); color: var(--glow-green); text-shadow: 0 0 20px rgba(66, 245, 167, 0.4); margin: 0; font-weight: 800; }
+        .subtitle { font-size: 1.2rem; opacity: 0.8; max-width: 700px; margin: 20px auto; }
 
-        .science-section {
-            background: var(--glass);
-            border: 1px solid var(--line-color);
-            padding: 40px;
-            border-radius: 30px;
-            margin-bottom: 30px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .science-section::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 5px; height: 100%; background: var(--glow-green);
-        }
-
-        h2 { color: var(--glow-green); font-size: 2rem; margin-top: 0; display: flex; align-items: center; gap: 15px; }
-        h3 { color: var(--gold); font-size: 1.3rem; margin-bottom: 10px; }
-
-        .highlight-box {
-            background: rgba(255, 71, 87, 0.1);
-            border: 1px solid var(--strawberry);
-            padding: 20px;
-            border-radius: 15px;
-            margin: 20px 0;
-        }
-
-        /* Stats Rápidas */
+        /* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
-            margin-bottom: 40px;
+            margin-bottom: 60px;
         }
         .stat-card {
             text-align: center; background: rgba(255,255,255,0.03);
-            padding: 25px; border-radius: 20px; border: 1px solid var(--line-color);
+            padding: 30px; border-radius: 25px; border: 1px solid var(--line-color);
+            transition: 0.3s;
         }
-        .stat-card span { display: block; font-size: 2.5rem; font-weight: 800; color: white; }
-        .stat-card label { font-size: 0.7rem; color: var(--glow-green); text-transform: uppercase; letter-spacing: 1px; }
+        .stat-card:hover { border-color: var(--glow-green); transform: translateY(-5px); }
+        .stat-card span { display: block; font-size: 3rem; font-weight: 800; color: white; margin-bottom: 5px; }
+        .stat-card label { font-size: 0.75rem; color: var(--glow-green); text-transform: uppercase; font-weight: 600; }
 
-        .footer-info { text-align: center; padding: 40px; font-size: 0.75rem; opacity: 0.4; border-top: 1px solid var(--line-color); }
+        /* Secções de Conteúdo */
+        .science-section {
+            background: var(--glass);
+            border: 1px solid var(--line-color);
+            padding: 45px;
+            border-radius: 35px;
+            margin-bottom: 35px;
+            position: relative;
+            border-left: 6px solid var(--glow-green);
+        }
+        h2 { color: var(--glow-green); font-size: 2rem; margin-top: 0; display: flex; align-items: center; gap: 15px; font-weight: 800; }
+        h3 { color: var(--gold); font-size: 1.4rem; margin: 25px 0 10px; font-weight: 600; }
+        
+        .highlight-box {
+            background: rgba(255, 71, 87, 0.1);
+            border: 1px solid var(--strawberry);
+            padding: 25px;
+            border-radius: 20px;
+            margin: 25px 0;
+        }
 
-        /* Lista Estilizada */
-        ul { padding-left: 20px; }
-        li { margin-bottom: 10px; }
+        ul { padding-left: 20px; margin-bottom: 20px; }
+        li { margin-bottom: 12px; }
         li strong { color: var(--glow-green); }
 
-        /* Estilo final para o botão não ficar azul/roxo */
-.btn-hq {
-    background-color: #ff4757 !important; /* Vermelho Morango */
-    color: #ffffff !important;           /* Branco puro */
-    text-decoration: none !important;    /* Remove o sublinhado */
-    padding: 18px 40px !important;
-    border-radius: 15px !important;
-    font-weight: 800 !important;
-    text-transform: uppercase !important;
-    display: inline-block !important;
-    box-shadow: 0 8px 0 #b33939 !important; /* Efeito 3D */
-    transition: 0.2s !important;
-    margin: 40px 0 !important;
-    border: none !important;
-}
+        /* --- BOTÃO CORRIGIDO (ESTILO ELITE) --- */
+        .hq-button-wrapper {
+            text-align: center;
+            margin: 60px 0 40px;
+        }
 
-.btn-hq:hover {
-    transform: translateY(-3px) !important;
-    box-shadow: 0 11px 0 #b33939 !important;
-    filter: brightness(1.1);
-}
+        .btn-hq {
+            background-color: var(--strawberry) !important;
+            color: #ffffff !important;
+            text-decoration: none !important;
+            padding: 22px 50px !important;
+            border-radius: 18px !important;
+            font-weight: 800 !important;
+            font-size: 1.2rem !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1px !important;
+            display: inline-block !important;
+            box-shadow: 0 10px 0 var(--strawberry-dark) !important;
+            transition: all 0.2s ease !important;
+            border: none !important;
+            cursor: pointer !important;
+        }
 
-.btn-hq:active {
-    transform: translateY(5px) !important;
-    box-shadow: 0 4px 0 #b33939 !important;
-}
+        .btn-hq:hover {
+            transform: translateY(-4px) !important;
+            box-shadow: 0 14px 0 var(--strawberry-dark) !important;
+            filter: brightness(1.1) !important;
+        }
 
+        .btn-hq:active {
+            transform: translateY(6px) !important;
+            box-shadow: 0 4px 0 var(--strawberry-dark) !important;
+        }
+
+        footer { text-align: center; padding: 50px; font-size: 0.75rem; opacity: 0.4; border-top: 1px solid var(--line-color); }
     </style>
 </head>
 <body>
@@ -139,79 +145,81 @@
         <header class="info-header">
             <div class="badge-un">PROTOCOLO INTERNACIONAL ONU/FAO</div>
             <h1>A Ciência das Plantas</h1>
-            <p>Um guia completo para famílias e pequenos cientistas sobre o empenho mundial para salvar o nosso pulmão verde.</p>
+            <p class="subtitle">Um guia completo para famílias e pequenos cientistas sobre o empenho mundial para salvar o nosso pulmão verde.</p>
         </header>
 
         <div class="stats-grid">
-            <div class="stat-card">
-                <span>98%</span>
-                <label>do oxigénio mundial</label>
-            </div>
-            <div class="stat-card">
-                <span>80%</span>
-                <label>da nossa alimentação</label>
-            </div>
-            <div class="stat-card">
-                <span>USD 220B</span>
-                <label>em perdas anuais</label>
-            </div>
-            <div class="stat-card">
-                <span>12 MAIO</span>
-                <label>Dia Internacional</label>
-            </div>
+            <div class="stat-card"><span>98%</span><label>Oxigénio Mundial</label></div>
+            <div class="stat-card"><span>80%</span><label>Nossa Alimentação</label></div>
+            <div class="stat-card"><span>$220B</span><label>Perdas p/ Pragas</label></div>
+            <div class="stat-card"><span>12 MAIO</span><label>Dia Internacional</label></div>
         </div>
 
-        <!-- SECCÃO 1: A IPPC -->
+        <!-- SECCÃO 1: IPPC e ONU -->
         <section class="science-section">
             <h2><span>🏛️</span> Quem Protege o Mundo?</h2>
-            <p>O empenho internacional é liderado pela <strong>Convenção Internacional para a Proteção das Plantas (IPPC)</strong>, uma organização que faz parte da ONU (FAO). O seu trabalho é criar regras globais (chamadas ISPMs) para garantir que as plantas viajam de forma segura entre países sem espalhar doenças.</p>
+            <p>O empenho internacional é liderado pela <strong>Convenção Internacional para a Proteção das Plantas (IPPC)</strong>, uma organização que faz parte da ONU (FAO). Composta por mais de 180 países, a sua missão é evitar que pragas viajem e destruam ecossistemas.</p>
+            
             <div class="highlight-box">
-                <h3>A Missão 2020-2030</h3>
-                <p>O mundo tem um plano estratégico de 10 anos para erradicar a fome e proteger o ambiente. As plantas são o coração deste plano!</p>
+                <h3>A Missão Estratégica 2020-2030</h3>
+                <p>O mundo tem um plano de 10 anos focado em três objetivos principais: 
+                   <strong>1. Aumentar a segurança alimentar</strong>, 
+                   <strong>2. Proteger o ambiente</strong> e 
+                   <strong>3. Garantir um comércio seguro</strong> entre as nações.</p>
             </div>
         </section>
 
         <!-- SECCÃO 2: PRAGAS COM MALA -->
         <section class="science-section">
             <h2><span>🧳</span> Inimigos com "Mala de Viagem"</h2>
-            <p>Segundo os relatórios internacionais, as pragas invasoras são o maior perigo. Elas não têm passaporte, mas viajam:</p>
+            <p>Segundo os relatórios da IPPC de 2024, as pragas invasoras são o maior perigo para a nossa biodiversidade. Elas viajam de formas silenciosas:</p>
             <ul>
-                <li><strong>E-commerce:</strong> Compras online de sementes ou plantas de outros continentes podem trazer bichos minúsculos escondidos.</li>
-                <li><strong>Turismo:</strong> Frutas ou flores trazidas na mala de férias podem introduzir pragas que destroem florestas inteiras em Portugal e na Europa.</li>
-                <li><strong>Contentores Marítimos:</strong> Barcos que cruzam oceanos transportam milhões de toneladas de carga onde pragas "apanham boleia".</li>
+                <li><strong>E-commerce Transfronteiriço:</strong> Encomendas de sementes ou bulbos comprados online podem esconder fungos ou bactérias mortais para as florestas locais.</li>
+                <li><strong>Bagagem Turística:</strong> Aquela fruta trazida de um país tropical pode conter larvas de insetos que não têm predadores em Portugal, causando um desequilíbrio total.</li>
+                <li><strong>Contentores e Paletes de Madeira:</strong> Quase todo o comércio mundial usa madeira. Se a madeira não for tratada (Norma ISPM 15), pragas podem cruzar o oceano escondidas no seu interior.</li>
             </ul>
         </section>
 
-        <!-- SECCÃO 3: ALTERAÇÕES CLIMÁTICAS -->
+        <!-- SECCÃO 3: AMEAÇAS REAIS (NOVO) -->
+        <section class="science-section">
+            <h2><span>⚠️</span> Invasores de Alerta Vermelho</h2>
+            <p>Conhece dois dos maiores vilões identificados pela FAO:</p>
+            <h3>🍂 Fall Armyworm (Lagarta do Cartucho)</h3>
+            <p>Esta praga come mais de 80 tipos de plantas diferentes e viaja centenas de quilómetros. Pode destruir campos inteiros de milho e arroz, deixando cidades sem comida.</p>
+            <h3>🦗 Gafanhoto do Deserto</h3>
+            <p>Uma nuvem destes insetos pode cobrir cidades inteiras. Um pequeno enxame come, num único dia, a mesma quantidade de comida que 35 mil pessoas!</p>
+        </section>
+
+        <!-- SECCÃO 4: ALTERAÇÕES CLIMÁTICAS -->
         <section class="science-section">
             <h2><span>🌡️</span> O Alerta do Clima</h2>
-            <p>Os dados científicos da ONU mostram que o aquecimento global é um <strong>aliado das pragas</strong>. Como os invernos são menos frios, insetos perigosos que antes morriam com o gelo agora sobrevivem e espalham-se para novos países, atacando plantas que não estão habituadas a eles.</p>
+            <p>Os dados científicos da ONU mostram que o aquecimento global é um <strong>aliado das pragas</strong>. Como os invernos são agora menos rigorosos, insetos perigosos que antes morriam com o gelo agora sobrevivem e colonizam novos países, atacando plantas que não têm defesas naturais contra eles.</p>
         </section>
 
-        <!-- SECCÃO 4: O PAPEL DA FAMÍLIA -->
+        <!-- SECCÃO 5: PAPEL DO GUARDIÃO -->
         <section class="science-section">
             <h2><span>👨‍👩‍👧‍👦</span> O Teu Papel como Guardião</h2>
-            <p>Os pais e as crianças são os olhos da ONU no terreno! Eis o que podem fazer juntos:</p>
+            <p>Os pais e as crianças são os "Olhos do Planeta". Eis as diretrizes oficiais para agir em casa:</p>
             <ul>
-                <li><strong>Observação Atenta:</strong> Se virem uma mancha estranha ou um bicho desconhecido numa planta no parque, tirem uma foto e mostrem a um especialista.</li>
-                <li><strong>Consumo Consciente:</strong> Comprem plantas e sementes apenas em locais certificados que garantem a saúde biológica.</li>
-                <li><strong>Educação:</strong> Espalhem a palavra! Quanto mais pessoas souberem que <strong>plantas saudáveis significam um planeta saudável</strong>, mais fácil será proteger o futuro.</li>
+                <li><strong>Protocolo de Observação:</strong> Se vires manchas, teias estranhas ou bichos coloridos desconhecidos numa planta, não a arranques! Tira uma foto e pede aos teus pais para contactarem um especialista agrícola.</li>
+                <li><strong>Compras Seguras:</strong> Prefere sempre sementes e plantas de viveiros locais certificados. Eles garantem que a planta está livre de "clandestinos" biológicos.</li>
+                <li><strong>Embaixador Verde:</strong> Ensina aos teus amigos que proteger uma árvore não é apenas proteger madeira, é proteger o oxigénio que todos usamos para correr e brincar.</li>
             </ul>
         </section>
 
-       <div style="text-align: center; margin-top: 60px; margin-bottom: 40px;">
-    <a href="index.html" class="btn-back-hq">
-        VOLTAR AO QUARTEL-GENERAL
-    </a>
-</div>
+        <!-- BOTÃO FINAL RECONSTRUÍDO -->
+        <div class="hq-button-wrapper">
+            <a href="index.html" class="btn-hq">
+                VOLTAR AO QUARTEL-GENERAL
+            </a>
+        </div>
 
     </div>
 
-    <footer class="footer-info">
+    <footer>
         FONTE TÉCNICA: IPPC ANNUAL REPORT 2024 & FAO PLANT HEALTH ACTIVITY BOOK <br>
-        PROJETO "GUARDIÕES DAS PLANTAS" - DIA INTERNACIONAL DA SAÚDE DAS PLANTAS
+        PROJETO "GUARDIÕES DAS PLANTAS" - DIA INTERNACIONAL DA SAÚDE DAS PLANTAS (12 DE MAIO)
     </footer>
 
-    <script src="script.js"></script>
 </body>
 </html>
