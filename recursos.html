@@ -22,8 +22,8 @@
             color: #fdf5e6;
             font-family: 'Lexend', sans-serif;
             margin: 0;
-            overflow-x: hidden;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* Navbar */
@@ -39,43 +39,45 @@
         .nav-links a { text-decoration: none; color: white; font-size: 0.8rem; opacity: 0.7; transition: 0.3s; text-transform: uppercase; }
         .nav-links a:hover { opacity: 1; color: var(--glow-green); }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 120px 20px 80px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 120px 20px 80px; }
 
         header { text-align: center; margin-bottom: 60px; }
-        header h1 { font-size: 3rem; color: var(--glow-green); text-shadow: 0 0 20px rgba(66, 245, 167, 0.4); margin: 0; }
-        
+        header h1 { font-size: clamp(2rem, 5vw, 3rem); color: var(--glow-green); text-shadow: 0 0 20px rgba(66, 245, 167, 0.4); margin: 0; font-weight: 800; }
+        header p { opacity: 0.8; font-size: 1.1rem; }
+
         .section-title {
             font-size: 1.4rem; color: var(--glow-green); margin: 60px 0 30px;
             display: flex; align-items: center; gap: 15px; text-transform: uppercase; letter-spacing: 2px;
             border-bottom: 1px solid var(--line-color); padding-bottom: 10px;
         }
 
+        /* Grelha de Recursos Única e Limpa */
         .resource-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 25px;
+            margin-bottom: 40px;
         }
 
-        /* Cartões */
         .card {
-            background: var(--glass);
+            background: rgba(255,255,255,0.03);
             border: 1px solid var(--line-color);
             border-radius: 25px;
             overflow: hidden;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: 0.4s;
             display: flex;
             flex-direction: column;
         }
         .card:hover { border-color: var(--glow-green); transform: translateY(-10px); box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
 
-        /* Estilo para Vídeos YouTube */
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; }
+        /* Estilo para Vídeos YouTube (Proporção 16:9) */
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
         .card-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
         .card-tag { font-size: 0.6rem; color: var(--glow-green); border: 1px solid var(--glow-green); padding: 2px 8px; border-radius: 5px; margin-bottom: 10px; width: fit-content; text-transform: uppercase; font-weight: bold; }
-        .card h3 { margin: 0 0 10px; font-size: 1.1rem; color: white; }
-        .card p { font-size: 0.85rem; opacity: 0.7; margin-bottom: 20px; }
+        .card h3 { margin: 0 0 10px; font-size: 1.1rem; color: white; font-weight: 600; }
+        .card p { font-size: 0.85rem; opacity: 0.7; margin-bottom: 20px; line-height: 1.5; }
 
         .btn-ebook {
             background: transparent; color: var(--glow-green); border: 1px solid var(--glow-green);
@@ -84,7 +86,8 @@
         }
         .btn-ebook:hover { background: var(--glow-green); color: var(--bg-deep); }
 
-        /* --- BOTÃO HQ FORÇADO (VERMELHO) --- */
+        /* --- BOTÃO HQ CORRIGIDO --- */
+        .hq-button-wrapper { text-align: center; margin: 80px 0 40px; }
         .btn-hq {
             background-color: var(--strawberry) !important;
             color: #ffffff !important;
@@ -97,14 +100,14 @@
             display: inline-block !important;
             box-shadow: 0 10px 0 var(--strawberry-dark) !important;
             border: none !important;
-            transition: 0.2s !important;
             cursor: pointer !important;
+            transition: 0.2s;
         }
         .btn-hq:hover { transform: translateY(-4px) !important; box-shadow: 0 14px 0 var(--strawberry-dark) !important; filter: brightness(1.1); }
         .btn-hq:active { transform: translateY(6px) !important; box-shadow: 0 4px 0 var(--strawberry-dark) !important; }
 
         @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; }
+            .navbar { padding: 10px 5%; }
             .nav-links { display: none; }
         }
     </style>
@@ -127,137 +130,116 @@
     <div class="container">
         
         <header>
-            <h1>Central de Inteligência</h1>
-            <p>Os vídeos e guias oficiais da ONU e da FAO para a tua formação.</p>
+            <h1>Biblioteca do Guardião</h1>
+            <p>Explora todos os vídeos e manuais oficiais para completares o teu treino.</p>
         </header>
 
-        <!-- 📺 VÍDEOS (BASEADOS NOS QUE ENVIOU) -->
+        <!-- 📺 SECÇÃO DE VÍDEOS -->
         <div class="section-title"><span>🎬</span> Cine-Guardião</div>
         <div class="resource-grid">
             
             <div class="card">
                 <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/aCCFUG6S2qU" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/fA8-m9S-8qY" title="Saúde das Plantas" allowfullscreen></iframe>
                 </div>
                 <div class="card-body">
-                    <span class="card-tag">Saúde das Plantas</span>
+                    <span class="card-tag">Oficial</span>
                     <h3>Plantas Saudáveis, Planeta Saudável</h3>
-                    <p>A ligação entre as plantas e a nossa vida.</p>
+                    <p>O empenho internacional para salvar o nosso pulmão verde.</p>
                 </div>
             </div>
-            
+
             <div class="card">
                 <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/SsgFvAc7Etk" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/SsgFvAc7Etk" title="Cães Farejadores" allowfullscreen></iframe>
                 </div>
                 <div class="card-body">
-                    <span class="card-tag">Defesa Biológica</span>
+                    <span class="card-tag">Defesa</span>
                     <h3>Cães Farejadores e Saúde Vegetal</h3>
-                    <p>Como os nossos amigos de quatro patas ajudam a detetar pragas.</p>
+                    <p>Como animais ajudam cientistas a detetar pragas perigosas.</p>
                 </div>
             </div>
-            
-    <!-- VÍDEO 1 -->
-    <div class="card">
-        <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/S_T601p_9qU" title="Crianças guardiãs" allowfullscreen></iframe>
-        </div>
-        <div class="card-body">
-            <span class="card-tag">Ação</span>
-            <h3>Crianças Guardiãs</h3>
-            <p>Descobre como os jovens heróis estão a proteger a alimentação do futuro.</p>
-        </div>
-    </div>
 
-    <!-- VÍDEO 2 -->
-    <div class="card">
-        <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/Nf-fRz0fC_g" title="Acesso a boa nutrição" allowfullscreen></iframe>
-        </div>
-        <div class="card-body">
-            <span class="card-tag">Saúde</span>
-            <h3>Acesso a Boa Nutrição</h3>
-            <p>A importância de plantas saudáveis para uma alimentação equilibrada.</p>
-        </div>
-    </div>
+            <div class="card">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/S_T601p_9qU" title="Crianças Guardiãs" allowfullscreen></iframe>
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Ação</span>
+                    <h3>Crianças Guardiãs</h3>
+                    <p>Jovens heróis que estão a mudar a forma como cuidamos da terra.</p>
+                </div>
+            </div>
 
-    <!-- VÍDEO 3 -->
-    <div class="card">
-        <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/eH654HiaB4g" title="Unidos em torno de uma chavena de chá" allowfullscreen></iframe>
-        </div>
-        <div class="card-body">
-            <span class="card-tag">Cultura</span>
-            <h3>Unidos por uma Chávena de Chá</h3>
-            <p>O chá como símbolo de bem-estar e a ciência por trás da sua plantação.</p>
-        </div>
-    </div>
+            <div class="card">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/Nf-fRz0fC_g" title="Boa Nutrição" allowfullscreen></iframe>
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Saúde</span>
+                    <h3>Acesso a Boa Nutrição</h3>
+                    <p>A importância das plantas para uma mesa cheia de saúde.</p>
+                </div>
+            </div>
 
-    <!-- VÍDEO 4 -->
-    <div class="card">
-        <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/fA8-m9S-8qY" title="Dia Internacional das Plantas Saudáveis" allowfullscreen></iframe>
-        </div>
-        <div class="card-body">
-            <span class="card-tag">Institucional</span>
-            <h3>Dia Internacional da Saúde das Plantas</h3>
-            <p>A missão solene das Nações Unidas para proteger a vida verde.</p>
-        </div>
-    </div>
+            <div class="card">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/eH654HiaB4g" title="Chávena de Chá" allowfullscreen></iframe>
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Cultura</span>
+                    <h3>Unidos por uma Chávena de Chá</h3>
+                    <p>A ciência e a união por trás de uma das bebidas mais amadas do mundo.</p>
+                </div>
+            </div>
 
-    <!-- VÍDEO 5 -->
-    <div class="card">
-        <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/j-h5M_pT20w" title="Plantações de Algodão" allowfullscreen></iframe>
-        </div>
-        <div class="card-body">
-            <span class="card-tag">Indústria</span>
-            <h3>Plantações de Algodão</h3>
-            <p>Do campo até à roupa: como a saúde do algodão veste o mundo.</p>
-        </div>
-    </div>
+            <div class="card">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/j-h5M_pT20w" title="Algodão" allowfullscreen></iframe>
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Indústria</span>
+                    <h3>Plantações de Algodão</h3>
+                    <p>Como a saúde vegetal influencia até o que vestimos todos os dias.</p>
+                </div>
+            </div>
 
-    <!-- VÍDEO 6 -->
-    <div class="card">
-        <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/XitB_2Hq0-k" title="Agricultura e Mudanças Climáticas" allowfullscreen></iframe>
-        </div>
-        <div class="card-body">
-            <span class="card-tag">Ambiente</span>
-            <h3>Agricultura e Clima</h3>
-            <p>Como enfrentar o aquecimento global através da proteção das plantas.</p>
-        </div>
-    </div>
+            <div class="card">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/XitB_2Hq0-k" title="Clima" allowfullscreen></iframe>
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Ambiente</span>
+                    <h3>Agricultura e Mudanças Climáticas</h3>
+                    <p>O desafio de produzir comida num planeta em aquecimento.</p>
+                </div>
+            </div>
 
-    <!-- VÍDEO 7 -->
-    <div class="card">
-        <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/nJ4m9k93XqU" title="Unidos Contra os Micróbios" allowfullscreen></iframe>
-        </div>
-        <div class="card-body">
-            <span class="card-tag">Laboratório</span>
-            <h3>Unidos Contra os Micróbios</h3>
-            <p>A ciência da resistência antimicrobiana e a defesa das culturas.</p>
-        </div>
-    </div>
+            <div class="card">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/nJ4m9k93XqU" title="Micróbios" allowfullscreen></iframe>
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Laboratório</span>
+                    <h3>Unidos Contra os Micróbios</h3>
+                    <p>A ciência por trás da defesa das plantas contra pragas invisíveis.</p>
+                </div>
+            </div>
 
-    <!-- VÍDEO 8 -->
-    <div class="card">
-        <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/DNPKOfzUApw" title="Cidades Verdes" allowfullscreen></iframe>
-        </div>
-        <div class="card-body">
-            <span class="card-tag">Futuro</span>
-            <h3>Cidades Verdes</h3>
-            <p>Transformar cidades de cimento em verdadeiros pulmões da biosfera.</p>
-        </div>
-    </div>
-
-</div>
+            <div class="card">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/DNPKOfzUApw" title="Cidades Verdes" allowfullscreen></iframe>
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Futuro</span>
+                    <h3>Cidades Verdes</h3>
+                    <p>Transformar cidades em pulmões de biodiversidade e oxigénio.</p>
+                </div>
+            </div>
 
         </div>
 
-        <!-- 📖 EBOOKS (OS 6 LINKS EXATOS QUE ENVIOU) -->
+        <!-- 📖 SECÇÃO DE EBOOKS -->
         <div class="section-title"><span>📚</span> Arquivo de Ebooks (FAO/IPPC)</div>
         <div class="resource-grid">
             
@@ -266,7 +248,7 @@
                     <span class="card-tag">EBOOK 01</span>
                     <h3>Plantas Saudáveis, Planeta Saudável</h3>
                     <p>Livro de atividades júnior oficial para crianças.</p>
-                    <a href="https://openknowledge.fao.org/items/090d2fbb-32a6-412b-a3b8-1ce5c5905df2" target="_blank" class="btn-ebook">Abrir no OpenKnowledge ➔</a>
+                    <a href="https://openknowledge.fao.org/items/090d2fbb-32a6-412b-a3b8-1ce5c5905df2" target="_blank" class="btn-ebook">Abrir Ebook ➔</a>
                 </div>
             </div>
 
@@ -274,7 +256,7 @@
                 <div class="card-body">
                     <span class="card-tag">EBOOK 02</span>
                     <h3>Caderno de Atividades FAO</h3>
-                    <p>Tudo o que precisas saber para tornar-se um Guardião</p>
+                    <p>Tudo o que precisas saber para tornares-te um Guardião.</p>
                     <a href="https://openknowledge.fao.org/items/8b7da869-ee24-4025-9dfc-077b2d23b0ee" target="_blank" class="btn-ebook">Ver Guia Oficial ➔</a>
                 </div>
             </div>
@@ -300,7 +282,7 @@
             <div class="card">
                 <div class="card-body">
                     <span class="card-tag">EBOOK 05</span>
-                    <h3>Impactos das Mudanças Climáticas nas Pragas das Plantas </h3>
+                    <h3>Mudanças Climáticas e Pragas</h3>
                     <p>Medidas de Prevenção, Mitigação e Adaptação.</p>
                     <a href="https://openknowledge.fao.org/items/dadc00b5-ad54-4fe3-b7cc-d75af31741e0" target="_blank" class="btn-ebook">Baixar Caderno ➔</a>
                 </div>
@@ -310,14 +292,14 @@
                 <div class="card-body">
                     <span class="card-tag">BIBLIOTECA</span>
                     <h3>Arquivo Geral de Publicações</h3>
-                    <p>Acesso completo à base de dados da IPPC.</p>
+                    <p>Acesso completo à base de dados científica da IPPC.</p>
                     <a href="https://www.ippc.int/en/resources/publications/" target="_blank" class="btn-ebook">Explorar Tudo ➔</a>
                 </div>
             </div>
 
         </div>
 
-        <div style="text-align: center; margin-top: 80px;">
+        <div class="hq-button-wrapper">
             <a href="index.html" class="btn-hq">🏠 VOLTAR AO QUARTEL-GENERAL</a>
         </div>
 
