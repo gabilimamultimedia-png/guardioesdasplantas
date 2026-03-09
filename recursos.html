@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Central de Recursos | Guardiões das Plantas</title>
+    <title>Central de Inteligência | Guardiões das Plantas</title>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -13,7 +13,7 @@
             --strawberry-dark: #b33939;
             --gold: #f1c40f;
             --line-color: rgba(66, 245, 167, 0.2);
-            --glass: rgba(255, 255, 255, 0.03);
+            --glass: rgba(66, 245, 167, 0.05);
         }
 
         body {
@@ -23,9 +23,10 @@
             font-family: 'Lexend', sans-serif;
             margin: 0;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* Navbar Consistente */
+        /* Navbar */
         .navbar {
             position: fixed; top: 0; width: 100%; display: flex;
             justify-content: space-between; align-items: center;
@@ -34,7 +35,7 @@
             z-index: 1000; box-sizing: border-box;
         }
         .nav-logo { font-weight: 800; color: var(--glow-green); display: flex; align-items: center; gap: 10px; }
-        .nav-links { display: flex; list-style: none; gap: 20px; }
+        .nav-links { display: flex; list-style: none; gap: 20px; margin:0; padding:0; }
         .nav-links a { text-decoration: none; color: white; font-size: 0.8rem; opacity: 0.7; transition: 0.3s; text-transform: uppercase; }
         .nav-links a:hover { opacity: 1; color: var(--glow-green); }
 
@@ -44,68 +45,66 @@
         header h1 { font-size: 3rem; color: var(--glow-green); text-shadow: 0 0 20px rgba(66, 245, 167, 0.4); margin: 0; }
         
         .section-title {
-            font-size: 1.5rem; color: var(--glow-green); margin: 60px 0 30px;
+            font-size: 1.4rem; color: var(--glow-green); margin: 60px 0 30px;
             display: flex; align-items: center; gap: 15px; text-transform: uppercase; letter-spacing: 2px;
+            border-bottom: 1px solid var(--line-color); padding-bottom: 10px;
         }
-        .section-title span { background: var(--glow-green); color: var(--bg-deep); padding: 5px 12px; border-radius: 8px; font-weight: 800; }
 
-        /* Grid de Recursos */
         .resource-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 25px;
         }
 
-        /* Cartões de Recurso */
+        /* Cartões */
         .card {
             background: var(--glass);
             border: 1px solid var(--line-color);
-            border-radius: 30px;
+            border-radius: 25px;
             overflow: hidden;
             transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             flex-direction: column;
         }
-        .card:hover { border-color: var(--glow-green); transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .card:hover { border-color: var(--glow-green); transform: translateY(-10px); box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
 
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        /* Estilo para Vídeos YouTube */
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
-        .card-body { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
-        .card-tag { font-size: 0.65rem; color: var(--glow-green); border: 1px solid var(--glow-green); padding: 3px 10px; border-radius: 50px; display: inline-block; margin-bottom: 15px; width: fit-content; }
-        .card h3 { margin: 0 0 15px; font-size: 1.2rem; color: white; }
-        .card p { font-size: 0.9rem; opacity: 0.7; margin-bottom: 25px; line-height: 1.6; }
+        .card-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-tag { font-size: 0.6rem; color: var(--glow-green); border: 1px solid var(--glow-green); padding: 2px 8px; border-radius: 5px; margin-bottom: 10px; width: fit-content; text-transform: uppercase; font-weight: bold; }
+        .card h3 { margin: 0 0 10px; font-size: 1.1rem; color: white; }
+        .card p { font-size: 0.85rem; opacity: 0.7; margin-bottom: 20px; }
 
-        /* Botão Estilo Manual (Pequeno) */
-        .btn-link {
+        .btn-ebook {
             background: transparent; color: var(--glow-green); border: 1px solid var(--glow-green);
-            padding: 12px 25px; border-radius: 10px; text-decoration: none; font-weight: 600;
+            padding: 12px; border-radius: 12px; text-decoration: none; font-weight: 600;
             font-size: 0.85rem; text-align: center; transition: 0.3s; margin-top: auto;
         }
-        .btn-link:hover { background: var(--glow-green); color: var(--bg-deep); }
+        .btn-ebook:hover { background: var(--glow-green); color: var(--bg-deep); }
 
-        /* --- BOTÃO HQ CORRIGIDO (O MESMO DO SAIBA MAIS) --- */
-        .hq-button-wrapper { text-align: center; margin: 80px 0 40px; }
+        /* --- BOTÃO HQ FORÇADO (VERMELHO) --- */
         .btn-hq {
             background-color: var(--strawberry) !important;
             color: #ffffff !important;
             text-decoration: none !important;
-            padding: 20px 50px !important;
+            padding: 22px 50px !important;
             border-radius: 18px !important;
             font-weight: 800 !important;
             font-size: 1.2rem !important;
             text-transform: uppercase !important;
             display: inline-block !important;
             box-shadow: 0 10px 0 var(--strawberry-dark) !important;
-            transition: all 0.2s ease !important;
             border: none !important;
+            transition: 0.2s !important;
+            cursor: pointer !important;
         }
-        .btn-hq:hover { transform: translateY(-4px) !important; box-shadow: 0 14px 0 var(--strawberry-dark) !important; filter: brightness(1.1) !important; }
+        .btn-hq:hover { transform: translateY(-4px) !important; box-shadow: 0 14px 0 var(--strawberry-dark) !important; filter: brightness(1.1); }
         .btn-hq:active { transform: translateY(6px) !important; box-shadow: 0 4px 0 var(--strawberry-dark) !important; }
 
         @media (max-width: 768px) {
             h1 { font-size: 2.2rem; }
-            .navbar { padding: 10px 5%; }
             .nav-links { display: none; }
         }
     </style>
@@ -128,97 +127,149 @@
     <div class="container">
         
         <header>
-            <div style="border: 1px solid var(--gold); color: var(--gold); padding: 5px 15px; border-radius: 50px; font-size: 0.7rem; display: inline-block; margin-bottom: 20px; letter-spacing: 2px;">BIBLIOTECA OFICIAL</div>
-            <h1>Materiais de Treino</h1>
-            <p>Aprofunda os teus conhecimentos com os guias oficiais da FAO e da IPPC. Estuda como um verdadeiro cientista.</p>
+            <h1>Central de Inteligência</h1>
+            <p>Os vídeos e guias oficiais da ONU e da FAO para a tua formação.</p>
         </header>
 
-        <!-- SECÇÃO DE VÍDEOS -->
-        <div class="section-title"><span>01</span> Cine-Guardião</div>
+        <!-- 📺 VÍDEOS (BASEADOS NOS QUE ENVIOU) -->
+        <div class="section-title"><span>🎬</span> Cine-Guardião</div>
         <div class="resource-grid">
+            
             <div class="card">
-                <div class="video-container">
-                    <!-- Vídeo sobre Saúde das Plantas -->
-                    <iframe src="https://www.youtube.com/embed/fA8-m9S-8qY" allowfullscreen></iframe>
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/watch?v=aCCFUG6S2qU" allowfullscreen></iframe>
                 </div>
                 <div class="card-body">
-                    <span class="card-tag">Vídeo ONU</span>
-                    <h3>Protecting Plants, Protecting Life</h3>
-                    <p>Um olhar profundo sobre como a saúde das plantas impacta a fome zero e a vida no planeta.</p>
+                    <span class="card-tag">Saúde das Plantas</span>
+                    <h3>Healthy Plants, Healthy Planet</h3>
+                    <p>O vídeo principal que explica a ligação entre as plantas e a nossa vida.</p>
+                </div>
+            </div>
+
+  <div class="card">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/watch?v=tgyo9tg9o_s&t=13s" allowfullscreen></iframe>
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Saúde das Plantas</span>
+                    <h3>Dia Internacional da Saúde das Plantas</h3>
+                    <p>O vídeo enfatiza a importância das plantas na manutenção do planeta.</p>
+                </div>
+            </div>
+
+             <div class="card">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/watch?v=OlV_XOh2vyY&t=102s" allowfullscreen></iframe>
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Força contra os micróbios</span>
+                    <h3>Resistência contra as pragas</h3>
+                    <p>Como combater esta ameaça?</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/SsgFvAc7Etk" allowfullscreen></iframe>
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Defesa Biológica</span>
+                    <h3>Cães Farejadores e Saúde Vegetal</h3>
+                    <p>Como os nossos amigos de quatro patas ajudam a detetar pragas.</p>
                 </div>
             </div>
 
             <div class="card">
-                <div class="video-container">
-                    <!-- Vídeo sobre Pragas Invasoras -->
-                    <iframe src="https://www.youtube.com/embed/S_T601p_9qU" allowfullscreen></iframe>
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/watch?v=DqDL4hsAqZs&t=44s" allowfullscreen></iframe>
                 </div>
                 <div class="card-body">
-                    <span class="card-tag">Vídeo FAO</span>
-                    <h3>A Viagem das Pragas</h3>
-                    <p>Entende como pequenos insetos cruzam oceanos e o que podemos fazer para os travar.</p>
+                    <span class="card-tag"Heróis da Comida</span>
+                    <h3>Crianças Guardiãs</h3>
+                    <p>Participação das Crianças na Saúde das Plantas e Alimentação.</p>
                 </div>
             </div>
+
+            <div class="card">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/watch?v=-kymUdt04BQ&t=6s" allowfullscreen></iframe>
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Alimentação</span>
+                    <h3>Compromisso com a Boa Alimentação</h3>
+                    <p>Uma missão especial para os guardiões dos alimentos de todo o planeta.</p>
+                </div>
+            </div>
+
         </div>
 
-        <!-- SECÇÃO DE EBOOKS (LINKS QUE ENVIASTE) -->
-        <div class="section-title"><span>02</span> Arquivo de Manuais (Ebooks)</div>
+        <!-- 📖 EBOOKS (OS 6 LINKS EXATOS QUE ENVIOU) -->
+        <div class="section-title"><span>📚</span> Arquivo de Ebooks (FAO/IPPC)</div>
         <div class="resource-grid">
             
             <div class="card">
                 <div class="card-body">
-                    <span class="card-tag">PDF OFICIAL</span>
+                    <span class="card-tag">EBOOK 01</span>
                     <h3>Plantas Saudáveis, Planeta Saudável</h3>
-                    <p>O livro de atividades completo da FAO para crianças. Jogos, puzzles e muita ciência.</p>
-                    <a href="https://openknowledge.fao.org/items/090d2fbb-32a6-412b-a3b8-1ce5c5905df2" target="_blank" class="btn-link">Abrir Ebook ➔</a>
+                    <p>Livro de atividades júnior oficial para crianças.</p>
+                    <a href="https://openknowledge.fao.org/items/090d2fbb-32a6-412b-a3b8-1ce5c5905df2" target="_blank" class="btn-ebook">Abrir no OpenKnowledge ➔</a>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-body">
-                    <span class="card-tag">MANUAL TÉCNICO</span>
-                    <h3>Guia: Dia Internacional da Saúde das Plantas</h3>
-                    <p>Tudo o que precisas de saber sobre a celebração mundial de 12 de Maio.</p>
-                    <a href="https://openknowledge.fao.org/items/8b7da869-ee24-4025-9dfc-077b2d23b0ee" target="_blank" class="btn-link">Ver Guia ➔</a>
+                    <span class="card-tag">EBOOK 02</span>
+                    <h3>Guia de Envolvimento IDPH</h3>
+                    <p>Como participar no Dia Internacional da Saúde das Plantas.</p>
+                    <a href="https://openknowledge.fao.org/items/8b7da869-ee24-4025-9dfc-077b2d23b0ee" target="_blank" class="btn-ebook">Ver Guia Oficial ➔</a>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-body">
-                    <span class="card-tag">RESUMO EXECUTIVO</span>
-                    <h3>Protegendo Plantas, Protegendo Vidas</h3>
-                    <p>Folheto informativo sobre o impacto das plantas na biodiversidade global.</p>
-                    <a href="https://openknowledge.fao.org/items/6ffdbb81-31f7-4843-ac30-f4ea7c268af5" target="_blank" class="btn-link">Ler Folheto ➔</a>
+                    <span class="card-tag">EBOOK 03</span>
+                    <h3>Protecting Plants, Protecting Life</h3>
+                    <p>Documento de suporte à missão global fitossanitária.</p>
+                    <a href="https://openknowledge.fao.org/items/c3b69c30-0c83-47db-8fa8-4da57190d9f8" target="_blank" class="btn-ebook">Ler Documento ➔</a>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-body">
-                    <span class="card-tag">PUBLICAÇÕES IPPC</span>
-                    <h3>Arquivo Geral de Publicações IPPC</h3>
-                    <p>Acesso direto à base de dados científica da Convenção Internacional para a Proteção das Plantas.</p>
-                    <a href="https://www.ippc.int/en/resources/publications/" target="_blank" class="btn-link">Explorar Arquivo ➔</a>
+                    <span class="card-tag">EBOOK 04</span>
+                    <h3>Relatório Anual IPPC 2024</h3>
+                    <p>Os dados científicos e avanços mais recentes do mundo.</p>
+                    <a href="https://openknowledge.fao.org/items/6ffdbb81-31f7-4843-ac30-f4ea7c268af5" target="_blank" class="btn-ebook">Consultar Relatório ➔</a>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-body">
-                    <span class="card-tag">ATIVIDADES</span>
-                    <h3>Caderno Júnior da FAO</h3>
-                    <p>Material educativo desenhado especificamente para a próxima geração de Guardiões.</p>
-                    <a href="https://openknowledge.fao.org/items/dadc00b5-ad54-4fe3-b7cc-d75af31741e0" target="_blank" class="btn-link">Baixar Atividades ➔</a>
+                    <span class="card-tag">EBOOK 05</span>
+                    <h3>Caderno de Atividades FAO</h3>
+                    <p>Material educativo prático para salas de aula e famílias.</p>
+                    <a href="https://openknowledge.fao.org/items/dadc00b5-ad54-4fe3-b7cc-d75af31741e0" target="_blank" class="btn-ebook">Baixar Caderno ➔</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <span class="card-tag">BIBLIOTECA</span>
+                    <h3>Arquivo Geral de Publicações</h3>
+                    <p>Acesso completo à base de dados da IPPC.</p>
+                    <a href="https://www.ippc.int/en/resources/publications/" target="_blank" class="btn-ebook">Explorar Tudo ➔</a>
                 </div>
             </div>
 
         </div>
 
-        <div class="hq-button-wrapper">
-            <a href="index.html" class="btn-hq"> VOLTAR AO QUARTEL-GENERAL</a>
+        <div style="text-align: center; margin-top: 80px;">
+            <a href="index.html" class="btn-hq">🏠 VOLTAR AO QUARTEL-GENERAL</a>
         </div>
 
     </div>
 
-    <footer style="text-align: center; padding: 40px; font-size: 0.7rem; opacity: 0.4; border-top: 1px solid var(--line-color);">
+    <footer style="text-align: center; padding: 50px; font-size: 0.75rem; opacity: 0.4; border-top: 1px solid var(--line-color);">
         FONTE: FAO (FOOD AND AGRICULTURE ORGANIZATION OF THE UNITED NATIONS) | IPPC (INTERNATIONAL PLANT PROTECTION CONVENTION)
     </footer>
 
