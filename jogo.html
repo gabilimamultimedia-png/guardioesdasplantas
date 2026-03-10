@@ -10,7 +10,9 @@
             --glow-green: #42f5a7;
             --bg-deep: #061512;
             --strawberry: #ff4757;
-            --glass: rgba(66, 245, 167, 0.1);
+            --strawberry-dark: #b33939;
+            --glass: rgba(6, 21, 18, 0.85);
+            --line-color: rgba(66, 245, 167, 0.2);
         }
 
         body {
@@ -18,35 +20,77 @@
             color: white;
             font-family: 'Lexend', sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 100px 20px 20px; /* Espaço para o menu fixo no topo */
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden; /* Evita scroll durante o jogo */
+            overflow: hidden; 
+            box-sizing: border-box;
         }
-<nav class="navbar">
-    <div class="nav-logo">
-        <img src="images/super-morango.png" alt="Logo" style="width: 30px;">
-        <span>GUARDIÕES</span>
-    </div>
-    
-    <ul class="nav-links" id="nav-list">
-        <li><a href="index.html">Início</a></li>
-        <li><a href="historia.html">História</a></li>
-        <li><a href="jogo.html">Missão</a></li>
-        <li><a href="decisoes.html">Laboratório</a></li>
-        <li><a href="saiba-mais.html">Saiba Mais</a></li>
-        <li><a href="recursos.html">Recursos</a></li>
-    </ul>
 
-    <div class="menu-toggle" onclick="toggleMenu()">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-    </div>
-</nav>
-        /* Painel de Estatísticas Superior */
+        /* --- ESTILO DA NAVBAR (PADRÃO GLOBAL) --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 8%;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--line-color);
+            z-index: 2000;
+            box-sizing: border-box;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            color: var(--glow-green);
+        }
+
+        .nav-logo img { width: 30px; filter: drop-shadow(0 0 5px var(--glow-green)); }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            opacity: 0.7;
+        }
+
+        .nav-links a:hover { opacity: 1; color: var(--glow-green); }
+
+        .menu-toggle { display: none; cursor: pointer; }
+        .bar { display: block; width: 25px; height: 3px; margin: 5px; background-color: white; transition: 0.3s; }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%; left: 0; width: 100%;
+                background: rgba(6, 21, 18, 0.95);
+                flex-direction: column; padding: 20px; text-align: center;
+            }
+            .nav-links.active { display: flex; }
+        }
+
+        /* --- INTERFACE DO JOGO --- */
         .game-nav {
             display: flex;
             justify-content: space-between;
@@ -66,21 +110,20 @@
             flex: 1;
             text-align: center;
             font-weight: 800;
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--glow-green);
             text-transform: uppercase;
         }
 
-        /* Contentor do Jogo */
         .viewport-wrapper {
             width: 100%;
             max-width: 1100px;
             aspect-ratio: 16 / 9;
-            max-height: 75vh;
+            max-height: 65vh;
             position: relative;
             background-color: #000;
             border-radius: 30px;
-            border: 3px solid var(--glass);
+            border: 3px solid rgba(255,255,255,0.1);
             overflow: hidden;
             box-shadow: 0 25px 60px rgba(0,0,0,0.8);
         }
@@ -91,13 +134,11 @@
             background-size: cover;
             background-position: center;
             position: relative;
-            transition: background-image 0.8s ease-in-out;
         }
 
-        /* As Pragas i1, i2, i3, i4 */
         .pest {
             position: absolute;
-            width: 10%; /* Escala relativa ao tamanho do mapa */
+            width: 10%;
             min-width: 50px;
             max-width: 90px;
             cursor: pointer;
@@ -106,12 +147,8 @@
             transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .pest:hover {
-            transform: scale(1.2) rotate(5deg);
-            filter: drop-shadow(0 0 20px var(--strawberry));
-        }
+        .pest:hover { transform: scale(1.2) rotate(5deg); filter: drop-shadow(0 0 20px var(--strawberry)); }
 
-        /* Scanner Neon */
         .scan-bar {
             position: absolute;
             width: 100%;
@@ -127,7 +164,6 @@
 
         @keyframes scanMove { from { top: 0; } to { top: 100%; } }
 
-        /* Mensagem de Alerta Central */
         #alert-box {
             position: absolute;
             top: 50%; left: 50%;
@@ -144,15 +180,34 @@
             margin-top: 20px;
             color: var(--glow-green);
             text-decoration: none;
-            font-size: 0.9rem;
-            opacity: 0.7;
+            font-size: 0.8rem;
+            opacity: 0.6;
             transition: 0.3s;
         }
-        .btn-exit:hover { opacity: 1; text-shadow: 0 0 10px var(--glow-green); }
-
     </style>
 </head>
 <body>
+
+    <!-- MENU DE NAVEGAÇÃO -->
+    <nav class="navbar">
+        <div class="nav-logo">
+            <img src="images/super-morango.png" alt="Logo">
+            <span>GUARDIÕES</span>
+        </div>
+        <ul class="nav-links" id="nav-list">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="historia.html">História</a></li>
+            <li><a href="jogo.html">Missão</a></li>
+            <li><a href="decisoes.html">Laboratório</a></li>
+            <li><a href="saiba-mais.html">Saiba Mais</a></li>
+            <li><a href="recursos.html">Recursos</a></li>
+        </ul>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
 
     <div class="game-nav">
         <div class="stat-card">📍 <span id="loc-name">A carregar...</span></div>
@@ -170,14 +225,17 @@
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
-        // CONFIGURAÇÕES DOS CENÁRIOS
+        // Função do Menu Mobile
+        function toggleMenu() {
+            document.getElementById('nav-list').classList.toggle('active');
+        }
+
         const levels = [
             { name: "Horta Comunitária", bg: "images/fundo-horta.jpg", pests: 4 },
             { name: "Reserva Florestal", bg: "images/fundo-floresta.jpg", pests: 5 },
             { name: "Pulmão da Cidade", bg: "images/fundo-cidade.jpg", pests: 4 }
         ];
 
-        // CONFIGURAÇÃO DAS IMAGENS DAS PRAGAS (i1, i2, i3, i4)
         const pestImages = ["i1.png", "i2.png", "i3.png", "i4.png"];
 
         let currentLevel = 0;
@@ -192,19 +250,15 @@
             document.getElementById('target-count').innerText = data.pests;
             
             vp.style.backgroundImage = `url('${data.bg}')`;
-            vp.innerHTML = ''; // Limpa nível anterior
+            vp.innerHTML = ''; 
             foundInLevel = 0;
 
             for(let i=0; i < data.pests; i++) {
                 const imgElement = document.createElement('img');
-                
-                // ESCOLHA ALEATÓRIA DA PRAGA (i1 a i4)
                 const randomPest = pestImages[Math.floor(Math.random() * pestImages.length)];
                 imgElement.src = `images/${randomPest}`;
-                
                 imgElement.className = 'pest';
                 
-                // Posição aleatória (dentro da zona de segurança do contentor)
                 imgElement.style.top = (Math.random() * 75 + 10) + '%';
                 imgElement.style.left = (Math.random() * 85 + 5) + '%';
                 
@@ -212,11 +266,9 @@
                     e.stopPropagation();
                     score += 250;
                     foundInLevel++;
-                    
                     document.getElementById('xp-val').innerText = score;
                     document.getElementById('target-count').innerText = data.pests - foundInLevel;
                     
-                    // Animação de eliminação
                     imgElement.style.transform = "scale(0) rotate(180deg)";
                     setTimeout(() => imgElement.remove(), 300);
 
@@ -238,7 +290,7 @@
 
             currentLevel++;
             if(currentLevel < levels.length) {
-                showAlert("ÁREA LIMPA! 🌿 Próxima localização detectada...");
+                showAlert("ÁREA LIMPA! 🌿");
                 setTimeout(initLevel, 2500);
             } else {
                 showAlert("MISSÃO GLOBAL CONCLUÍDA! 🎖️");
@@ -255,7 +307,6 @@
             setTimeout(() => { box.style.display = 'none'; }, 2200);
         }
 
-        // Início Automático
         window.onload = initLevel;
     </script>
 </body>
