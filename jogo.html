@@ -25,7 +25,27 @@
             min-height: 100vh;
             overflow: hidden; /* Evita scroll durante o jogo */
         }
+nav class="navbar">
+    <div class="nav-logo">
+        <img src="images/super-morango.png" alt="Logo" style="width: 30px;">
+        <span>GUARDIÕES</span>
+    </div>
+    
+    <ul class="nav-links" id="nav-list">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="historia.html">História</a></li>
+        <li><a href="jogo.html">Missão</a></li>
+        <li><a href="decisoes.html">Laboratório</a></li>
+        <li><a href="saiba-mais.html">Saiba Mais</a></li>
+        <li><a href="recursos.html">Recursos</a></li>
+    </ul>
 
+    <div class="menu-toggle" onclick="toggleMenu()">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
+</nav>
         /* Painel de Estatísticas Superior */
         .game-nav {
             display: flex;
