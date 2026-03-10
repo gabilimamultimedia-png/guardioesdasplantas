@@ -10,7 +10,9 @@
             --bg-deep: #061512;
             --glow-green: #42f5a7;
             --strawberry: #ff4757;
-            --line-color: rgba(66, 245, 167, 0.3);
+            --strawberry-dark: #b33939;
+            --line-color: rgba(66, 245, 167, 0.2);
+            --glass: rgba(6, 21, 18, 0.9);
         }
 
         body {
@@ -21,37 +23,36 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 40px 20px;
+            padding: 120px 20px 60px; /* Espaço para a navbar */
+            min-height: 100vh;
+            box-sizing: border-box;
         }
 
-        /* Barra de Navegação de Saída */
-        .exit-nav {
+        /* --- NAVBAR PADRONIZADA --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
             display: flex;
-            gap: 20px;
-            margin-bottom: 40px;
-            z-index: 100;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 8%;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--line-color);
+            z-index: 2000;
+            box-sizing: border-box;
         }
+        .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; color: var(--glow-green); }
+        .nav-logo img { width: 30px; filter: drop-shadow(0 0 5px var(--glow-green)); }
+        .nav-links { display: flex; list-style: none; gap: 20px; margin: 0; padding: 0; }
+        .nav-links a { text-decoration: none; color: white; font-size: 0.8rem; text-transform: uppercase; transition: 0.3s; opacity: 0.7; }
+        .nav-links a:hover { opacity: 1; color: var(--glow-green); }
 
-        .nav-btn {
-            background: rgba(255, 255, 255, 0.05);
-            color: white;
-            text-decoration: none;
-            padding: 12px 25px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            border: 1px solid var(--line-color);
-            transition: 0.3s;
-        }
-
-        .nav-btn:hover {
-            background: var(--glow-green);
-            color: var(--bg-deep);
-            box-shadow: 0 0 15px var(--glow-green);
-        }
-
+        /* --- INTERFACE DE INPUT --- */
         .input-panel {
             background: rgba(255, 255, 255, 0.03);
-            padding: 30px;
+            padding: 25px;
             border-radius: 20px;
             margin-bottom: 40px;
             border: 1px solid var(--line-color);
@@ -59,21 +60,10 @@
             max-width: 600px;
             width: 100%;
         }
+        .input-panel label { font-size: 0.7rem; letter-spacing: 2px; opacity: 0.6; display: block; margin-bottom: 10px; }
+        input { background: transparent; border: none; border-bottom: 2px solid var(--glow-green); color: white; padding: 10px; font-size: 1.3rem; text-align: center; width: 80%; outline: none; }
 
-        input {
-            background: transparent;
-            border: none;
-            border-bottom: 2px solid var(--glow-green);
-            color: white;
-            padding: 10px;
-            font-size: 1.5rem;
-            text-align: center;
-            width: 80%;
-            outline: none;
-            font-weight: 200;
-        }
-
-        /* CERTIFICADO */
+        /* --- CERTIFICADO (PREVIEW CORRIGIDO) --- */
         #certificate-card {
             position: relative;
             width: 100%;
@@ -85,145 +75,76 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 5% 10%;
+            justify-content: space-between; /* Organiza os blocos verticalmente */
+            padding: 60px;
             box-sizing: border-box;
             box-shadow: 0 40px 100px rgba(0,0,0,0.8);
         }
 
-        .security-border {
-            position: absolute;
-            top: 20px; left: 20px; right: 20px; bottom: 20px;
-            border: 1px solid var(--line-color);
-            pointer-events: none;
-        }
+        .security-border { position: absolute; top: 15px; left: 15px; right: 15px; bottom: 15px; border: 1px solid var(--line-color); pointer-events: none; }
         
-        .header-top {
-            font-size: 0.7rem;
-            letter-spacing: 5px;
-            font-weight: 200;
-            opacity: 0.6;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-        }
-
-        .main-title {
-            font-size: clamp(1.5rem, 4vw, 3.2rem);
-            font-weight: 800;
-            margin: 0;
-            background: linear-gradient(to bottom, #fff, #888);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .sub-title {
-            font-size: 0.9rem;
-            font-weight: 400;
-            margin-top: 15px;
-            color: var(--glow-green);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
+        .header-text { text-align: center; }
+        .header-top { font-size: 0.65rem; letter-spacing: 4px; opacity: 0.5; text-transform: uppercase; margin-bottom: 15px; }
+        .main-title { font-size: 2.8rem; font-weight: 800; margin: 0; color: white; }
+        .sub-title { font-size: 0.9rem; color: var(--glow-green); letter-spacing: 2px; text-transform: uppercase; margin-top: 5px; }
 
         #display-name {
-            font-size: clamp(2rem, 6vw, 5rem);
+            font-size: 4rem;
             font-weight: 200;
             color: white;
-            margin: 25px 0;
-            width: 100%;
+            width: 90%;
             text-align: center;
-            white-space: nowrap;
             border-bottom: 1px solid rgba(255,255,255,0.1);
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 10px 0;
+            white-space: nowrap;
         }
 
-        .description {
-            font-size: clamp(0.7rem, 1.5vw, 1rem);
-            line-height: 1.8;
-            max-width: 85%;
-            width: 85%;
-            font-weight: 200;
-            opacity: 0.8;
-            margin-bottom: 20px;
-            text-align: center;
-        }
+        .desc-block { text-align: center; max-width: 80%; }
+        .description { font-size: 0.9rem; line-height: 1.6; opacity: 0.7; font-weight: 200; margin-bottom: 10px; }
+        .onu-ref { font-size: 0.65rem; color: var(--glow-green); font-weight: 600; letter-spacing: 1px; }
 
-        /* Referência ao 12 de Maio no Design */
-        .onu-reference {
-            font-size: 0.7rem;
-            color: var(--glow-green);
-            letter-spacing: 1px;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-
-        .footer-grid {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            align-items: flex-end;
-            margin-top: auto;
-        }
-
-        .footer-item {
-            flex: 1;
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.5;
-        }
-
-        .signature-path {
-            font-size: 1.5rem;
-            color: var(--strawberry);
-            font-weight: 400;
-            margin-bottom: 5px;
-            font-style: italic;
-        }
+        .footer-grid { display: flex; justify-content: space-between; width: 100%; align-items: flex-end; }
+        .footer-item { flex: 1; font-size: 0.6rem; text-transform: uppercase; opacity: 0.5; }
+        .signature-name { font-size: 1.4rem; color: var(--strawberry); font-style: italic; margin-bottom: 3px; }
 
         .badge-seal {
-            width: 70px;
-            height: 70px;
-            border: 1px solid var(--glow-green);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            padding: 10px;
-            box-shadow: 0 0 20px rgba(66, 245, 167, 0.2);
+            width: 70px; height: 70px; border: 1px solid var(--glow-green); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; flex-direction: column;
+            box-shadow: 0 0 20px rgba(66, 245, 167, 0.15);
         }
 
         .btn-download {
-            background: var(--glow-green);
-            color: var(--bg-deep);
-            border: none;
-            padding: 20px 60px;
-            border-radius: 50px;
-            font-weight: 800;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-top: 40px;
-            transition: 0.4s;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 50px;
+            background: var(--glow-green); color: var(--bg-deep); border: none;
+            padding: 18px 50px; border-radius: 50px; font-weight: 800; font-size: 1rem;
+            cursor: pointer; margin-top: 40px; transition: 0.4s; text-transform: uppercase; letter-spacing: 1px;
         }
         .btn-download:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--glow-green); }
 
         #export-canvas { display: none; }
+
+        @media (max-width: 768px) {
+            #certificate-card { padding: 30px; }
+            .main-title { font-size: 1.5rem; }
+            #display-name { font-size: 2rem; }
+            .navbar .nav-links { display: none; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- LINKS DE SAÍDA -->
-    <nav class="exit-nav">
-        <a href="index.html" class="nav-btn">🏠 Início</a>
-        <a href="recursos.html" class="nav-btn">📚 Recursos</a>
-        <a href="saiba-mais.html" class="nav-btn">🔍 Saiba Mais</a>
+    <!-- MENU PADRONIZADO -->
+    <nav class="navbar">
+        <div class="nav-logo">
+            <img src="images/super-morango.png" alt="Logo">
+            <span>GUARDIÕES</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="historia.html">História</a></li>
+            <li><a href="jogo.html">Missão</a></li>
+            <li><a href="saiba-mais.html">Saiba Mais</a></li>
+            <li><a href="recursos.html">Recursos</a></li>
+        </ul>
     </nav>
 
     <div class="input-panel">
@@ -231,31 +152,38 @@
         <input type="text" id="name-input" placeholder="Teu Nome Aqui" maxlength="35" oninput="updateName()">
     </div>
 
+    <!-- CERTIFICADO VISUAL RECONFIGURADO -->
     <div id="certificate-card">
         <div class="security-border"></div>
-        <div class="header-top">International Day of Plant Health • FAO • IPPC</div>
-        <h1 class="main-title">Certificado de Mérito</h1>
-        <div class="sub-title">Bio-Vigilante de Elite</div>
-        <div id="display-name">NOME DO GUARDIÃO</div>
         
-        <p class="description">
-            Pela excelência demonstrada na identificação de ameaças biológicas e pelo compromisso com os padrões internacionais de proteção da saúde das plantas.
-        </p>
+        <div class="header-text">
+            <div class="header-top">International Day of Plant Health • FAO • IPPC</div>
+            <h1 class="main-title">Certificado de Mérito</h1>
+            <div class="sub-title">Bio-Vigilante de Elite</div>
+        </div>
 
-        <!-- Referência ao 12 de Maio -->
-        <div class="onu-reference">EM COMEMORAÇÃO AO DIA INTERNACIONAL DA SAÚDE DAS PLANTAS — 12 DE MAIO</div>
+        <div id="display-name">NOME DO GUARDIÃO</div>
+
+        <div class="desc-block">
+            <p class="description">
+                Pela excelência demonstrada na identificação de ameaças biológicas e pelo compromisso com os padrões internacionais de proteção da saúde das plantas.
+            </p>
+            <div class="onu-ref">EM COMEMORAÇÃO AO DIA INTERNACIONAL DA SAÚDE DAS PLANTAS — 12 DE MAIO</div>
+        </div>
 
         <div class="footer-grid">
             <div class="footer-item" style="text-align: left;">
-                <div class="signature-path">Super Morango</div>
+                <div class="signature-name">Super Morango</div>
                 Cientista de Campo Responsável
             </div>
+
             <div class="badge-seal">
                 <img src="images/super-morango.png" id="hero-img" style="width: 35px; filter: brightness(0) invert(1) opacity(0.6);">
-                <div style="font-size: 0.35rem; margin-top: 5px; color: var(--glow-green);">APPROVED</div>
+                <div style="font-size: 0.3rem; color: var(--glow-green);">APPROVED</div>
             </div>
+
             <div class="footer-item" style="text-align: right;">
-                <div id="emission-date" style="color: white; font-weight: 600; font-size: 1.1rem; margin-bottom: 5px;">--.--.--</div>
+                <div id="emission-date" style="color: white; font-weight: 600; font-size: 1.1rem; margin-bottom: 3px;">--.--.--</div>
                 Data de Emissão Oficial
             </div>
         </div>
@@ -273,9 +201,9 @@
             const text = input.value.trim() || "NOME DO GUARDIÃO";
             display.innerText = text.toUpperCase();
 
-            let fontSize = 5; 
+            let fontSize = 4; 
             display.style.fontSize = fontSize + "rem";
-            while (display.scrollWidth > (display.offsetWidth * 0.95) && fontSize > 1.5) {
+            while (display.scrollWidth > (display.offsetWidth * 0.95) && fontSize > 1.2) {
                 fontSize -= 0.1;
                 display.style.fontSize = fontSize + "rem";
             }
@@ -286,30 +214,26 @@
             const dd = String(today.getDate()).padStart(2, '0');
             const mm = String(today.getMonth() + 1).padStart(2, '0');
             const yyyy = today.getFullYear();
-            return dd + '.' + mm + '.' + yyyy;
+            document.getElementById('emission-date').innerText = dd + '.' + mm + '.' + yyyy;
         }
 
         window.onload = () => {
-            const dateStr = setCurrentDate();
-            document.getElementById('emission-date').innerText = dateStr;
+            setCurrentDate();
             updateName();
             confetti({ particleCount: 100, spread: 70, origin: { y: 0.8 }, colors: ['#42f5a7', '#ff4757'] });
         };
 
+        // Função para quebrar linhas no Canvas
         function wrapText(context, text, x, y, maxWidth, lineHeight) {
             const words = text.split(' ');
             let line = '';
             for(let n = 0; n < words.length; n++) {
                 let testLine = line + words[n] + ' ';
-                let metrics = context.measureText(testLine);
-                let testWidth = metrics.width;
-                if (testWidth > maxWidth && n > 0) {
+                if (context.measureText(testLine).width > maxWidth && n > 0) {
                     context.fillText(line, x, y);
                     line = words[n] + ' ';
                     y += lineHeight;
-                } else {
-                    line = testLine;
-                }
+                } else { line = testLine; }
             }
             context.fillText(line, x, y);
         }
@@ -320,69 +244,45 @@
             const name = document.getElementById('name-input').value.toUpperCase() || "NOME DO GUARDIÃO";
             const date = document.getElementById('emission-date').innerText;
 
-            const grd = ctx.createRadialGradient(1000, 707, 100, 1000, 707, 1200);
-            grd.addColorStop(0, "#0d2d24");
-            grd.addColorStop(1, "#061512");
-            ctx.fillStyle = grd;
+            // Fundo
+            ctx.fillStyle = "#061512";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
+            const grd = ctx.createRadialGradient(1000, 707, 100, 1000, 707, 1200);
+            grd.addColorStop(0, "#0d2d24"); grd.addColorStop(1, "#061512");
+            ctx.fillStyle = grd; ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+            // Moldura
             ctx.strokeStyle = "rgba(66, 245, 167, 0.3)";
-            ctx.lineWidth = 2;
-            ctx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
+            ctx.lineWidth = 2; ctx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
 
-            ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
-            ctx.font = "200 25px Lexend";
             ctx.textAlign = "center";
+            ctx.fillStyle = "rgba(255,255,255,0.5)"; ctx.font = "200 25px Lexend";
             ctx.fillText("INTERNATIONAL DAY OF PLANT HEALTH • FAO • IPPC", 1000, 150);
 
-            ctx.fillStyle = "white";
-            ctx.font = "800 100px Lexend";
-            ctx.fillText("Certificado de Mérito", 1000, 300);
+            ctx.fillStyle = "white"; ctx.font = "800 90px Lexend";
+            ctx.fillText("Certificado de Mérito", 1000, 280);
 
-            ctx.fillStyle = "#42f5a7";
-            ctx.font = "400 35px Lexend";
-            ctx.fillText("BIO-VIGILANTE DE ELITE", 1000, 380);
+            ctx.fillStyle = "#42f5a7"; ctx.font = "400 35px Lexend";
+            ctx.fillText("BIO-VIGILANTE DE ELITE", 1000, 360);
 
-            let canvasFontSize = 180;
-            ctx.font = `200 ${canvasFontSize}px Lexend`;
-            ctx.fillStyle = "white";
-            while (ctx.measureText(name).width > 1600) {
-                canvasFontSize -= 5;
-                ctx.font = `200 ${canvasFontSize}px Lexend`;
-            }
+            let cvFontSize = 150; ctx.font = `200 ${cvFontSize}px Lexend`; ctx.fillStyle = "white";
+            while (ctx.measureText(name).width > 1600) { cvFontSize -= 5; ctx.font = `200 ${cvFontSize}px Lexend`; }
             ctx.fillText(name, 1000, 650);
 
-            ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
-            ctx.font = "200 35px Lexend";
-            const description = "Pela excelência demonstrada na identificação de ameaças biológicas e pelo compromisso com os padrões internacionais de proteção da saúde das plantas.";
-            wrapText(ctx, description, 1000, 850, 1500, 50);
+            ctx.fillStyle = "rgba(255,255,255,0.7)"; ctx.font = "200 35px Lexend";
+            wrapText(ctx, "Pela excelência demonstrada na identificação de ameaças biológicas e pelo compromisso com os padrões internacionais de proteção da saúde das plantas.", 1000, 850, 1400, 50);
 
-            // ADIÇÃO DO 12 DE MAIO NO DOWNLOAD
-            ctx.fillStyle = "#42f5a7";
-            ctx.font = "400 30px Lexend";
-            ctx.fillText("EM COMEMORAÇÃO AO DIA INTERNACIONAL DA SAÚDE DAS PLANTAS — 12 DE MAIO", 1000, 1030);
+            ctx.fillStyle = "#42f5a7"; ctx.font = "600 25px Lexend";
+            ctx.fillText("EM COMEMORAÇÃO AO DIA INTERNACIONAL DA SAÚDE DAS PLANTAS — 12 DE MAIO", 1000, 1050);
 
-            ctx.textAlign = "left";
-            ctx.fillStyle = "#ff4757";
-            ctx.font = "italic 60px Georgia";
-            ctx.fillText("Super Morango", 150, 1200);
-            ctx.fillStyle = "rgba(255,255,255,0.5)";
-            ctx.font = "200 25px Lexend";
-            ctx.fillText("CIENTISTA DE CAMPO RESPONSÁVEL", 150, 1250);
-
-            ctx.textAlign = "right";
-            ctx.fillStyle = "white";
-            ctx.font = "600 45px Lexend";
-            ctx.fillText(date, 1850, 1200);
-            ctx.fillStyle = "rgba(255,255,255,0.5)";
-            ctx.font = "200 25px Lexend";
-            ctx.fillText("DATA DE EMISSÃO OFICIAL", 1850, 1250);
-
-            const heroImg = document.getElementById('hero-img');
-            ctx.drawImage(heroImg, 965, 1150, 70, 70);
+            ctx.textAlign = "left"; ctx.fillStyle = "#ff4757"; ctx.font = "italic 60px Georgia";
+            ctx.fillText("Super Morango", 150, 1250);
+            
+            ctx.textAlign = "right"; ctx.fillStyle = "white"; ctx.font = "600 45px Lexend";
+            ctx.fillText(date, 1850, 1250);
 
             const link = document.createElement('a');
-            link.download = 'Credencial_Guardiao_Plantas.png';
+            link.download = 'Credencial_Guardiao.png';
             link.href = canvas.toDataURL('image/png');
             link.click();
         }
