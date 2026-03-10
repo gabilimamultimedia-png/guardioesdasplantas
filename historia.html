@@ -7,13 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Paleta Mágica extraída da tua imagem */
-            --bg-deep: #061512;        /* Azul-noite/Verde-floresta profundo */
-            --glow-green: #42f5a7;     /* Verde neon mágico do portal */
-            --strawberry: #ff4757;     /* Vermelho vibrante do herói */
-            --parchment: #fdf5e6;      /* Bege suave do pergaminho para leitura fácil */
-            --magic-blue: #1a2a3a;     /* Azul do céu estrelado */
+            --bg-deep: #061512;
+            --glow-green: #42f5a7;
+            --strawberry: #ff4757;
+            --strawberry-dark: #b33939;
+            --parchment: #fdf5e6;
+            --magic-blue: #1a2a3a;
             --glass: rgba(6, 21, 18, 0.85);
+            --line-color: rgba(66, 245, 167, 0.2);
         }
 
         body {
@@ -25,57 +26,93 @@
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
-<nav class="navbar">
-    <div class="nav-logo">
-        <img src="images/super-morango.png" alt="Logo" style="width: 30px;">
-        <span>GUARDIÕES</span>
-    </div>
-    
-    <ul class="nav-links" id="nav-list">
-        <li><a href="index.html">Início</a></li>
-        <li><a href="historia.html">História</a></li>
-        <li><a href="jogo.html">Missão</a></li>
-        <li><a href="decisoes.html">Laboratório</a></li>
-        <li><a href="saiba-mais.html">Saiba Mais</a></li>
-        <li><a href="recursos.html">Recursos</a></li>
-    </ul>
 
-    <div class="menu-toggle" onclick="toggleMenu()">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-    </div>
-</nav>
-        /* Barra de Progresso com Brilho Neon */
+        /* --- ESTILO DA NAVBAR (GLOW DESIGN) --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 8%;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--line-color);
+            z-index: 2000;
+            box-sizing: border-box;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            color: var(--glow-green);
+        }
+
+        .nav-logo img { width: 30px; filter: drop-shadow(0 0 5px var(--glow-green)); }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            opacity: 0.7;
+        }
+
+        .nav-links a:hover { opacity: 1; color: var(--glow-green); }
+
+        .menu-toggle { display: none; cursor: pointer; }
+        .bar { display: block; width: 25px; height: 3px; margin: 5px; background-color: white; transition: 0.3s; }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%; left: 0; width: 100%;
+                background: rgba(6, 21, 18, 0.95);
+                flex-direction: column; padding: 20px; text-align: center;
+            }
+            .nav-links.active { display: flex; }
+        }
+
+        /* --- RESTO DO SITE --- */
         #progress-bar {
             position: fixed; top: 0; left: 0; height: 8px;
             background: linear-gradient(to right, var(--glow-green), var(--strawberry));
             box-shadow: 0 0 15px var(--glow-green);
-            width: 0%; z-index: 1000; transition: width 0.2s;
+            width: 0%; z-index: 2100; transition: width 0.2s;
         }
 
-        /* Estrutura dos Capítulos */
         .chapter {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 100px 20px;
+            padding: 120px 20px 60px; /* Padding top aumentado para não chocar com menu */
             opacity: 0;
             transform: translateY(50px);
             transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
             box-sizing: border-box;
         }
 
-        .chapter.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .chapter.visible { opacity: 1; transform: translateY(0); }
 
-        /* Cartão de História (Inspirado no Portal) */
         .story-card {
-            background: var(--glass);
+            background: rgba(6, 21, 18, 0.8);
             backdrop-filter: blur(20px);
             padding: 40px;
             border-radius: 40px;
@@ -86,7 +123,6 @@
             text-align: center;
         }
 
-        /* Contentor de Imagem Responsivo (Sem cortes) */
         .illustration-box {
             width: 100%;
             margin-bottom: 30px;
@@ -100,17 +136,12 @@
         .illustration-box img {
             max-width: 100%;
             height: auto;
-            max-height: 550px; /* Ajuste para as tuas imagens quadradas e retangulares */
+            max-height: 500px;
             display: block;
             border-radius: 15px;
             transition: transform 0.6s ease;
         }
 
-        .chapter:hover .illustration-box img {
-            transform: scale(1.03);
-        }
-
-        /* Títulos H1 a H6 com Glow */
         h1, h2, h3, h4, h5, h6 { 
             color: var(--glow-green); 
             margin: 0 0 20px 0; 
@@ -121,42 +152,25 @@
         h1 { font-size: 3.5rem; } h2 { font-size: 3rem; } h3 { font-size: 2.5rem; }
         h4 { font-size: 2.2rem; } h5 { font-size: 2rem; } h6 { font-size: 1.8rem; }
 
-        p { 
-            font-size: 1.2rem; 
-            line-height: 1.8; 
-            opacity: 0.95; 
-            max-width: 750px; 
-            margin: 0 auto 25px; 
-        }
+        p { font-size: 1.2rem; line-height: 1.8; opacity: 0.95; max-width: 750px; margin: 0 auto 25px; }
 
-        /* Botões */
         .btn-magic {
             background: var(--glow-green); color: var(--bg-deep);
             border: none; padding: 20px 45px; border-radius: 50px;
             font-weight: 800; cursor: pointer; transition: 0.3s;
             text-transform: uppercase; box-shadow: 0 0 20px rgba(66, 245, 167, 0.3);
         }
-        .btn-magic:hover { background: white; box-shadow: 0 0 30px white; transform: scale(1.05); }
 
         .btn-mission {
             background: var(--strawberry); color: white;
             padding: 25px 60px; border-radius: 25px;
             font-size: 1.6rem; font-weight: 800; text-decoration: none;
             display: inline-block; margin-top: 20px;
-            box-shadow: 0 10px 0 #b33939; transition: 0.2s;
+            box-shadow: 0 10px 0 var(--strawberry-dark); transition: 0.2s;
         }
         .btn-mission:hover { transform: translateY(-5px); filter: brightness(1.1); }
 
-        #flash {
-            display: none; position: fixed; top:0; left:0; width:100%; height:100%;
-            background: white; z-index: 2000; pointer-events: none;
-        }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; }
-            .chapter { padding: 60px 15px; }
-            .illustration-box img { max-height: 350px; }
-        }
+        #flash { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: white; z-index: 3000; pointer-events: none; }
     </style>
 </head>
 <body>
@@ -164,47 +178,60 @@
     <div id="progress-bar"></div>
     <div id="flash"></div>
 
+    <!-- MENU DE NAVEGAÇÃO -->
+    <nav class="navbar">
+        <div class="nav-logo">
+            <img src="images/super-morango.png" alt="Logo">
+            <span>GUARDIÕES</span>
+        </div>
+        <ul class="nav-links" id="nav-list">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="historia.html">História</a></li>
+            <li><a href="jogo.html">Missão</a></li>
+            <li><a href="decisoes.html">Laboratório</a></li>
+            <li><a href="saiba-mais.html">Saiba Mais</a></li>
+            <li><a href="recursos.html">Recursos</a></li>
+        </ul>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+
     <!-- PARTE 1: H1 -->
     <section class="chapter">
         <div class="story-card">
-            <div class="illustration-box">
-                <img src="images/h1.jpg" alt="História Parte 1">
-            </div>
+            <div class="illustration-box"><img src="images/h1.jpg" alt="H1"></div>
             <h1>O Moranguinho Curioso</h1>
-            <p>Há muito tempo, num pequeno jardim cheio de vida, crescia um moranguinho diferente de todos os outros. Ele era o mais curioso! Passava os dias a observar as abelhas a trabalhar e como as raízes bebiam água da terra.</p>
+            <p>Há muito tempo, num pequeno jardim cheio de vida, crescia um moranguinho diferente de todos os outros. Ele era o mais curioso! Passava os dias a observar as abelhas e como as raízes bebiam água.</p>
         </div>
     </section>
 
     <!-- PARTE 2: H2 -->
     <section class="chapter">
         <div class="story-card">
-            <div class="illustration-box">
-                <img src="images/h2.jpg" alt="História Parte 2">
-            </div>
+            <div class="illustration-box"><img src="images/h2.jpg" alt="H2"></div>
             <h2>Algo mudou no Jardim</h2>
-            <p>Numa manhã silenciosa, ele percebeu algo estranho. As folhas estavam fracas e as flores não abriam. O jardim parecia cansado. O moranguinho sentiu algo novo dentro de si: preocupação.</p>
+            <p>Numa manhã silenciosa, ele percebeu algo estranho. As folhas estavam fracas e as flores não abriam. O jardim parecia cansado. O moranguinho sentiu algo novo: preocupação.</p>
         </div>
     </section>
 
     <!-- PARTE 3: H3 -->
     <section class="chapter">
         <div class="story-card">
-            <div class="illustration-box">
-                <img src="images/h3.jpg" alt="História Parte 3">
-            </div>
+            <div class="illustration-box"><img src="images/h3.jpg" alt="H3"></div>
             <h3>A Grande Descoberta</h3>
-            <p>Uma velha joaninha contou-lhe o segredo: as plantas dão-nos <strong>98% do oxigénio</strong> e <strong>80% da comida</strong>! Mas pragas e doenças estão a atacar o verde. Se as plantas sofrem, todos sofremos.</p>
+            <p>Uma joaninha contou-lhe o segredo: as plantas dão-nos 98% do oxigénio e 80% da comida! Mas pragas e poluição estão a atacá-las. Ele percebeu que precisava de agir.</p>
         </div>
     </section>
 
     <!-- PARTE 4: H4 -->
     <section class="chapter">
         <div class="story-card">
-            <div class="illustration-box">
-                <img src="images/h4.jpg" alt="História Parte 4">
-            </div>
+            <div class="illustration-box"><img src="images/h4.jpg" alt="H4"></div>
             <h4>O Momento da Estrela</h4>
-            <p>Naquela noite, sob as estrelas, ele prometeu: "Eu vou proteger as plantas!". Uma luz mágica caiu sobre ele, iniciando uma transformação extraordinária.</p>
+            <p>Naquela noite, sob as estrelas, ele prometeu proteger as plantas. Uma luz mágica caiu sobre ele, iniciando uma transformação extraordinária.</p>
             <button class="btn-magic" onclick="doMagic()">Despertar o Guardião</button>
         </div>
     </section>
@@ -212,29 +239,28 @@
     <!-- PARTE 5: H5 -->
     <section class="chapter">
         <div class="story-card">
-            <div class="illustration-box">
-                <img src="images/h5.jpg" alt="História Parte 5">
-            </div>
+            <div class="illustration-box"><img src="images/h5.jpg" alt="H5"></div>
             <h5>A Missão do Super Morango</h5>
-            <p>Agora ele é o SUPER MORANGO! Ele abriu um grande portal verde para encontrar aliados corajosos que queiram observar a natureza e proteger as florestas de todo o mundo.</p>
+            <p>Agora ele é o SUPER MORANGO! Ele abriu um grande portal verde para encontrar aliados corajosos que queiram proteger as florestas de todo o mundo.</p>
         </div>
     </section>
 
     <!-- PARTE 6: H6 -->
     <section class="chapter">
         <div class="story-card">
-            <div class="illustration-box">
-                <img src="images/h6.jpg" alt="História Parte 6">
-            </div>
+            <div class="illustration-box"><img src="images/h6.jpg" alt="H6"></div>
             <h6>Queres ser um Guardião?</h6>
-            <p>"As plantas são o pulmão e a comida do nosso planeta. Se cuidarmos delas, a Terra continuará viva e forte." <br>Aceitas o convite para começar o teu treino de campo?</p>
+            <p>"As plantas são o pulmão do planeta. Se cuidarmos delas, a Terra será forte." Aceitas o convite para começar o teu treino de campo?</p>
             <a href="jogo.html" class="btn-mission">SIM! ACEITO A MISSÃO ➔</a>
         </div>
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
-        // Sistema de Revelação ao Scroll
+        function toggleMenu() {
+            document.getElementById('nav-list').classList.toggle('active');
+        }
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -243,7 +269,6 @@
 
         document.querySelectorAll('.chapter').forEach(cap => observer.observe(cap));
 
-        // Barra de Progresso
         window.onscroll = () => {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -251,18 +276,12 @@
             document.getElementById("progress-bar").style.width = scrolled + "%";
         };
 
-        // Efeito da Estrela
         function doMagic() {
             const f = document.getElementById('flash');
             f.style.display = 'block';
             setTimeout(() => {
                 f.style.display = 'none';
-                confetti({
-                    particleCount: 200,
-                    spread: 80,
-                    origin: { y: 0.6 },
-                    colors: ['#42f5a7', '#ff4757', '#ffffff']
-                });
+                confetti({ particleCount: 200, spread: 80, origin: { y: 0.6 }, colors: ['#42f5a7', '#ff4757', '#ffffff'] });
             }, 150);
         }
     </script>
